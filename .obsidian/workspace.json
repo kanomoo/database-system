@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "9be0f537d21d6b0e",
+        "id": "ae223b87ab3405cf",
         "type": "tabs",
         "children": [
           {
-            "id": "04e41c1f7f9b5724",
+            "id": "1a7cf420ac9d6ebc",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -22,21 +22,35 @@
             }
           },
           {
-            "id": "3d26c0f5ec7e15e1",
+            "id": "0e0bd852c1c1aa14",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Wiki/Lecture 4 - ER Model.md",
+                "file": "Wiki/Lecture 7 (Part 1) - SQL Fundamentals (Slide 1-40).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Lecture 4 - ER Model"
+              "title": "Lecture 7 (Part 1) - SQL Fundamentals (Slide 1-40)"
+            }
+          },
+          {
+            "id": "7927b98e81174d06",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Wiki/Lecture 9 - NoSQL Databases.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Lecture 9 - NoSQL Databases"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -109,7 +123,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Wiki/Lecture 4 - ER Model.md",
+                "file": "Wiki/Lecture 9 - NoSQL Databases.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +133,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "แบ็คลิงค์ของ Lecture 4 - ER Model"
+              "title": "แบ็คลิงค์ของ Lecture 9 - NoSQL Databases"
             }
           },
           {
@@ -128,12 +142,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Wiki/Lecture 4 - ER Model.md",
+                "file": "Wiki/Lecture 9 - NoSQL Databases.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "ลิงค์ขาออกของ Lecture 4 - ER Model"
+              "title": "ลิงค์ขาออกของ Lecture 9 - NoSQL Databases"
             }
           },
           {
@@ -171,13 +185,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Wiki/Lecture 4 - ER Model.md",
+                "file": "Wiki/Lecture 9 - NoSQL Databases.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "โครงเรื่องของ Lecture 4 - ER Model"
+              "title": "โครงเรื่องของ Lecture 9 - NoSQL Databases"
             }
           }
         ]
@@ -198,12 +212,23 @@
       "bases:สร้างฐานใหม่": false
     }
   },
-  "active": "3d26c0f5ec7e15e1",
+  "active": "7927b98e81174d06",
   "lastOpenFiles": [
-    "Wiki/Lecture 3 - Relational Algebra.md",
+    "Wiki/Lecture 7.5 (Part 2) - Advanced SQL (Slide 41-79).md",
+    "Wiki/Lecture 9 - NoSQL Databases.md",
+    "Wiki/Lecture 7 (Part 2) - SQL Fundamentals (Slide 41-80).md",
+    "Wiki/Lecture 8 - Database System Architecture.md",
+    "Wiki/Lecture 7.5 (Part 1) - Advanced SQL (Slide 1-40).md",
+    "Wiki/Lecture 7 (Part 1) - SQL Fundamentals (Slide 1-40).md",
+    "Wiki/Lecture 7 (Part 3) - SQL Fundamentals (Slide 81-94).md",
+    "Wiki/Lecture 6 - Database Design and Normalization.md",
     "Wiki/Lecture 2 - Database Architecture and Relational Model.md",
-    "Wiki/Lecture 1 - Overview of Databases and Transaction Processing.md",
     "Wiki/Lecture 4 - ER Model.md",
+    "Wiki/Lecture 3 - Relational Algebra.md",
+    "Wiki/Lecture 5 - Functional Dependencies.md",
+    "Wiki/Progress Checklist.md",
+    "fix_tables.py",
+    "Wiki/Lecture 1 - Overview of Databases and Transaction Processing.md",
     "Wiki/Database System Index.md",
     "Ch2 - Database Architecture and Relational Model.md",
     "Wiki",
@@ -216,8 +241,6 @@
     "Ch7.2 - SQL Practical Workshop.md",
     "Ch7 - SQL Fundamentals.md",
     "Ch1 - Overview of Databases and Transaction Processing.md",
-    "Ch3 - Relational Algebra.md",
-    "Ch6 - Normalization.md",
-    "Ch5 - Functional Dependencies.md"
+    "Ch3 - Relational Algebra.md"
   ]
 }
