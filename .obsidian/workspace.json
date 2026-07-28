@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Wiki/Lecture 9 - NoSQL Databases.md",
+                "file": "Wiki/Lecture 4 - ER Model.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Lecture 9 - NoSQL Databases"
+              "title": "Lecture 4 - ER Model"
             }
           }
         ],
@@ -214,8 +214,8 @@
   },
   "active": "7927b98e81174d06",
   "lastOpenFiles": [
-    "Wiki/Lecture 7.5 (Part 2) - Advanced SQL (Slide 41-79).md",
     "Wiki/Lecture 9 - NoSQL Databases.md",
+    "Wiki/Lecture 7.5 (Part 2) - Advanced SQL (Slide 41-79).md",
     "Wiki/Lecture 7 (Part 2) - SQL Fundamentals (Slide 41-80).md",
     "Wiki/Lecture 8 - Database System Architecture.md",
     "Wiki/Lecture 7.5 (Part 1) - Advanced SQL (Slide 1-40).md",

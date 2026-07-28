@@ -382,12 +382,116 @@ Entity Type `CAR` ถูกอธิบายด้วยโครงสร้�
 ---
 
 ## Slide 30: ER DIAGRAM FOR A BANK DATABASE
-*(ตัวอย่างสุดท้ายของบทเรียน เป็น ER Diagram ของระบบธนาคาร)*
+*(ตัวอย่างกรณีศึกษา ER Diagram ของระบบธนาคาร จาก Elmasri/Navathe)*
 
-ภาพนี้โชว์ความสามารถในการทำ Data Modeling ที่ซับซ้อนขึ้น
-มี Weak Entity คือ `BANK_BRANCH` (สาขาธนาคาร จะอยู่ไม่ได้ถ้าไม่มีสำนักงานใหญ่ BANK) 
-มีการโยงเรื่อง `ACCOUNT` (บัญชี) และ `LOAN` (เงินกู้) เข้ากับลูกค้า `CUSTOMER` 
-และมีการใช้ความสัมพันธ์แบบ 1:N และ M:N หลากหลายรูปแบบ เพื่อให้เห็นเป็นกรณีศึกษาที่สามารถพบเจอได้บ่อยในการสอบสัมภาษณ์หรืองานระบบการเงิน
+![ER Diagram for a Bank Database](file:///c:/Project/database-system/Lectures/Ch4.pdf#page=30)
+
+### 1. แผนภาพ Mermaid Diagram ของ BANK Database
+```mermaid
+erDiagram
+    BANK ||--|{ BANK-BRANCH : "1:N (BRANCHES - Identifying)"
+    BANK-BRANCH ||--|{ ACCOUNT : "1:N (ACCTS)"
+    BANK-BRANCH ||--|{ LOAN : "1:N (LOANS)"
+    ACCOUNT }|--|{ CUSTOMER : "M:N (A-C)"
+    LOAN }|--|{ CUSTOMER : "M:N (L-C)"
+
+    BANK {
+        string Code PK "รหัสธนาคาร (Key Attribute)"
+        string Name "ชื่อธนาคาร"
+        string Addr "ที่อยู่สำนักงานใหญ่"
+    }
+
+    BANK-BRANCH {
+        string BranchNo PartialPK "หมายเลขสาขา (Partial Key)"
+        string Addr "ที่อยู่สาขา"
+    }
+
+    ACCOUNT {
+        string AcctNo PK "เลขที่บัญชี (Key Attribute)"
+        float Balance "ยอดเงินคงเหลือ"
+        string Type "ประเภทบัญชี"
+    }
+
+    LOAN {
+        string LoanNo PK "เลขที่สัญญากู้ (Key Attribute)"
+        float Amount "วงเงินกู้"
+        string Type "ประเภทเงินกู้"
+    }
+
+    CUSTOMER {
+        string SSN PK "เลขประจำตัวประชาชน (Key Attribute)"
+        string Name "ชื่อลูกค้า"
+        string Addr "ที่อยู่ลูกค้า"
+        string Phone "เบอร์โทรศัพท์"
+    }
+```
+
+---
+
+### 2. สรุปองค์ประกอบตาราง Entities และ Attributes
+| Entity Name | ประเภท Entity | Primary Key / Partial Key | Attributes ทั้งหมด | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `BANK` | Strong Entity | `Code` (Primary Key) | `Code`, `Name`, `Addr` | สำนักงานใหญ่ธนาคาร |
+| `BANK-BRANCH` | Weak Entity | `BranchNo` (Partial Key) | `BranchNo`, `Addr` | สาขาธนาคาร (ต้องขึ้นกับสำนักงานใหญ่) |
+| `ACCOUNT` | Strong Entity | `AcctNo` (Primary Key) | `AcctNo`, `Balance`, `Type` | บัญชีเงินฝาก |
+| `LOAN` | Strong Entity | `LoanNo` (Primary Key) | `LoanNo`, `Amount`, `Type` | สัญญากู้ยืมเงิน |
+| `CUSTOMER` | Strong Entity | `SSN` (Primary Key) | `SSN`, `Name`, `Addr`, `Phone` | ลูกค้าธนาคาร |
+
+---
+
+### 3. เจาะลึกความสัมพันธ์ทุกเส้น (Deep Dive Relationship Analysis)
+
+> [!SUMMARY] **การวิเคราะห์ความสัมพันธ์ของ BANK Database ทั้ง 5 ชุด**
+
+#### 3.1 ความสัมพันธ์ `BRANCHES` (ระหว่าง `BANK` กับ `BANK-BRANCH`)
+- **Type:** Identifying Relationship Type (สี่เหลี่ยมข้าวหลามตัดซ้อน 2 ชั้น)
+- **Cardinality Ratio:** `1 : N` (ธนาคาร 1 แห่งมีได้หลายสาขา)
+- **Participation Constraints:**
+  - `BANK`: **Partial Participation** (เส้นเดี่ยว) — ธนาคารในระบบอาจจะมีหรือยังไม่มีสาขา
+  - `BANK-BRANCH`: **Total Participation** (เส้นคู่ / Double Line) — สาขาต้องสังกัดธนาคารหลักเสมอ (existence-dependent)
+- **(min, max) Constraints:**
+  - `BANK`: `(0, N)` — ธนาคารมีสาขาได้ตั้งแต่ 0 ถึง N สาขา
+  - `BANK-BRANCH`: `(1, 1)` — สาขา 1 สาขาต้องสังกัดธนาคารหลักเพียง 1 แห่งเท่านั้น
+
+#### 3.2 ความสัมพันธ์ `ACCTS` (ระหว่าง `BANK-BRANCH` กับ `ACCOUNT`)
+- **Type:** Binary Relationship Type
+- **Cardinality Ratio:** `1 : N` (สาขา 1 สาขาดูแลได้หลายบัญชี)
+- **Participation Constraints:**
+  - `BANK-BRANCH`: **Partial Participation** (เส้นเดี่ยว) — สาขาเปิดใหม่อาจยังไม่มีบัญชีสังกัด
+  - `ACCOUNT`: **Total Participation** (เส้นคู่ / Double Line) — บัญชีฝากต้องเปิดที่สาขาใดสาขาหนึ่งเสมอ
+- **(min, max) Constraints:**
+  - `BANK-BRANCH`: `(0, N)` — สาขาดูแลบัญชีได้ตั้งแต่ 0 ถึง N บัญชี
+  - `ACCOUNT`: `(1, 1)` — บัญชี 1 บัญชีเปิดโดยสาขาเพียง 1 สาขาเท่านั้น
+
+#### 3.3 ความสัมพันธ์ `LOANS` (ระหว่าง `BANK-BRANCH` กับ `LOAN`)
+- **Type:** Binary Relationship Type
+- **Cardinality Ratio:** `1 : N` (สาขา 1 สาขาปล่อยกู้ได้หลายสัญญา)
+- **Participation Constraints:**
+  - `BANK-BRANCH`: **Partial Participation** (เส้นเดี่ยว) — สาขาอาจยังไม่มีการปล่อยกู้
+  - `LOAN`: **Total Participation** (เส้นคู่ / Double Line) — สัญญากู้ต้องออกโดยสาขาใดสาขาหนึ่งเสมอ
+- **(min, max) Constraints:**
+  - `BANK-BRANCH`: `(0, N)` — สาขาปล่อยกู้ได้ตั้งแต่ 0 ถึง N สัญญา
+  - `LOAN`: `(1, 1)` — สัญญากู้ 1 สัญญาออกโดยสาขาเพียง 1 สาขาเท่านั้น
+
+#### 3.4 ความสัมพันธ์ `A-C` (Account-Customer) (ระหว่าง `ACCOUNT` กับ `CUSTOMER`)
+- **Type:** Binary Relationship Type (Many-to-Many / บัญชีร่วม)
+- **Cardinality Ratio:** `M : N`
+- **Participation Constraints:**
+  - `ACCOUNT`: **Total Participation** (เส้นคู่ / Double Line) — บัญชีต้องมีผู้ถือบัญชีอย่างน้อย 1 คนเสมอ
+  - `CUSTOMER`: **Partial Participation** (เส้นเดี่ยว) — ลูกค้าบางคนในระบบอาจกู้อย่างเดียว ไม่มีบัญชีฝาก
+- **(min, max) Constraints:**
+  - `ACCOUNT`: `(1, N)` — บัญชี 1 บัญชีมีเจ้าของได้ตั้งแต่ 1 ถึง N คน (บัญชีร่วม)
+  - `CUSTOMER`: `(0, N)` — ลูกค้า 1 คนมีบัญชีเงินฝากได้ตั้งแต่ 0 ถึง N บัญชี
+
+#### 3.5 ความสัมพันธ์ `L-C` (Loan-Customer) (ระหว่าง `LOAN` กับ `CUSTOMER`)
+- **Type:** Binary Relationship Type (Many-to-Many / กู้ร่วม)
+- **Cardinality Ratio:** `M : N`
+- **Participation Constraints:**
+  - `LOAN`: **Total Participation** (เส้นคู่ / Double Line) — สัญญากู้ต้องมีผู้กู้อย่างน้อย 1 คนเสมอ
+  - `CUSTOMER`: **Partial Participation** (เส้นเดี่ยว) — ลูกค้าบางคนฝากเงินอย่างเดียว ไม่ได้กู้เงิน
+- **(min, max) Constraints:**
+  - `LOAN`: `(1, N)` — สัญญากู้ 1 สัญญามีผู้กู้ได้ตั้งแต่ 1 ถึง N คน (กู้ร่วม)
+  - `CUSTOMER`: `(0, N)` — ลูกค้า 1 คนทำสัญญากู้ได้ตั้งแต่ 0 ถึง N สัญญา
 
 ---
 
