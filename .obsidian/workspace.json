@@ -42,7 +42,7 @@
               "type": "markdown",
               "state": {
                 "file": "Wiki/Lecture 4 - ER Model.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -107,7 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 217.5
   },
   "right": {
     "id": "a95a531ecae2fca0",
@@ -214,6 +214,8 @@
   },
   "active": "7927b98e81174d06",
   "lastOpenFiles": [
+    "Wiki/Lecture 3 - Relational Algebra.md",
+    "Wiki/Lecture 4 - ER Model.md",
     "Wiki/Lecture 9 - NoSQL Databases.md",
     "Wiki/Lecture 7.5 (Part 2) - Advanced SQL (Slide 41-79).md",
     "Wiki/Lecture 7 (Part 2) - SQL Fundamentals (Slide 41-80).md",
@@ -223,8 +225,6 @@
     "Wiki/Lecture 7 (Part 3) - SQL Fundamentals (Slide 81-94).md",
     "Wiki/Lecture 6 - Database Design and Normalization.md",
     "Wiki/Lecture 2 - Database Architecture and Relational Model.md",
-    "Wiki/Lecture 4 - ER Model.md",
-    "Wiki/Lecture 3 - Relational Algebra.md",
     "Wiki/Lecture 5 - Functional Dependencies.md",
     "Wiki/Progress Checklist.md",
     "fix_tables.py",

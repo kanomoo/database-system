@@ -384,14 +384,14 @@ Entity Type `CAR` ถูกอธิบายด้วยโครงสร้�
 ## Slide 30: ER DIAGRAM FOR A BANK DATABASE
 *(ตัวอย่างกรณีศึกษา ER Diagram ของระบบธนาคาร จาก Elmasri/Navathe)*
 
-![ER Diagram for a Bank Database](file:///c:/Project/database-system/Lectures/Ch4.pdf#page=30)
+![[Ch4.pdf#page=30]]
 
 ### 1. แผนภาพ Mermaid Diagram ของ BANK Database
 ```mermaid
 erDiagram
-    BANK ||--|{ BANK-BRANCH : "1:N (BRANCHES - Identifying)"
-    BANK-BRANCH ||--|{ ACCOUNT : "1:N (ACCTS)"
-    BANK-BRANCH ||--|{ LOAN : "1:N (LOANS)"
+    BANK ||--|{ BANK_BRANCH : "1:N (BRANCHES - Identifying)"
+    BANK_BRANCH ||--|{ ACCOUNT : "1:N (ACCTS)"
+    BANK_BRANCH ||--|{ LOAN : "1:N (LOANS)"
     ACCOUNT }|--|{ CUSTOMER : "M:N (A-C)"
     LOAN }|--|{ CUSTOMER : "M:N (L-C)"
 
@@ -401,8 +401,8 @@ erDiagram
         string Addr "ที่อยู่สำนักงานใหญ่"
     }
 
-    BANK-BRANCH {
-        string BranchNo PartialPK "หมายเลขสาขา (Partial Key)"
+    BANK_BRANCH {
+        string BranchNo PK "หมายเลขสาขา (Partial Key)"
         string Addr "ที่อยู่สาขา"
     }
 
