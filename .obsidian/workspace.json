@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Wiki/Lecture 4 - ER Model.md",
+                "file": "Wiki/Lecture 6 - Database Design and Normalization.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Lecture 4 - ER Model"
+              "title": "Lecture 6 - Database Design and Normalization"
             }
           }
         ],
@@ -70,7 +70,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "File explorer"
@@ -107,7 +109,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 217.5
+    "width": 300
   },
   "right": {
     "id": "a95a531ecae2fca0",
@@ -214,33 +216,51 @@
   },
   "active": "7927b98e81174d06",
   "lastOpenFiles": [
-    "Wiki/Lecture 3 - Relational Algebra.md",
-    "Wiki/Lecture 4 - ER Model.md",
-    "Wiki/Lecture 9 - NoSQL Databases.md",
-    "Wiki/Lecture 7.5 (Part 2) - Advanced SQL (Slide 41-79).md",
-    "Wiki/Lecture 7 (Part 2) - SQL Fundamentals (Slide 41-80).md",
-    "Wiki/Lecture 8 - Database System Architecture.md",
-    "Wiki/Lecture 7.5 (Part 1) - Advanced SQL (Slide 1-40).md",
-    "Wiki/Lecture 7 (Part 1) - SQL Fundamentals (Slide 1-40).md",
-    "Wiki/Lecture 7 (Part 3) - SQL Fundamentals (Slide 81-94).md",
-    "Wiki/Lecture 6 - Database Design and Normalization.md",
-    "Wiki/Lecture 2 - Database Architecture and Relational Model.md",
     "Wiki/Lecture 5 - Functional Dependencies.md",
-    "Wiki/Progress Checklist.md",
-    "fix_tables.py",
-    "Wiki/Lecture 1 - Overview of Databases and Transaction Processing.md",
-    "Wiki/Database System Index.md",
-    "Ch2 - Database Architecture and Relational Model.md",
-    "Wiki",
-    "GEMINI.md",
-    "SQL Cheat Sheet.md",
-    "Normalization Quick Reference.md",
-    "Glossary - Database Terms.md",
-    "Ch9 - NoSQL Databases.md",
-    "Ch8 - Transaction Processing.md",
-    "Ch7.2 - SQL Practical Workshop.md",
-    "Ch7 - SQL Fundamentals.md",
-    "Ch1 - Overview of Databases and Transaction Processing.md",
-    "Ch3 - Relational Algebra.md"
+    "Wiki/Lecture 4 - ER Model.md",
+    "Wiki/Lecture 3 - Relational Algebra.md",
+    "web-app/src/components/LectureViewer.tsx",
+    "web-app/src/components/Sidebar.tsx",
+    "web-app/src/components",
+    "web-app/node_modules/lucide-react/dynamicIconImports.d.ts",
+    "web-app/node_modules/lucide-react/dynamic.d.ts",
+    "web-app/node_modules/lucide-react/dynamicIconImports.d.mts",
+    "web-app/node_modules/lucide-react/dynamic.d.mts",
+    "web-app/node_modules/es-toolkit/util.js",
+    "web-app/node_modules/es-toolkit/util.d.ts",
+    "web-app/node_modules/es-toolkit/string.js",
+    "web-app/node_modules/lucide-react/README.md",
+    "web-app/node_modules/mermaid/README.zh-CN.md",
+    "web-app/node_modules/mermaid/README.md",
+    "web-app/node_modules/highlight.js/VERSION_11_UPGRADE.md",
+    "web-app/node_modules/highlight.js/VERSION_10_UPGRADE.md",
+    "web-app/node_modules/highlight.js/SUPPORTED_LANGUAGES.md",
+    "web-app/node_modules/highlight.js/SECURITY.md",
+    "web-app/node_modules/highlight.js/README.md",
+    "web-app/node_modules/highlight.js/CHANGES.md",
+    "web-app/node_modules/dayjs/README.md",
+    "web-app/node_modules/dayjs/CHANGELOG.md",
+    "web-app/node_modules/@mermaid-js/parser/README.md",
+    "web-app/node_modules/react-router/LICENSE.md",
+    "web-app/node_modules/lodash-es/README.md",
+    "web-app/node_modules/cytoscape-fcose/README.md",
+    "web-app/node_modules/react-router/README.md",
+    "web-app/node_modules/@iconify/utils/readme.md",
+    "web-app/node_modules/mdast-util-to-markdown/readme.md",
+    "web-app/node_modules/dagre-d3-es/README.md",
+    "web-app/node_modules/dagre-d3-es/LICENSE.md",
+    "web-app/node_modules/khroma/readme.md",
+    "web-app/node_modules/micromark-core-commonmark/readme.md",
+    "web-app/node_modules/entities/readme.md",
+    "web-app/node_modules/cytoscape-fcose/node_modules/layout-base/layout-schema.png",
+    "web-app/node_modules/layout-base/layout-schema.png",
+    "web-app/node_modules/highlight.js/styles/pojoaque.jpg",
+    "web-app/node_modules/highlight.js/styles/brown-papersq.png",
+    "web-app/node_modules/cytoscape-fcose/demo/incrementalConstraints.gif",
+    "web-app/node_modules/cytoscape-fcose/demo/demo.gif",
+    "web-app/src/assets/vite.svg",
+    "web-app/src/assets/react.svg",
+    "web-app/src/assets/hero.png",
+    "web-app/public/icons.svg"
   ]
 }
