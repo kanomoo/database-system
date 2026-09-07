@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQL Lab Studio — ห้องทดลองและเรียนรู้ภาษา SQL เชิงโต้ตอบ</title>
+  <meta name="description" content="สื่อการเรียนรู้และห้องทดลองภาษา SQL เชิงโต้ตอบตั้งแต่พื้นฐานจนถึงขั้นสูง พร้อมตัวรัน SQLite ในเบราว์เซอร์" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div id="app-container">
+  <!-- Left Sidebar: Curriculum & Schema -->
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+          <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+        </svg>
+      </div>
+      <div class="brand-info">
+        <h1>SQL Lab Studio</h1>
+        <p>ห้องปฏิบัติการภาษา SQL</p>
+      </div>
+    </div>
+
+    <!-- Tab Switcher (Beginner 101 vs Lab Curriculum vs Tables Schema) -->
+    <div class="sidebar-tabs">
+      <button id="tab-beginner" class="side-tab-btn active" title="พื้นฐานสำหรับคนไม่เคยเขียนโค้ด">
+        👶 มือใหม่ 101
+      </button>
+      <button id="tab-curriculum" class="side-tab-btn" title="แล็บตามสไลด์บทเรียน">
+        📚 แล็บสไลด์
+      </button>
+      <button id="tab-schema" class="side-tab-btn" title="ดูโครงสร้างตารางในฐานข้อมูลปัจจุบัน">
+        🗄️ ตาราง (<span id="schema-count">0</span>)
+      </button>
+    </div>
+
+    <!-- Beginner 101 List -->
+    <div id="beginner-container" class="sidebar-content">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <!-- Curriculum List -->
+    <div id="curriculum-container" class="sidebar-content" style="display: none;">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <!-- Table Schema List -->
+    <div id="schema-container" class="sidebar-content" style="display: none;">
+      <div id="schema-list">
+        <!-- Injected by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <div class="db-status-bar">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="status-dot"></span>
+          <span id="engine-status-text">SQLite In-Memory พร้อมใช้งาน</span>
+        </div>
+        <button id="btn-open-guide" class="btn btn-ghost" style="padding: 4px 8px; font-size: 0.72rem;">
+          คู่มือมือใหม่ 💡
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Workspace -->
+  <main id="workspace">
+    <!-- Top Navigation Bar -->
+    <header class="top-nav-bar">
+      <div class="breadcrumbs">
+        <span id="crumb-module">Module</span>
+        <span>/</span>
+        <span id="crumb-exercise" class="active-crumb">Exercise</span>
+      </div>
+
+      <div class="top-actions">
+        <button id="btn-load-clean-slate" class="btn btn-ghost" title="โหลดโค้ด Clean Slate เฉพาะข้อนี้">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          รีเซ็ตโจทย์นี้
+        </button>
+        <button id="btn-reset-db" class="btn btn-ghost" title="ล้างตารางทั้งหมดในฐานข้อมูล">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+          ล้างฐานข้อมูล
+        </button>
+        <button id="btn-run-sql" class="btn btn-primary" title="รันคำสั่ง SQL (Ctrl + Enter)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          เรียกให้ทำงาน (Ctrl+Enter)
+        </button>
+      </div>
+    </header>
+
+    <!-- Split Content View -->
+    <div class="split-content">
+      <!-- Left Panel: Theory & Instructions -->
+      <section id="theory-panel" class="theory-panel">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <h2 id="theory-title">หัวข้อแบบฝึกหัด</h2>
+          <span id="theory-badge" class="ex-badge">Basic</span>
+        </div>
+        <div id="theory-body">
+          <!-- Theory content injected dynamically -->
+        </div>
+      </section>
+
+      <!-- Right Panel: SQL Studio (Editor + Result Viewer) -->
+      <section class="studio-panel">
+        <!-- Editor Area -->
+        <div class="editor-wrapper">
+          <div class="editor-header">
+            <div class="editor-tab">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              query.sql
+              <span class="intellisense-badge" title="ระบบแนะนำคำอัตโนมัติเปิดใช้งานอยู่ (พิมพ์ตัวอักษร หรือกด Ctrl+Space ได้)">⚡ Auto-complete (VS Code)</span>
+            </div>
+            <div class="editor-toolbar">
+              <button id="btn-copy-code" class="tool-btn" title="คัดลอกโค้ด">คัดลอก (Copy)</button>
+              <button id="btn-clear-code" class="tool-btn" title="ล้างข้อความในกล่อง">ล้างกล่อง (Clear)</button>
+            </div>
+          </div>
+          <textarea id="sql-editor" class="code-textarea" spellcheck="false" placeholder="พิมพ์คำสั่ง SQL ที่นี่ (มีระบบ Auto-complete แนะนำคำเหมือนใน VS Code กด Tab หรือ Enter เพื่อเติมคำได้ทันที)..."></textarea>
+          
+          <!-- VS Code-style Autocomplete Dropdown -->
+          <div id="autocomplete-popup" class="autocomplete-popup hidden" role="listbox"></div>
+        </div>
+
+        <!-- Result Viewer Area -->
+        <div class="result-wrapper">
+          <div class="result-header">
+            <div class="result-meta">
+              <span><strong>ผลลัพธ์ (Result Set)</strong></span>
+              <span id="result-status-badge">พร้อมทำงาน</span>
+            </div>
+            <div class="result-meta">
+              <span id="result-rows-count">0 แถว</span>
+              <span>·</span>
+              <span id="result-exec-time">0 ms</span>
+            </div>
+          </div>
+          <div id="result-container" class="result-body">
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+              <p>กดปุ่ม <b>"เรียกให้ทำงาน (Run)"</b> หรือ <code>Ctrl + Enter</code> เพื่อดูผลลัพธ์</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- Modal: Guide for Beginners (How to run SQL locally) -->
+<div id="guide-modal" class="modal-backdrop">
+  <div class="modal-dialog">
+    <button id="btn-close-modal" class="modal-close-btn" aria-label="ปิด">&times;</button>
+    <h3>💡 คู่มือสำหรับมือใหม่: วิธีสร้างไฟล์และรัน SQL บนเครื่องจริง</h3>
+    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px;">
+      หากอาจารย์ให้ไปเตรียมตัวทำแล็บในห้องเรียน แล้วคุณยังไม่เคยสร้างไฟล์หรือรันบนคอมพิวเตอร์ของคุณเอง ให้ปฏิบัติตาม 3 ขั้นตอนนี้:
+    </p>
+
+    <div class="guide-step-card">
+      <h4>1. วิธีสร้างไฟล์ .sql ใน VS Code</h4>
+      <p>1. เปิดโปรแกรม <b>VS Code</b> แล้วกดไปที่ <i>File &rarr; Open Folder</i> เลือกโฟลเดอร์สำหรับเก็บงานวิชา Database</p>
+      <p>2. กดไอคอน <i>New File</i> แล้วพิมพ์ชื่อไฟล์ลงท้ายด้วย <code>.sql</code> เช่น <code>lab1.sql</code> หรือ <code>query.sql</code></p>
+      <p>3. คุณสามารถพิมพ์คำสั่ง SQL แล้วบันทึกไฟล์ได้เหมือนไฟล์ข้อความทั่วไป</p>
+    </div>
+
+    <div class="guide-step-card">
+      <h4>2. วิธีติดตั้ง Extension เพื่อรัน SQL ใน VS Code</h4>
+      <p>1. กดคีย์ลัด <code>Ctrl + Shift + X</code> ใน VS Code เพื่อเปิดหน้าค้นหา Extensions</p>
+      <p>2. ค้นหาคำว่า <b>"SQLite Viewer"</b> โดย Florian Klampfer (ใช้ดูไฟล์ .db แบบมีตารางสวยงาม)</p>
+      <p>3. หรือค้นหา <b>"SQLTools"</b> และติดตั้งไดรเวอร์ฐานข้อมูลที่อาจารย์ใช้ (เช่น MySQL หรือ SQLite)</p>
+    </div>
+
+    <div class="guide-step-card">
+      <h4>3. ทางเลือกที่ง่ายที่สุด: ใช้ DB Browser for SQLite</h4>
+      <p>หากอาจารย์ใช้ SQLite ให้ดาวน์โหลดโปรแกรมฟรีชื่อ <b>DB Browser for SQLite</b> (sqlitebrowser.org):</p>
+      <p>&bull; เปิดโปรแกรมแล้วกดปุ่ม <b>New Database</b> ตั้งชื่อไฟล์เช่น <code>mydb.db</code></p>
+      <p>&bull; สลับไปที่แท็บ <b>Execute SQL</b></p>
+      <p>&bull; ก๊อปปี้โค้ด SQL จากเว็บนี้ไปวาง แล้วกดปุ่ม <b>Play (F5)</b> เพื่อรันดูผลลัพธ์ได้ทันที!</p>
+    </div>
+
+    <div class="guide-step-card" style="background: rgba(6, 182, 212, 0.08); border-color: rgba(6, 182, 212, 0.3);">
+      <h4 style="color: var(--accent-cyan);">4. ทำไมฝึกบนเว็บนี้ถึงดีที่สุดก่อนเข้าห้องเรียน?</h4>
+      <p>เว็บแอปนี้ฝัง <b>SQLite WASM Engine</b> เอาไว้ในตัวเบราว์เซอร์แล้ว ไม่ต้องติดตั้งโปรแกรมอะไรเพิ่ม คุณสามารถลองพิมพ์คำสั่ง ลองแก้ ล้างตาราง และกดรันเพื่อดูผลลัพธ์ได้ 100% เสมือนอยู่ในห้องแล็บจริง!</p>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="vendor/sql-wasm.js"></script>
+<script src="exercises.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

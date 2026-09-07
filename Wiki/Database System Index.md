@@ -134,6 +134,12 @@ SQL เป็น "lingua franca" ของโลกฐานข้อมูล �
   - SELECT: Basic, DISTINCT, WHERE, Operators
   - ORDER BY, LIKE patterns, IN, BETWEEN
   - Aliases (Column/Table)
+- 🔹 **[[SQL Lab Practice Guide - Zero to Hero]]** ⭐ *(คู่มือเตรียมสอบแล็บ & Hands-on Workshop จากศูนย์ถึงโปร)*
+  - Part 0: ปฐมบทการใช้งาน (วิธีสร้างไฟล์ .sql, วิธีรันผ่าน VS Code / SQLite / Web)
+  - Part 1: พื้นฐาน DDL & DML (CREATE TABLE, INSERT, UPDATE, DELETE, SELECT, WHERE)
+  - Part 2: คำนวณ จัดกลุ่ม เชื่อมตาราง (SUM, AVG, COUNT, GROUP BY, HAVING, JOIN, UNION, VIEW)
+  - Part 3: แล็บระบบร้านค้า 7 ตารางสมบูรณ์ (สคริปต์ Clean Slate + 12 ข้อสอบจริงพร้อม Trace Table)
+  - Part 4: กับดักและข้อผิดพลาดที่พบบ่อยในการสอบแล็บ
 - 🔹 **[[Lecture 7.2 - SQL Practical Workshop]]**
   - Database Schema ตัวอย่าง (7 ตาราง พร้อม ER Diagram)
   - DDL: CREATE TABLE, CREATE/DROP INDEX

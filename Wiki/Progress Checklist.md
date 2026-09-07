@@ -25,6 +25,7 @@ type: checklist
 - [x] **Lecture 7:** SQL Fundamentals (`Ch7.pdf`) *(แยกเป็น 3 Parts เพื่อความละเอียด)*
 
 - [x] **Lecture 7.5:** Advanced SQL (`Ch7_2.pdf`) *(แยกเป็น 2 Parts เพื่อความละเอียด)*
+- [x] **SQL Lab Practice Guide:** Zero to Hero Hands-on Manual & Interactive Web App ⭐
 
 - [x] **Lecture 8:** Database System Architecture (`Ch8.pdf`)
 
