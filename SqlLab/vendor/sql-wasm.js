@@ -37,6 +37,7 @@ var initSqlJs = function (moduleConfig) {
         // So if the user defined their own onAbort function, we remember it and call it
         var originalOnAbortFunction = Module['onAbort'];
         Module['onAbort'] = function (errorThatCausedAbort) {
+            initSqlJsPromise = undefined;
             reject(new Error(errorThatCausedAbort));
             if (originalOnAbortFunction){
               originalOnAbortFunction(errorThatCausedAbort);
@@ -174,6 +175,9 @@ function Zc(){function a(){if(!Xc&&(Xc=!0,e.calledRun=!0,!Ka)){e.noFSInit||ac||(
 
         // The shell-pre.js and emcc-generated code goes above
         return Module;
+    }).catch(function (err) {
+        initSqlJsPromise = undefined;
+        throw err;
     }); // The end of the promise being returned
 
   return initSqlJsPromise;

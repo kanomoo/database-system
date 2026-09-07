@@ -42,49 +42,80 @@ const btnOpenGuide = document.getElementById("btn-open-guide");
 const btnCloseModal = document.getElementById("btn-close-modal");
 const guideModal = document.getElementById("guide-modal");
 
+const editorGutter = document.getElementById("editor-gutter");
+const editorCursorPos = document.getElementById("editor-cursor-pos");
+const btnShortcutsHelp = document.getElementById("btn-shortcuts-help");
+const btnCloseShortcutsModal = document.getElementById("btn-close-shortcuts-modal");
+const shortcutsModal = document.getElementById("shortcuts-modal");
+const btnFormatSql = document.getElementById("btn-format-sql");
+
 // =============================================================================
 // Initialize SQLite WASM Engine
 // =============================================================================
 async function initDatabaseEngine() {
-  engineStatusText.textContent = "กำลังโหลด SQLite WASM...";
+  const statusDot = document.querySelector(".status-dot");
+  if (statusDot) {
+    statusDot.className = "status-dot loading";
+  }
+  engineStatusText.textContent = "กำลังเริ่มระบบ SQLite WASM...";
+
+  if (typeof initSqlJs === "undefined") {
+    console.error("ไม่พบไลบรารี initSqlJs");
+    if (statusDot) statusDot.className = "status-dot error";
+    engineStatusText.textContent = "ไม่พบไฟล์ไลบรารี SQLite";
+    return;
+  }
+
+  // Strategy 1: Pre-embedded WASM Binary (Offline & file:// protocol supported 100%)
+  if (typeof window !== "undefined" && window.SQL_WASM_BINARY) {
+    try {
+      SQL = await initSqlJs({ wasmBinary: window.SQL_WASM_BINARY });
+      db = new SQL.Database();
+      if (statusDot) statusDot.className = "status-dot ready";
+      engineStatusText.textContent = "SQLite พร้อมใช้งาน (Offline In-Memory)";
+      updateSchemaSidebar();
+      return;
+    } catch (binErr) {
+      console.warn("Direct wasmBinary init failed, trying fetch fallback...", binErr);
+    }
+  }
+
+  // Strategy 2: Local vendor/sql-wasm.wasm (Works when served via Web Server / Live Server)
   try {
     const config = {
       locateFile: (file) => `vendor/${file}`
     };
-    
-    if (typeof initSqlJs === "undefined") {
-      throw new Error("ไม่พบไลบรารี initSqlJs");
-    }
-
     SQL = await initSqlJs(config);
     db = new SQL.Database();
-    engineStatusText.textContent = "SQLite WASM พร้อมใช้งาน (In-Memory)";
-    
+    if (statusDot) statusDot.className = "status-dot ready";
+    engineStatusText.textContent = "SQLite WASM พร้อมใช้งาน (Local)";
     updateSchemaSidebar();
-    // Default to Beginner 101 exercise 0
-    loadExercise(0, 0, true);
+    return;
   } catch (err) {
-    console.warn("Local WASM failed, trying CDN fallback...", err);
-    try {
-      const cdnConfig = {
-        locateFile: (file) => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
-      };
-      SQL = await initSqlJs(cdnConfig);
-      db = new SQL.Database();
-      engineStatusText.textContent = "SQLite CDN พร้อมใช้งาน";
-      updateSchemaSidebar();
-      loadExercise(0, 0, true);
-    } catch (fallbackErr) {
-      console.error("Critical: Cannot initialize SQLite engine", fallbackErr);
-      engineStatusText.textContent = "โหลดฐานข้อมูลไม่สำเร็จ";
-      resultContainer.innerHTML = `
-        <div class="error-banner">
-          <strong>❌ ไม่สามารถเริ่มการทำงานของ SQLite WASM Engine ได้:</strong><br/>
-          ${fallbackErr.message}<br/><br/>
-          <em>ข้อแนะนำ: หากเปิดไฟล์ผ่าน file:// โดยตรง เบราว์เซอร์อาจบล็อกการโหลด WASM กรุณาเปิดผ่าน Local Web Server หรือรันคำสั่ง <code>python3 -m http.server</code></em>
-        </div>
-      `;
-    }
+    console.warn("Local WASM fetch failed, trying CDN fallback...", err);
+  }
+
+  // Strategy 3: CDN fallback
+  try {
+    const cdnConfig = {
+      locateFile: (file) => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
+    };
+    SQL = await initSqlJs(cdnConfig);
+    db = new SQL.Database();
+    if (statusDot) statusDot.className = "status-dot ready";
+    engineStatusText.textContent = "SQLite CDN พร้อมใช้งาน";
+    updateSchemaSidebar();
+  } catch (fallbackErr) {
+    console.error("Critical: Cannot initialize SQLite engine", fallbackErr);
+    if (statusDot) statusDot.className = "status-dot error";
+    engineStatusText.textContent = "โหลดฐานข้อมูลไม่สำเร็จ";
+    resultContainer.innerHTML = `
+      <div class="error-banner">
+        <strong>❌ ไม่สามารถเริ่มการทำงานของ SQLite WASM Engine ได้:</strong><br/>
+        ${fallbackErr.message || fallbackErr}<br/><br/>
+        <em>ข้อแนะนำ: หากเปิดไฟล์ผ่านเบราว์เซอร์ ลองเปิดด้วย Live Server หรือเปิดผ่าน Google Chrome/Edge เวอร์ชันล่าสุด</em>
+      </div>
+    `;
   }
 }
 
@@ -201,8 +232,19 @@ function loadExercise(mIdx, eIdx, isBeginner = true) {
     activeNav.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }
 
+  // On mobile/tablet, close sidebar drawer when an exercise is chosen
+  if (window.innerWidth < 1024) {
+    const sidebar = document.getElementById("sidebar");
+    const sidebarOverlay = document.getElementById("sidebar-overlay");
+    if (sidebar) sidebar.classList.remove("open");
+    if (sidebarOverlay) sidebarOverlay.classList.remove("active");
+  }
+
   // Load default SQL into editor
   sqlEditor.value = currentEx.defaultSql || "";
+  if (typeof updateLineNumbers === "function") {
+    updateLineNumbers();
+  }
 
   // Reset result viewer state
   resultStatusBadge.textContent = "พร้อมทำงาน";
@@ -227,7 +269,12 @@ function loadExercise(mIdx, eIdx, isBeginner = true) {
 // =============================================================================
 function executeSql() {
   if (!db) {
-    alert("ระบบฐานข้อมูลยังไม่พร้อมใช้งาน กรุณารอสักครู่");
+    const statusText = engineStatusText ? engineStatusText.textContent : "";
+    if (statusText.includes("กำลังเริ่ม") || statusText.includes("กำลังโหลด")) {
+      alert("ระบบฐานข้อมูลกำลังเริ่มการทำงาน กรุณารอสักครู่ (ประมาณ 1 วินาที) แล้วกดใหม่อีกครั้งครับ");
+    } else {
+      alert("ระบบฐานข้อมูลยังไม่พร้อมใช้งาน กรุณารีเฟรชหน้าเว็บ หรือตรวจดูข้อความ Error ที่หน้าต่างผลลัพธ์");
+    }
     return;
   }
 
@@ -387,6 +434,9 @@ function updateSchemaSidebar() {
 
       head.addEventListener("click", () => {
         sqlEditor.value = `SELECT * FROM "${tableName}" LIMIT 50;`;
+        if (typeof updateLineNumbers === "function") {
+          updateLineNumbers();
+        }
         executeSql();
       });
 
@@ -490,6 +540,7 @@ btnLoadCleanSlate.addEventListener("click", () => {
   const currentList = isBeginnerMode ? BEGINNER_MODULES : LAB_MODULES;
   const currentEx = currentList[currentModuleIndex].exercises[currentExerciseIndex];
   sqlEditor.value = currentEx.defaultSql || "";
+  updateLineNumbers();
   resultContainer.innerHTML = `
     <div class="empty-state">
       <p>โหลดโค้ดตั้งต้นใหม่แล้ว กด <b>"เรียกให้ทำงาน (Run)"</b> เพื่อทดสอบ</p>
@@ -513,7 +564,15 @@ btnClearCode.addEventListener("click", () => {
   sqlEditor.value = "";
   sqlEditor.focus();
   hideAutocomplete();
+  updateLineNumbers();
 });
+
+// Format SQL Button
+if (btnFormatSql) {
+  btnFormatSql.addEventListener("click", () => {
+    formatSqlCode();
+  });
+}
 
 // Modal Dialog Handlers
 btnOpenGuide.addEventListener("click", () => {
@@ -529,6 +588,27 @@ guideModal.addEventListener("click", (e) => {
     guideModal.classList.remove("open");
   }
 });
+
+// Shortcuts Cheat Sheet Modal Handlers
+if (btnShortcutsHelp) {
+  btnShortcutsHelp.addEventListener("click", () => {
+    if (shortcutsModal) shortcutsModal.classList.add("open");
+  });
+}
+
+if (btnCloseShortcutsModal) {
+  btnCloseShortcutsModal.addEventListener("click", () => {
+    if (shortcutsModal) shortcutsModal.classList.remove("open");
+  });
+}
+
+if (shortcutsModal) {
+  shortcutsModal.addEventListener("click", (e) => {
+    if (e.target === shortcutsModal) {
+      shortcutsModal.classList.remove("open");
+    }
+  });
+}
 
 // =============================================================================
 // VS Code-style Autocomplete / IntelliSense Engine
@@ -692,8 +772,8 @@ function getCaretCoordinates(element, position) {
   mirrorDiv.style.top = "-9999px";
   mirrorDiv.style.left = "-9999px";
   mirrorDiv.style.visibility = "hidden";
-  mirrorDiv.style.whiteSpace = "pre-wrap";
-  mirrorDiv.style.wordWrap = "break-word";
+  mirrorDiv.style.whiteSpace = "pre";
+  mirrorDiv.style.wordWrap = "normal";
 
   const text = element.value.substring(0, position);
   mirrorDiv.textContent = text;
@@ -714,13 +794,14 @@ function updateAcPosition() {
   const cursorPos = sqlEditor.selectionStart;
   const coords = getCaretCoordinates(sqlEditor, cursorPos);
   const editorHeaderHeight = 38;
+  const gutterWidth = 44;
 
   let top = coords.top - sqlEditor.scrollTop + editorHeaderHeight + coords.height + 4;
-  let left = coords.left - sqlEditor.scrollLeft + 16;
+  let left = coords.left - sqlEditor.scrollLeft + gutterWidth + 12;
 
-  const maxLeft = sqlEditor.clientWidth - 330;
-  if (left > maxLeft) left = Math.max(16, maxLeft);
-  if (left < 16) left = 16;
+  const maxLeft = sqlEditor.clientWidth + gutterWidth - 330;
+  if (left > maxLeft) left = Math.max(gutterWidth + 12, maxLeft);
+  if (left < gutterWidth + 12) left = gutterWidth + 12;
 
   const maxTop = sqlEditor.clientHeight + editorHeaderHeight - 240;
   if (top > maxTop) {
@@ -867,6 +948,7 @@ function applyAcItem(item) {
   sqlEditor.setSelectionRange(newCursor, newCursor);
   sqlEditor.focus();
   hideAutocomplete();
+  updateLineNumbers();
 }
 
 function hideAutocomplete() {
@@ -875,7 +957,414 @@ function hideAutocomplete() {
   }
 }
 
-// SQL Editor Keydown Handling
+// =============================================================================
+// VS Code-style Editor Enhancements (Gutter, Shortcuts, Smart Indent, Auto-pairs)
+// =============================================================================
+
+function updateCursorPosition() {
+  if (!editorCursorPos) return;
+  const pos = sqlEditor.selectionStart || 0;
+  const val = sqlEditor.value || "";
+  const textBefore = val.substring(0, pos);
+  const lines = textBefore.split("\n");
+  const lineNum = lines.length;
+  const colNum = lines[lines.length - 1].length + 1;
+  editorCursorPos.textContent = `Ln ${lineNum}, Col ${colNum}`;
+
+  if (editorGutter) {
+    const activeLines = editorGutter.querySelectorAll(".line-num.active");
+    activeLines.forEach(el => el.classList.remove("active"));
+    const currentLineEl = editorGutter.children[lineNum - 1];
+    if (currentLineEl) {
+      currentLineEl.classList.add("active");
+    }
+  }
+}
+
+function updateLineNumbers() {
+  if (!editorGutter) return;
+  const lines = (sqlEditor.value || "").split("\n");
+  const lineCount = Math.max(1, lines.length);
+
+  const pos = sqlEditor.selectionStart || 0;
+  const textBefore = (sqlEditor.value || "").substring(0, pos);
+  const activeLineIdx = textBefore.split("\n").length;
+
+  const fragment = document.createDocumentFragment();
+  for (let i = 1; i <= lineCount; i++) {
+    const div = document.createElement("div");
+    div.className = `line-num${i === activeLineIdx ? " active" : ""}`;
+    div.textContent = i;
+    fragment.appendChild(div);
+  }
+  editorGutter.innerHTML = "";
+  editorGutter.appendChild(fragment);
+
+  editorGutter.scrollTop = sqlEditor.scrollTop;
+  updateCursorPosition();
+}
+
+function toggleLineComment() {
+  const start = sqlEditor.selectionStart;
+  const end = sqlEditor.selectionEnd;
+  const val = sqlEditor.value;
+
+  const lineStart = val.lastIndexOf("\n", start - 1) + 1;
+  let lineEnd = val.indexOf("\n", end);
+  if (lineEnd === -1) lineEnd = val.length;
+
+  const selectedLinesStr = val.substring(lineStart, lineEnd);
+  const lines = selectedLinesStr.split("\n");
+
+  const nonBlank = lines.filter(l => l.trim().length > 0);
+  const allCommented = nonBlank.length > 0 && nonBlank.every(l => l.trimStart().startsWith("--"));
+
+  let modifiedLines;
+  if (allCommented) {
+    // Uncomment
+    modifiedLines = lines.map(l => {
+      const match = l.match(/^(\s*)--\s?(.*)$/);
+      return match ? match[1] + match[2] : l;
+    });
+  } else {
+    // Comment
+    modifiedLines = lines.map(l => {
+      if (l.trim().length === 0 && lines.length > 1) return l;
+      return "-- " + l;
+    });
+  }
+
+  const replacement = modifiedLines.join("\n");
+  sqlEditor.value = val.substring(0, lineStart) + replacement + val.substring(lineEnd);
+
+  if (start === end) {
+    const shift = allCommented ? -3 : 3;
+    const newPos = Math.max(lineStart, Math.min(sqlEditor.value.length, start + shift));
+    sqlEditor.setSelectionRange(newPos, newPos);
+  } else {
+    const diff = replacement.length - selectedLinesStr.length;
+    sqlEditor.setSelectionRange(lineStart, Math.max(lineStart, end + diff));
+  }
+
+  updateLineNumbers();
+}
+
+function toggleBlockComment() {
+  const start = sqlEditor.selectionStart;
+  const end = sqlEditor.selectionEnd;
+  const val = sqlEditor.value;
+
+  if (start !== end) {
+    const selected = val.substring(start, end);
+    if (selected.startsWith("/*") && selected.endsWith("*/")) {
+      const unwrapped = selected.substring(2, selected.length - 2).trim();
+      sqlEditor.value = val.substring(0, start) + unwrapped + val.substring(end);
+      sqlEditor.setSelectionRange(start, start + unwrapped.length);
+    } else {
+      sqlEditor.value = val.substring(0, start) + "/* " + selected + " */" + val.substring(end);
+      sqlEditor.setSelectionRange(start, end + 6);
+    }
+  } else {
+    sqlEditor.value = val.substring(0, start) + "/*  */" + val.substring(end);
+    sqlEditor.setSelectionRange(start + 3, start + 3);
+  }
+  updateLineNumbers();
+}
+
+function moveLine(direction) {
+  const start = sqlEditor.selectionStart;
+  const end = sqlEditor.selectionEnd;
+  const val = sqlEditor.value;
+
+  const lineStart = val.lastIndexOf("\n", start - 1) + 1;
+  let lineEnd = val.indexOf("\n", end);
+  if (lineEnd === -1) lineEnd = val.length;
+
+  const currentBlock = val.substring(lineStart, lineEnd);
+
+  if (direction === -1) {
+    if (lineStart === 0) return;
+    const prevLineStart = val.lastIndexOf("\n", lineStart - 2) + 1;
+    const prevBlock = val.substring(prevLineStart, lineStart - 1);
+
+    sqlEditor.value = val.substring(0, prevLineStart) + currentBlock + "\n" + prevBlock + val.substring(lineEnd);
+    const offset = prevBlock.length + 1;
+    sqlEditor.setSelectionRange(start - offset, end - offset);
+  } else if (direction === 1) {
+    if (lineEnd >= val.length) return;
+    let nextLineEnd = val.indexOf("\n", lineEnd + 1);
+    if (nextLineEnd === -1) nextLineEnd = val.length;
+    const nextBlock = val.substring(lineEnd + 1, nextLineEnd);
+
+    sqlEditor.value = val.substring(0, lineStart) + nextBlock + "\n" + currentBlock + val.substring(nextLineEnd);
+    const offset = nextBlock.length + 1;
+    sqlEditor.setSelectionRange(start + offset, end + offset);
+  }
+
+  updateLineNumbers();
+}
+
+function duplicateLine(direction) {
+  const start = sqlEditor.selectionStart;
+  const end = sqlEditor.selectionEnd;
+  const val = sqlEditor.value;
+
+  const lineStart = val.lastIndexOf("\n", start - 1) + 1;
+  let lineEnd = val.indexOf("\n", end);
+  if (lineEnd === -1) lineEnd = val.length;
+
+  const currentBlock = val.substring(lineStart, lineEnd);
+
+  if (direction === 1) {
+    sqlEditor.value = val.substring(0, lineEnd) + "\n" + currentBlock + val.substring(lineEnd);
+    const offset = currentBlock.length + 1;
+    sqlEditor.setSelectionRange(start + offset, end + offset);
+  } else {
+    sqlEditor.value = val.substring(0, lineStart) + currentBlock + "\n" + val.substring(lineStart);
+    sqlEditor.setSelectionRange(start, end);
+  }
+
+  updateLineNumbers();
+}
+
+function deleteLine() {
+  const start = sqlEditor.selectionStart;
+  const end = sqlEditor.selectionEnd;
+  const val = sqlEditor.value;
+
+  let lineStart = val.lastIndexOf("\n", start - 1) + 1;
+  let lineEnd = val.indexOf("\n", end);
+
+  if (lineEnd === -1) {
+    if (lineStart > 0) {
+      lineStart -= 1;
+    }
+    lineEnd = val.length;
+  } else {
+    lineEnd += 1;
+  }
+
+  sqlEditor.value = val.substring(0, lineStart) + val.substring(lineEnd);
+  sqlEditor.setSelectionRange(lineStart, lineStart);
+  updateLineNumbers();
+}
+
+function handleTab(e) {
+  e.preventDefault();
+  const start = sqlEditor.selectionStart;
+  const end = sqlEditor.selectionEnd;
+  const val = sqlEditor.value;
+
+  if (start !== end && val.substring(start, end).includes("\n")) {
+    const lineStart = val.lastIndexOf("\n", start - 1) + 1;
+    let lineEnd = val.indexOf("\n", end);
+    if (lineEnd === -1) lineEnd = val.length;
+
+    const block = val.substring(lineStart, lineEnd);
+    const lines = block.split("\n");
+    let lengthDiff = 0;
+
+    let modifiedLines;
+    if (e.shiftKey) {
+      modifiedLines = lines.map(l => {
+        if (l.startsWith("  ")) {
+          lengthDiff -= 2;
+          return l.substring(2);
+        } else if (l.startsWith(" ") || l.startsWith("\t")) {
+          lengthDiff -= 1;
+          return l.substring(1);
+        }
+        return l;
+      });
+    } else {
+      modifiedLines = lines.map(l => {
+        lengthDiff += 2;
+        return "  " + l;
+      });
+    }
+
+    const replacement = modifiedLines.join("\n");
+    sqlEditor.value = val.substring(0, lineStart) + replacement + val.substring(lineEnd);
+    sqlEditor.setSelectionRange(lineStart, lineEnd + lengthDiff);
+    updateLineNumbers();
+    return;
+  }
+
+  if (e.shiftKey) {
+    const lineStart = val.lastIndexOf("\n", start - 1) + 1;
+    const beforeCursor = val.substring(lineStart, start);
+    if (beforeCursor.endsWith("  ")) {
+      sqlEditor.value = val.substring(0, start - 2) + val.substring(start);
+      sqlEditor.setSelectionRange(start - 2, start - 2);
+    } else if (beforeCursor.endsWith(" ") || beforeCursor.endsWith("\t")) {
+      sqlEditor.value = val.substring(0, start - 1) + val.substring(start);
+      sqlEditor.setSelectionRange(start - 1, start - 1);
+    }
+  } else {
+    sqlEditor.value = val.substring(0, start) + "  " + val.substring(end);
+    sqlEditor.setSelectionRange(start + 2, start + 2);
+  }
+  updateLineNumbers();
+}
+
+function handleSmartEnter(e) {
+  e.preventDefault();
+  const start = sqlEditor.selectionStart;
+  const end = sqlEditor.selectionEnd;
+  const val = sqlEditor.value;
+
+  const lineStart = val.lastIndexOf("\n", start - 1) + 1;
+  const currentLine = val.substring(lineStart, start);
+  const matchIndent = currentLine.match(/^(\s*)/);
+  let indent = matchIndent ? matchIndent[1] : "";
+
+  if (currentLine.trimEnd().endsWith("(")) {
+    indent += "  ";
+  }
+
+  const insertText = "\n" + indent;
+  sqlEditor.value = val.substring(0, start) + insertText + val.substring(end);
+  const newPos = start + insertText.length;
+  sqlEditor.setSelectionRange(newPos, newPos);
+  updateLineNumbers();
+}
+
+const PAIR_MAP = {
+  "(": ")",
+  "[": "]",
+  "{": "}",
+  "'": "'",
+  '"': '"',
+  "`": "`"
+};
+const CLOSING_CHARS = [")", "]", "}", "'", '"', "`"];
+
+function handleAutoClosePair(e) {
+  const key = e.key;
+  const start = sqlEditor.selectionStart;
+  const end = sqlEditor.selectionEnd;
+  const val = sqlEditor.value;
+
+  // 1. Text is selected -> Auto-surround selection
+  if (start !== end && PAIR_MAP[key]) {
+    e.preventDefault();
+    const selected = val.substring(start, end);
+    const closing = PAIR_MAP[key];
+    sqlEditor.value = val.substring(0, start) + key + selected + closing + val.substring(end);
+    sqlEditor.setSelectionRange(start + 1, end + 1);
+    updateLineNumbers();
+    return true;
+  }
+
+  // 2. User types closing character and it's already right after cursor -> Step over
+  if (start === end && CLOSING_CHARS.includes(key)) {
+    if (val[start] === key) {
+      e.preventDefault();
+      sqlEditor.setSelectionRange(start + 1, start + 1);
+      updateCursorPosition();
+      return true;
+    }
+  }
+
+  // 3. User types opening pair -> Insert both and place cursor in middle
+  if (start === end && PAIR_MAP[key]) {
+    if ((key === "'" || key === '"') && start > 0 && /[a-zA-Z0-9_]/.test(val[start - 1])) {
+      return false;
+    }
+    if (start < val.length && /[a-zA-Z0-9_]/.test(val[start])) {
+      return false;
+    }
+
+    e.preventDefault();
+    const closing = PAIR_MAP[key];
+    sqlEditor.value = val.substring(0, start) + key + closing + val.substring(end);
+    sqlEditor.setSelectionRange(start + 1, start + 1);
+    updateLineNumbers();
+    return true;
+  }
+
+  // 4. Backspace between empty pair -> Delete both
+  if (key === "Backspace" && start === end && start > 0 && start < val.length) {
+    const prevChar = val[start - 1];
+    const nextChar = val[start];
+    if (PAIR_MAP[prevChar] === nextChar) {
+      e.preventDefault();
+      sqlEditor.value = val.substring(0, start - 1) + val.substring(start + 1);
+      sqlEditor.setSelectionRange(start - 1, start - 1);
+      updateLineNumbers();
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function handleSelectWordOrNext(e) {
+  e.preventDefault();
+  const start = sqlEditor.selectionStart;
+  const end = sqlEditor.selectionEnd;
+  const val = sqlEditor.value;
+
+  if (start === end) {
+    let left = start;
+    while (left > 0 && /[a-zA-Z0-9_]/.test(val[left - 1])) {
+      left--;
+    }
+    let right = start;
+    while (right < val.length && /[a-zA-Z0-9_]/.test(val[right])) {
+      right++;
+    }
+    if (left < right) {
+      sqlEditor.setSelectionRange(left, right);
+      updateCursorPosition();
+    }
+  } else {
+    const selected = val.substring(start, end);
+    let nextPos = val.indexOf(selected, end);
+    if (nextPos === -1) {
+      nextPos = val.indexOf(selected, 0);
+    }
+    if (nextPos !== -1) {
+      sqlEditor.setSelectionRange(nextPos, nextPos + selected.length);
+      updateCursorPosition();
+    }
+  }
+}
+
+function formatSqlCode() {
+  const raw = sqlEditor.value.trim();
+  if (!raw) return;
+
+  const KEYWORDS = [
+    "SELECT", "FROM", "WHERE", "GROUP BY", "ORDER BY", "HAVING", "LIMIT", "OFFSET",
+    "LEFT JOIN", "RIGHT JOIN", "INNER JOIN", "FULL JOIN", "CROSS JOIN", "JOIN", "ON",
+    "INSERT INTO", "VALUES", "UPDATE", "SET", "DELETE FROM",
+    "CREATE TABLE", "DROP TABLE", "ALTER TABLE", "ADD COLUMN",
+    "PRIMARY KEY", "FOREIGN KEY", "REFERENCES", "NOT NULL", "UNIQUE", "DEFAULT", "CHECK", "AUTOINCREMENT",
+    "AND", "OR", "NOT", "IN", "BETWEEN", "LIKE", "IS NULL", "IS NOT NULL", "EXISTS",
+    "AS", "DISTINCT", "UNION ALL", "UNION", "INTERSECT", "EXCEPT",
+    "COUNT", "SUM", "AVG", "MIN", "MAX",
+    "CASE", "WHEN", "THEN", "ELSE", "END",
+    "ASC", "DESC"
+  ];
+
+  KEYWORDS.sort((a, b) => b.length - a.length);
+
+  const tokens = raw.split(/('(?:''|[^'])*')/g);
+  for (let i = 0; i < tokens.length; i++) {
+    if (!tokens[i].startsWith("'")) {
+      KEYWORDS.forEach(kw => {
+        const regex = new RegExp(`\\b${kw.replace(/\s+/g, "\\s+")}\\b`, "gi");
+        tokens[i] = tokens[i].replace(regex, kw);
+      });
+    }
+  }
+
+  sqlEditor.value = tokens.join("");
+  updateLineNumbers();
+}
+
+// SQL Editor Keydown Handling (VS Code Shortcuts)
 sqlEditor.addEventListener("keydown", (e) => {
   // 1. Ctrl + Enter / Cmd + Enter -> Run SQL
   if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
@@ -885,14 +1374,74 @@ sqlEditor.addEventListener("keydown", (e) => {
     return;
   }
 
-  // 2. Ctrl + Space -> Manual trigger Autocomplete
+  // 2. Ctrl + / or Cmd + / -> Toggle Line Comment (--)
+  if ((e.ctrlKey || e.metaKey) && (e.key === "/" || e.code === "Slash")) {
+    e.preventDefault();
+    hideAutocomplete();
+    toggleLineComment();
+    return;
+  }
+
+  // 3. Shift + Alt + A or Ctrl + Shift + / -> Toggle Block Comment (/* ... */)
+  if (((e.shiftKey && e.altKey && (e.key === "A" || e.key === "a" || e.code === "KeyA")) ||
+       ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "?" || e.key === "/" || e.code === "Slash")))) {
+    e.preventDefault();
+    hideAutocomplete();
+    toggleBlockComment();
+    return;
+  }
+
+  // 4. Ctrl + Shift + K -> Delete Line
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "K" || e.key === "k" || e.code === "KeyK")) {
+    e.preventDefault();
+    hideAutocomplete();
+    deleteLine();
+    return;
+  }
+
+  // 5. Shift + Alt + ArrowDown / ArrowUp -> Duplicate Line Down / Up
+  if (e.shiftKey && e.altKey && (e.key === "ArrowDown" || e.code === "ArrowDown")) {
+    e.preventDefault();
+    hideAutocomplete();
+    duplicateLine(1);
+    return;
+  }
+  if (e.shiftKey && e.altKey && (e.key === "ArrowUp" || e.code === "ArrowUp")) {
+    e.preventDefault();
+    hideAutocomplete();
+    duplicateLine(-1);
+    return;
+  }
+
+  // 6. Alt + ArrowDown / ArrowUp -> Move Line Down / Up
+  if (e.altKey && !e.shiftKey && (e.key === "ArrowDown" || e.code === "ArrowDown")) {
+    e.preventDefault();
+    hideAutocomplete();
+    moveLine(1);
+    return;
+  }
+  if (e.altKey && !e.shiftKey && (e.key === "ArrowUp" || e.code === "ArrowUp")) {
+    e.preventDefault();
+    hideAutocomplete();
+    moveLine(-1);
+    return;
+  }
+
+  // 7. Ctrl + D -> Select Word or Next Occurrence
+  if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && (e.key === "d" || e.key === "D" || e.code === "KeyD")) {
+    e.preventDefault();
+    handleSelectWordOrNext(e);
+    return;
+  }
+
+  // 8. Ctrl + Space -> Manual trigger Autocomplete
   if ((e.ctrlKey || e.metaKey) && e.key === " ") {
     e.preventDefault();
     triggerAutocomplete(true);
     return;
   }
 
-  // 3. Autocomplete Navigation
+  // 9. Autocomplete Navigation (when popup is open)
   if (!acPopup.classList.contains("hidden")) {
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -915,9 +1464,27 @@ sqlEditor.addEventListener("keydown", (e) => {
       return;
     }
   }
+
+  // 10. Tab / Shift + Tab -> Indent / Outdent
+  if (e.key === "Tab") {
+    handleTab(e);
+    return;
+  }
+
+  // 11. Enter -> Smart Indent Continuation
+  if (e.key === "Enter" && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    handleSmartEnter(e);
+    return;
+  }
+
+  // 12. Auto-close pairs & Auto-surround selection
+  if (handleAutoClosePair(e)) {
+    return;
+  }
 });
 
 sqlEditor.addEventListener("input", (e) => {
+  updateLineNumbers();
   if (e.data === " " || e.data === "\n" || e.data === ";") {
     hideAutocomplete();
   } else {
@@ -925,15 +1492,344 @@ sqlEditor.addEventListener("input", (e) => {
   }
 });
 
-sqlEditor.addEventListener("click", hideAutocomplete);
-sqlEditor.addEventListener("scroll", updateAcPosition);
+sqlEditor.addEventListener("scroll", () => {
+  if (editorGutter) {
+    editorGutter.scrollTop = sqlEditor.scrollTop;
+  }
+  updateAcPosition();
+});
+
+sqlEditor.addEventListener("click", () => {
+  hideAutocomplete();
+  updateCursorPosition();
+});
+
+sqlEditor.addEventListener("keyup", (e) => {
+  if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Home", "End", "PageUp", "PageDown"].includes(e.key)) {
+    updateCursorPosition();
+  }
+});
+
+sqlEditor.addEventListener("select", () => {
+  updateCursorPosition();
+});
+
+if (editorGutter) {
+  editorGutter.addEventListener("click", (e) => {
+    const lineEl = e.target.closest(".line-num");
+    if (!lineEl) return;
+    const lineNum = parseInt(lineEl.textContent, 10);
+    if (isNaN(lineNum)) return;
+
+    const lines = sqlEditor.value.split("\n");
+    let charIdx = 0;
+    for (let i = 0; i < lineNum - 1; i++) {
+      charIdx += lines[i].length + 1;
+    }
+    const endIdx = charIdx + (lines[lineNum - 1] ? lines[lineNum - 1].length : 0);
+    sqlEditor.focus();
+    sqlEditor.setSelectionRange(charIdx, endIdx);
+    updateCursorPosition();
+  });
+}
+
 document.addEventListener("click", (e) => {
   if (!e.target.closest(".editor-wrapper")) {
     hideAutocomplete();
   }
 });
 
+// =============================================================================
+// Responsive Mobile View & Drawer Logic
+// =============================================================================
+function initResponsiveMobile() {
+  const btnToggleSidebar = document.getElementById("btn-toggle-sidebar");
+  const sidebar = document.getElementById("sidebar");
+  const sidebarOverlay = document.getElementById("sidebar-overlay");
+  const mTabTheory = document.getElementById("m-tab-theory");
+  const mTabStudio = document.getElementById("m-tab-studio");
+  const splitContent = document.getElementById("split-content");
+
+  if (btnToggleSidebar && sidebar && sidebarOverlay) {
+    btnToggleSidebar.addEventListener("click", () => {
+      const isOpen = sidebar.classList.toggle("open");
+      sidebarOverlay.classList.toggle("active", isOpen);
+    });
+
+    sidebarOverlay.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      sidebarOverlay.classList.remove("active");
+    });
+  }
+
+  if (mTabTheory && mTabStudio && splitContent) {
+    mTabTheory.addEventListener("click", () => {
+      mTabTheory.classList.add("active");
+      mTabStudio.classList.remove("active");
+      splitContent.classList.remove("view-studio");
+      splitContent.classList.add("view-theory");
+    });
+
+    mTabStudio.addEventListener("click", () => {
+      mTabStudio.classList.add("active");
+      mTabTheory.classList.remove("active");
+      splitContent.classList.remove("view-theory");
+      splitContent.classList.add("view-studio");
+
+      setTimeout(() => {
+        if (typeof updateLineNumbers === "function") updateLineNumbers();
+        if (typeof updateCursorPosition === "function") updateCursorPosition();
+      }, 50);
+    });
+  }
+}
+
+// =============================================================================
+// Resizable Panels Engine (Mouse + Touch, Double-click reset, localStorage)
+// =============================================================================
+function initResizablePanels() {
+  const sidebar = document.getElementById("sidebar");
+  const resizerSidebar = document.getElementById("resizer-sidebar");
+
+  const theoryPanel = document.getElementById("theory-panel");
+  const resizerTheory = document.getElementById("resizer-theory");
+  const studioPanel = document.getElementById("studio-panel");
+
+  const editorWrapper = document.getElementById("editor-wrapper") || document.querySelector(".editor-wrapper");
+  const resizerEditor = document.getElementById("resizer-editor");
+
+  // Restore saved layout dimensions from localStorage
+  try {
+    const savedSidebarWidth = localStorage.getItem("sqllab_sidebar_width");
+    if (savedSidebarWidth && sidebar && window.innerWidth >= 1024) {
+      const w = parseInt(savedSidebarWidth, 10);
+      if (w >= 220 && w <= 600) {
+        sidebar.style.width = `${w}px`;
+        sidebar.style.minWidth = `${w}px`;
+      }
+    }
+
+    const savedTheoryWidth = localStorage.getItem("sqllab_theory_width");
+    if (savedTheoryWidth && theoryPanel && window.innerWidth >= 900) {
+      const w = parseInt(savedTheoryWidth, 10);
+      if (w >= 260 && w <= 900) {
+        theoryPanel.style.width = `${w}px`;
+        theoryPanel.style.minWidth = `${w}px`;
+      }
+    }
+
+    const savedEditorHeight = localStorage.getItem("sqllab_editor_height");
+    if (savedEditorHeight && editorWrapper) {
+      const h = parseInt(savedEditorHeight, 10);
+      if (h >= 120 && h <= 1200) {
+        editorWrapper.style.height = `${h}px`;
+        editorWrapper.style.flex = "none";
+      }
+    }
+  } catch (e) {}
+
+  function attachResizer({
+    resizer,
+    target,
+    isVertical,
+    getMin,
+    getMax,
+    storageKey,
+    defaultSize,
+    onResize
+  }) {
+    if (!resizer || !target) return;
+
+    let isDragging = false;
+    let startPos = 0;
+    let startSize = 0;
+
+    function startDrag(clientX, clientY) {
+      if (!isVertical && window.innerWidth < 900) return;
+      isDragging = true;
+      document.body.classList.add(isVertical ? "resizing-vertical" : "resizing-horizontal");
+      resizer.classList.add("active");
+
+      startPos = isVertical ? clientY : clientX;
+      startSize = isVertical ? target.offsetHeight : target.offsetWidth;
+
+      window.addEventListener("mousemove", onMove);
+      window.addEventListener("mouseup", onEnd);
+      window.addEventListener("touchmove", onTouchMove, { passive: false });
+      window.addEventListener("touchend", onEnd);
+    }
+
+    function doResize(currentPos) {
+      if (!isDragging) return;
+      const delta = currentPos - startPos;
+      let newSize = startSize + delta;
+
+      const min = typeof getMin === "function" ? getMin() : getMin;
+      const max = typeof getMax === "function" ? getMax() : getMax;
+
+      if (newSize < min) newSize = min;
+      if (newSize > max) newSize = max;
+
+      if (isVertical) {
+        target.style.height = `${newSize}px`;
+        target.style.flex = "none";
+      } else {
+        target.style.width = `${newSize}px`;
+        target.style.minWidth = `${newSize}px`;
+        target.style.maxWidth = `${newSize}px`;
+      }
+
+      if (onResize) onResize(newSize);
+    }
+
+    function onMove(e) {
+      doResize(isVertical ? e.clientY : e.clientX);
+    }
+
+    function onTouchMove(e) {
+      if (!isDragging) return;
+      if (e.cancelable) e.preventDefault();
+      if (e.touches && e.touches[0]) {
+        doResize(isVertical ? e.touches[0].clientY : e.touches[0].clientX);
+      }
+    }
+
+    function onEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      document.body.classList.remove("resizing-vertical", "resizing-horizontal");
+      resizer.classList.remove("active");
+
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onEnd);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onEnd);
+
+      const finalSize = isVertical ? target.offsetHeight : target.offsetWidth;
+      if (storageKey) {
+        try {
+          localStorage.setItem(storageKey, String(finalSize));
+        } catch (e) {}
+      }
+    }
+
+    resizer.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      startDrag(e.clientX, e.clientY);
+    });
+
+    resizer.addEventListener("touchstart", (e) => {
+      if (e.touches && e.touches[0]) {
+        startDrag(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    // Double-click resets to default size
+    resizer.addEventListener("dblclick", () => {
+      if (isVertical) {
+        target.style.height = `${defaultSize}px`;
+        target.style.flex = "";
+      } else {
+        target.style.width = `${defaultSize}px`;
+        target.style.minWidth = `${defaultSize}px`;
+        target.style.maxWidth = `${defaultSize}px`;
+      }
+      if (storageKey) {
+        try {
+          localStorage.removeItem(storageKey);
+        } catch (e) {}
+      }
+      if (onResize) onResize(defaultSize);
+    });
+  }
+
+  // 1. Sidebar Resizer
+  attachResizer({
+    resizer: resizerSidebar,
+    target: sidebar,
+    isVertical: false,
+    getMin: 240,
+    getMax: () => Math.min(520, window.innerWidth * 0.45),
+    defaultSize: 320,
+    storageKey: "sqllab_sidebar_width"
+  });
+
+  // 2. Theory Panel Resizer
+  attachResizer({
+    resizer: resizerTheory,
+    target: theoryPanel,
+    isVertical: false,
+    getMin: 280,
+    getMax: () => {
+      const ws = document.getElementById("workspace");
+      const wsWidth = ws ? ws.clientWidth : window.innerWidth - 320;
+      return Math.max(300, wsWidth - 360);
+    },
+    defaultSize: 420,
+    storageKey: "sqllab_theory_width",
+    onResize: () => {
+      if (typeof updateAcPosition === "function") updateAcPosition();
+    }
+  });
+
+  // 3. Editor Wrapper Resizer (Vertical)
+  attachResizer({
+    resizer: resizerEditor,
+    target: editorWrapper,
+    isVertical: true,
+    getMin: 120,
+    getMax: () => {
+      const sp = studioPanel || document.getElementById("studio-panel");
+      const spHeight = sp ? sp.clientHeight : 600;
+      return Math.max(140, spHeight - 120);
+    },
+    defaultSize: 280,
+    storageKey: "sqllab_editor_height",
+    onResize: () => {
+      if (typeof updateLineNumbers === "function") updateLineNumbers();
+      if (typeof updateAcPosition === "function") updateAcPosition();
+    }
+  });
+
+  // On window resize: handle responsive constraints gracefully
+  window.addEventListener("resize", () => {
+    if (window.innerWidth < 1024) {
+      if (sidebar) {
+        sidebar.style.width = "";
+        sidebar.style.minWidth = "";
+      }
+    } else {
+      const savedSidebarWidth = localStorage.getItem("sqllab_sidebar_width") || 320;
+      if (sidebar) {
+        sidebar.style.width = `${savedSidebarWidth}px`;
+        sidebar.style.minWidth = `${savedSidebarWidth}px`;
+        sidebar.classList.remove("open");
+      }
+      const overlay = document.getElementById("sidebar-overlay");
+      if (overlay) overlay.classList.remove("active");
+    }
+
+    if (window.innerWidth < 900) {
+      if (theoryPanel) {
+        theoryPanel.style.width = "";
+        theoryPanel.style.minWidth = "";
+      }
+    } else {
+      const savedTheoryWidth = localStorage.getItem("sqllab_theory_width") || 420;
+      if (theoryPanel) {
+        theoryPanel.style.width = `${savedTheoryWidth}px`;
+        theoryPanel.style.minWidth = `${savedTheoryWidth}px`;
+      }
+    }
+    if (typeof updateAcPosition === "function") updateAcPosition();
+  });
+}
+
 // Start App
 renderBeginnerModules();
 renderCurriculum();
+loadExercise(0, 0, true);
+updateLineNumbers();
+initResponsiveMobile();
+initResizablePanels();
 initDatabaseEngine();

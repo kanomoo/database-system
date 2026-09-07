@@ -17,6 +17,9 @@
 <body>
 
 <div id="app-container">
+  <!-- Mobile Sidebar Overlay Backdrop -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
   <!-- Left Sidebar: Curriculum & Schema -->
   <aside id="sidebar">
     <div class="sidebar-header">
@@ -67,8 +70,8 @@
     <div class="sidebar-footer">
       <div class="db-status-bar">
         <div style="display: flex; align-items: center; gap: 8px;">
-          <span class="status-dot"></span>
-          <span id="engine-status-text">SQLite In-Memory พร้อมใช้งาน</span>
+          <span class="status-dot loading"></span>
+          <span id="engine-status-text">กำลังเตรียมระบบ SQLite...</span>
         </div>
         <button id="btn-open-guide" class="btn btn-ghost" style="padding: 4px 8px; font-size: 0.72rem;">
           คู่มือมือใหม่ 💡
@@ -77,34 +80,52 @@
     </div>
   </aside>
 
+  <!-- Resizer 1: Between Sidebar and Workspace -->
+  <div id="resizer-sidebar" class="resizer-horizontal" title="ลากเพื่อปรับขนาดแถบสารบัญ (ดับเบิลคลิกเพื่อรีเซ็ต)"></div>
+
   <!-- Main Workspace -->
   <main id="workspace">
     <!-- Top Navigation Bar -->
     <header class="top-nav-bar">
-      <div class="breadcrumbs">
-        <span id="crumb-module">Module</span>
-        <span>/</span>
-        <span id="crumb-exercise" class="active-crumb">Exercise</span>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <button id="btn-toggle-sidebar" class="btn-sidebar-toggle" title="เปิด/ปิด แถบสารบัญและโครงสร้างตาราง" aria-label="เปิดเมนู">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div class="breadcrumbs">
+          <span id="crumb-module">Module</span>
+          <span>/</span>
+          <span id="crumb-exercise" class="active-crumb">Exercise</span>
+        </div>
       </div>
 
       <div class="top-actions">
         <button id="btn-load-clean-slate" class="btn btn-ghost" title="โหลดโค้ด Clean Slate เฉพาะข้อนี้">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          รีเซ็ตโจทย์นี้
+          <span class="btn-text">รีเซ็ตโจทย์นี้</span>
         </button>
         <button id="btn-reset-db" class="btn btn-ghost" title="ล้างตารางทั้งหมดในฐานข้อมูล">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
-          ล้างฐานข้อมูล
+          <span class="btn-text">ล้างฐานข้อมูล</span>
         </button>
         <button id="btn-run-sql" class="btn btn-primary" title="รันคำสั่ง SQL (Ctrl + Enter)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          เรียกให้ทำงาน (Ctrl+Enter)
+          <span class="btn-text">เรียกให้ทำงาน (Ctrl+Enter)</span>
         </button>
       </div>
     </header>
 
+    <!-- Mobile View Switcher (Visible on screens < 900px) -->
+    <div id="mobile-view-tabs" class="mobile-view-tabs">
+      <button id="m-tab-theory" class="mobile-tab-btn active">📖 คำอธิบายโจทย์</button>
+      <button id="m-tab-studio" class="mobile-tab-btn">💻 โค้ด SQL & ผลลัพธ์</button>
+    </div>
+
     <!-- Split Content View -->
-    <div class="split-content">
+    <div id="split-content" class="split-content view-theory">
       <!-- Left Panel: Theory & Instructions -->
       <section id="theory-panel" class="theory-panel">
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -116,29 +137,42 @@
         </div>
       </section>
 
+      <!-- Resizer 2: Between Theory Panel and Studio Panel -->
+      <div id="resizer-theory" class="resizer-horizontal" title="ลากเพื่อปรับขนาดความกว้าง (ดับเบิลคลิกเพื่อรีเซ็ต)"></div>
+
       <!-- Right Panel: SQL Studio (Editor + Result Viewer) -->
-      <section class="studio-panel">
+      <section id="studio-panel" class="studio-panel">
         <!-- Editor Area -->
-        <div class="editor-wrapper">
+        <div id="editor-wrapper" class="editor-wrapper">
           <div class="editor-header">
             <div class="editor-tab">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
               query.sql
-              <span class="intellisense-badge" title="ระบบแนะนำคำอัตโนมัติเปิดใช้งานอยู่ (พิมพ์ตัวอักษร หรือกด Ctrl+Space ได้)">⚡ Auto-complete (VS Code)</span>
+              <span class="intellisense-badge" title="ระบบคีย์ลัดและ Auto-complete สไตล์ VS Code พร้อมใช้งาน">⚡ VS Code Mode</span>
+              <span id="editor-cursor-pos" class="cursor-pos-badge" title="ตำแหน่งเคอร์เซอร์ (บรรทัด, คอลัมน์)">Ln 1, Col 1</span>
             </div>
             <div class="editor-toolbar">
+              <button id="btn-shortcuts-help" class="tool-btn" title="ดูคีย์ลัดสไตล์ VS Code ทั้งหมด (Ctrl+/)">⌨️ คีย์ลัด</button>
+              <button id="btn-format-sql" class="tool-btn" title="จัดรูปแบบโค้ด SQL ให้อ่านง่ายขึ้น">จัดรูป (Format)</button>
               <button id="btn-copy-code" class="tool-btn" title="คัดลอกโค้ด">คัดลอก (Copy)</button>
               <button id="btn-clear-code" class="tool-btn" title="ล้างข้อความในกล่อง">ล้างกล่อง (Clear)</button>
             </div>
           </div>
-          <textarea id="sql-editor" class="code-textarea" spellcheck="false" placeholder="พิมพ์คำสั่ง SQL ที่นี่ (มีระบบ Auto-complete แนะนำคำเหมือนใน VS Code กด Tab หรือ Enter เพื่อเติมคำได้ทันที)..."></textarea>
+          
+          <div class="editor-body">
+            <div id="editor-gutter" class="editor-gutter" aria-hidden="true"></div>
+            <textarea id="sql-editor" class="code-textarea" spellcheck="false" placeholder="พิมพ์คำสั่ง SQL ที่นี่ (รองรับ Ctrl+/ คอมเมนต์, Tab ย่อหน้า, Alt+↑/↓ สลับบรรทัด, Shift+Alt+↓ ก๊อปปี้บรรทัด, Auto-complete)..."></textarea>
+          </div>
           
           <!-- VS Code-style Autocomplete Dropdown -->
           <div id="autocomplete-popup" class="autocomplete-popup hidden" role="listbox"></div>
         </div>
 
+        <!-- Resizer 3: Vertical between Editor and Result Viewer -->
+        <div id="resizer-editor" class="resizer-vertical" title="ลากขึ้น-ลงเพื่อปรับขนาดกล่องโค้ดและผลลัพธ์ (ดับเบิลคลิกเพื่อรีเซ็ต)"></div>
+
         <!-- Result Viewer Area -->
-        <div class="result-wrapper">
+        <div id="result-wrapper" class="result-wrapper">
           <div class="result-header">
             <div class="result-meta">
               <span><strong>ผลลัพธ์ (Result Set)</strong></span>
@@ -204,7 +238,68 @@
   </div>
 </div>
 
+<!-- Modal: VS Code Shortcuts Cheat Sheet -->
+<div id="shortcuts-modal" class="modal-backdrop">
+  <div class="modal-dialog" style="max-width: 580px;">
+    <button id="btn-close-shortcuts-modal" class="modal-close-btn" aria-label="ปิด">&times;</button>
+    <h3 style="display: flex; align-items: center; gap: 8px;">
+      ⌨️ คีย์ลัดตัวแก้ไขโค้ด (VS Code Shortcuts)
+    </h3>
+    <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+      ห้องทดลองนี้รองรับคีย์ลัดยอดนิยมเหมือนโปรแกรม Visual Studio Code ช่วยให้เขียนและแก้ไข SQL ได้อย่างรวดเร็ว:
+    </p>
+
+    <div class="shortcuts-grid">
+      <div class="shortcut-row">
+        <span class="key-badge">Ctrl + /</span>
+        <span class="shortcut-desc">คอมเมนต์ / ยกเลิกคอมเมนต์บรรทัด (Toggle Line Comment <code>--</code>)</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key-badge">Ctrl + Enter</span>
+        <span class="shortcut-desc">รันคำสั่ง SQL ทันที (Run Query)</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key-badge">Tab / Shift + Tab</span>
+        <span class="shortcut-desc">เพิ่ม / ลด ย่อหน้า 2 เคาะ (Indent / Outdent ทั้งบรรทัด)</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key-badge">Alt + ↑ / ↓</span>
+        <span class="shortcut-desc">สลับย้ายบรรทัดขึ้น / ลง (Move Line Up / Down)</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key-badge">Shift + Alt + ↓ / ↑</span>
+        <span class="shortcut-desc">ก๊อปปี้ทำซ้ำบรรทัดลงล่าง / ขึ้นบน (Duplicate Line Down / Up)</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key-badge">Ctrl + Shift + K</span>
+        <span class="shortcut-desc">ลบบรรทัดปัจจุบันทิ้งทันที (Delete Line)</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key-badge">Ctrl + D</span>
+        <span class="shortcut-desc">เลือกคำที่เคอร์เซอร์อยู่ / หาคำถัดไป (Select Word / Next Match)</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key-badge">Ctrl + Space</span>
+        <span class="shortcut-desc">เปิดหน้าต่างแนะนำคำอัตโนมัติ (IntelliSense Autocomplete)</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key-badge">Shift + Alt + A</span>
+        <span class="shortcut-desc">คอมเมนต์แบบบล็อก (Block Comment <code>/* ... */</code>)</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key-badge">พิมพ์ ' หรือ (</span>
+        <span class="shortcut-desc">ปิดวงเล็บ/คำพูดให้อัตโนมัติ (หากไฮไลต์ข้อความไว้จะครอบคำให้)</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="key-badge">Enter</span>
+        <span class="shortcut-desc">ขึ้นบรรทัดใหม่พร้อมรักษาระยะย่อหน้าอัตโนมัติ (Smart Indent)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Scripts -->
+<script src="vendor/sql-wasm-binary.js"></script>
 <script src="vendor/sql-wasm.js"></script>
 <script src="exercises.js"></script>
 <script src="app.js"></script>
