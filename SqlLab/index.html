@@ -36,10 +36,13 @@
       </div>
     </div>
 
-    <!-- Tab Switcher (Beginner 101 vs Lab Curriculum vs Tables Schema) -->
+    <!-- Tab Switcher (Beginner 101 vs Lab Curriculum vs Exam Simulator vs Tables Schema) -->
     <div class="sidebar-tabs">
+      <button id="tab-exam" class="side-tab-btn" title="ชุดข้อสอบจำลองเก็บคะแนนเดี่ยวในคาบเรียน (Normalization & SQL)">
+        🎯 ข้อสอบเดี่ยว
+      </button>
       <button id="tab-beginner" class="side-tab-btn active" title="พื้นฐานสำหรับคนไม่เคยเขียนโค้ด">
-        👶 มือใหม่ 101
+        👶 101
       </button>
       <button id="tab-curriculum" class="side-tab-btn" title="แล็บตามสไลด์บทเรียน">
         📚 แล็บสไลด์
@@ -47,6 +50,11 @@
       <button id="tab-schema" class="side-tab-btn" title="ดูโครงสร้างตารางในฐานข้อมูลปัจจุบัน">
         🗄️ ตาราง (<span id="schema-count">0</span>)
       </button>
+    </div>
+
+    <!-- Exam Drills List -->
+    <div id="exam-container" class="sidebar-content" style="display: none;">
+      <!-- Injected by JavaScript -->
     </div>
 
     <!-- Beginner 101 List -->
@@ -149,13 +157,17 @@
         <!-- Editor Area -->
         <div id="editor-wrapper" class="editor-wrapper">
           <div class="editor-header">
-            <div class="editor-tab">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-              query.sql
-              <span class="intellisense-badge" title="ระบบคีย์ลัดและ Auto-complete สไตล์ VS Code พร้อมใช้งาน">⚡ VS Code Mode</span>
-              <span id="editor-cursor-pos" class="cursor-pos-badge" title="ตำแหน่งเคอร์เซอร์ (บรรทัด, คอลัมน์)">Ln 1, Col 1</span>
+            <div class="editor-tabs-container">
+              <div id="editor-tabs-list" class="editor-tabs-list">
+                <!-- Dynamically rendered tabs: test.sql, query.sql, lab.db etc. -->
+              </div>
+              <button id="btn-add-tab" class="btn-new-tab" title="เปิดแท็บ Query ใหม่">+</button>
             </div>
             <div class="editor-toolbar">
+              <span id="editor-cursor-pos" class="cursor-pos-badge" title="ตำแหน่งเคอร์เซอร์ (บรรทัด, คอลัมน์)">Ln 1, Col 1</span>
+              <button id="btn-toggle-split" class="tool-btn" title="สลับมุมมอง: แยกดู 2 ฝั่ง (ซ้าย-ขวา) หรือ บน-ล่าง">
+                <span id="split-btn-icon">◫</span> <span id="split-btn-label">แยก 2 ฝั่ง</span>
+              </button>
               <button id="btn-shortcuts-help" class="tool-btn" title="ดูคีย์ลัดสไตล์ VS Code ทั้งหมด (Ctrl+/)">⌨️ คีย์ลัด</button>
               <button id="btn-format-sql" class="tool-btn" title="จัดรูปแบบโค้ด SQL ให้อ่านง่ายขึ้น">จัดรูป (Format)</button>
               <button id="btn-copy-code" class="tool-btn" title="คัดลอกโค้ด">คัดลอก (Copy)</button>
@@ -164,38 +176,124 @@
           </div>
           
           <div class="editor-body">
-            <div id="editor-gutter" class="editor-gutter" aria-hidden="true"></div>
-            <textarea id="sql-editor" class="code-textarea" spellcheck="false" placeholder="พิมพ์คำสั่ง SQL ที่นี่ (รองรับ Ctrl+/ คอมเมนต์, Tab ย่อหน้า, Alt+↑/↓ สลับบรรทัด, Shift+Alt+↓ ก๊อปปี้บรรทัด, Auto-complete)..."></textarea>
+            <div id="monaco-editor-container" class="monaco-editor-container"></div>
+            <div id="editor-gutter" class="editor-gutter" aria-hidden="true" style="display: none;"></div>
+            <textarea id="sql-editor" class="code-textarea" spellcheck="false" placeholder="พิมพ์คำสั่ง SQL ที่นี่ (รองรับ Ctrl+/ คอมเมนต์, Tab ย่อหน้า, Auto-complete สไตล์ VS Code)..." style="display: none;"></textarea>
           </div>
           
-          <!-- VS Code-style Autocomplete Dropdown -->
+          <!-- VS Code-style Autocomplete Dropdown (fallback) -->
           <div id="autocomplete-popup" class="autocomplete-popup hidden" role="listbox"></div>
         </div>
 
-        <!-- Resizer 3: Vertical between Editor and Result Viewer -->
-        <div id="resizer-editor" class="resizer-vertical" title="ลากขึ้น-ลงเพื่อปรับขนาดกล่องโค้ดและผลลัพธ์ (ดับเบิลคลิกเพื่อรีเซ็ต)"></div>
+        <!-- Resizer 3: Resizer between Editor and Result/Database Viewer -->
+        <div id="resizer-editor" class="resizer-editor-split" title="ลากเพื่อปรับขนาด (ดับเบิลคลิกเพื่อรีเซ็ต 50/50)"></div>
 
-        <!-- Result Viewer Area -->
+        <!-- Right Panel: Result & Database Table Viewer Area -->
         <div id="result-wrapper" class="result-wrapper">
           <div class="result-header">
-            <div class="result-meta">
-              <span><strong>ผลลัพธ์ (Result Set)</strong></span>
-              <span id="result-status-badge">พร้อมทำงาน</span>
+            <div class="result-view-tabs">
+              <button id="tab-view-dual" class="rtab-btn active" title="แยกดูผลลัพธ์และฐานข้อมูล ซ้าย-ขวา คู่กัน">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+                <span>แยกคู่กัน (ซ้าย-ขวา)</span>
+              </button>
+              <button id="tab-view-results" class="rtab-btn" title="ดูเฉพาะผลลัพธ์ Query เต็มพื้นที่">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                <span>ผลลัพธ์ Query</span>
+              </button>
+              <button id="tab-view-db" class="rtab-btn" title="ดูเฉพาะฐานข้อมูล lab.db เต็มพื้นที่">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                <span>ฐานข้อมูล (lab.db)</span>
+                <span id="db-tables-count-badge" class="badge-mini">0</span>
+              </button>
             </div>
-            <div class="result-meta">
+            <div class="result-meta" id="result-meta-bar">
+              <span id="result-status-badge">พร้อมทำงาน</span>
+              <span>·</span>
               <span id="result-rows-count">0 แถว</span>
               <span>·</span>
               <span id="result-exec-time">0 ms</span>
             </div>
           </div>
-          <div id="result-container" class="result-body">
-            <div class="empty-state">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                <line x1="8" y1="21" x2="16" y2="21"></line>
-                <line x1="12" y1="17" x2="12" y2="21"></line>
-              </svg>
-              <p>กดปุ่ม <b>"เรียกให้ทำงาน (Run)"</b> หรือ <code>Ctrl + Enter</code> เพื่อดูผลลัพธ์</p>
+          
+          <!-- Split Display Area for Result & Database Viewer -->
+          <div id="result-split-area" class="result-split-area view-dual">
+            <!-- Left Sub-Pane: Query Result -->
+            <div id="result-pane-query" class="result-subpane">
+              <div class="subpane-bar">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="color: #38bdf8; font-weight: 700;">&gt;_</span>
+                  <span style="font-weight: 600; font-size: 0.78rem; color: #e2e8f0;">ผลลัพธ์ Query ล่าสุด</span>
+                </div>
+                <span id="subpane-query-info" style="font-size: 0.72rem; color: var(--text-muted);">กดรันเพื่อดูผล</span>
+              </div>
+              <div id="result-container" class="result-body">
+                <div class="empty-state">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                  <p>กดปุ่ม <b>"เรียกให้ทำงาน (Run)"</b> หรือ <code>Ctrl + Enter</code> เพื่อดูผลลัพธ์</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Resizer between Query Result and Database Viewer -->
+            <div id="resizer-result-dual" class="resizer-result-dual" title="ลากเพื่อปรับขนาดผลลัพธ์และฐานข้อมูล (ดับเบิลคลิกเพื่อ 50/50)"></div>
+
+            <!-- Right Sub-Pane: SQLite Database Table Viewer (like lab.db in VS Code / Antigravity) -->
+            <div id="result-pane-db" class="result-subpane">
+              <div id="dbviewer-container" class="dbviewer-body">
+                <!-- Left mini sidebar of dbviewer -->
+                <div class="dbviewer-sidebar">
+                  <div class="dbviewer-db-summary">
+                    <div class="db-name-row">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                      <span>lab.db</span>
+                    </div>
+                    <div class="db-stat-tiles">
+                      <div class="stat-tile">
+                        <span class="stat-tile-label"># TABLES</span>
+                        <span class="stat-tile-val" id="dbv-tables-total">0</span>
+                      </div>
+                      <div class="stat-tile">
+                        <span class="stat-tile-label"># ROWS</span>
+                        <span class="stat-tile-val" id="dbv-rows-total">0</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="dbviewer-tables-nav" id="dbv-tables-list">
+                    <!-- Injected tables list: e.g. # Student 2 rows -->
+                  </div>
+                </div>
+
+                <!-- Right main data grid of dbviewer -->
+                <div class="dbviewer-content">
+                  <div class="dbviewer-content-header">
+                    <div class="dbv-table-info">
+                      <span class="dbv-hash">#</span>
+                      <span id="dbv-active-table-name" class="dbv-title">Student</span>
+                      <span id="dbv-active-table-rows" class="dbv-rows-badge">0 rows</span>
+                    </div>
+                    <div class="dbv-toolbar-right">
+                      <input type="text" id="dbv-filter-input" class="dbv-filter-input" placeholder="🔍 ค้นหาในตาราง..." />
+                      <button id="dbv-btn-refresh" class="tool-btn" title="โหลดข้อมูลล่าสุดจากฐานข้อมูล">🔄 รีเฟรช</button>
+                      <button id="dbv-btn-export-csv" class="tool-btn" title="ส่งออกข้อมูลเป็น CSV">📥 CSV</button>
+                    </div>
+                  </div>
+                  <div class="dbviewer-table-wrapper" id="dbv-grid-container">
+                    <!-- Grid Table injected dynamically -->
+                  </div>
+                  <div class="dbviewer-footer">
+                    <span id="dbv-footer-text">2 rows</span>
+                    <div class="dbv-pagination" id="dbv-pagination-controls">
+                      <button class="dbv-page-btn" id="dbv-prev-page" disabled>&lt;</button>
+                      <span id="dbv-page-info">1 / 1</span>
+                      <button class="dbv-page-btn" id="dbv-next-page" disabled>&gt;</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -303,8 +401,10 @@
 </div>
 
 <!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
 <script src="vendor/sql-wasm-binary.js"></script>
 <script src="vendor/sql-wasm.js"></script>
+<script src="editor-setup.js"></script>
 <script src="exercises.js"></script>
 <script src="app.js"></script>
 </body>

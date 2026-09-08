@@ -6,19 +6,28 @@
 let SQL = null;
 let db = null;
 let isBeginnerMode = true;
+let currentMode = "exam"; // default to exam mode so student sees it right away!
 let currentModuleIndex = 0;
 let currentExerciseIndex = 0;
 
 // DOM Elements
+const examContainer = document.getElementById("exam-container");
 const beginnerContainer = document.getElementById("beginner-container");
 const curriculumContainer = document.getElementById("curriculum-container");
 const schemaContainer = document.getElementById("schema-container");
 const schemaList = document.getElementById("schema-list");
 const schemaCount = document.getElementById("schema-count");
 
+const tabExam = document.getElementById("tab-exam");
 const tabBeginner = document.getElementById("tab-beginner");
 const tabCurriculum = document.getElementById("tab-curriculum");
 const tabSchema = document.getElementById("tab-schema");
+
+function getCurrentModuleList() {
+  if (currentMode === "exam" && typeof EXAM_MODULES !== "undefined") return EXAM_MODULES;
+  if (currentMode === "curriculum" || !isBeginnerMode) return LAB_MODULES;
+  return BEGINNER_MODULES;
+}
 
 const crumbModule = document.getElementById("crumb-module");
 const crumbExercise = document.getElementById("crumb-exercise");
@@ -27,6 +36,46 @@ const theoryBadge = document.getElementById("theory-badge");
 const theoryBody = document.getElementById("theory-body");
 
 const sqlEditor = document.getElementById("sql-editor");
+
+// Editor Abstraction Helpers (supports Monaco Editor & fallback textarea)
+function getEditorValue() {
+  if (window.SqlEditorManager && window.SqlEditorManager.isMonacoActive()) {
+    return window.SqlEditorManager.getValue();
+  }
+  return sqlEditor ? sqlEditor.value : "";
+}
+
+function setEditorValue(val) {
+  if (window.SqlEditorManager && window.SqlEditorManager.isMonacoActive()) {
+    window.SqlEditorManager.setValue(val || "");
+  } else if (sqlEditor) {
+    sqlEditor.value = val || "";
+  }
+  if (typeof updateLineNumbers === "function") {
+    updateLineNumbers();
+  }
+}
+
+function focusEditor() {
+  if (window.SqlEditorManager && window.SqlEditorManager.isMonacoActive()) {
+    window.SqlEditorManager.focus();
+  } else if (sqlEditor) {
+    sqlEditor.focus();
+  }
+}
+
+function setEditorError(errMsg, query) {
+  if (window.SqlEditorManager && window.SqlEditorManager.isMonacoActive()) {
+    window.SqlEditorManager.setError(errMsg, query);
+  }
+}
+
+function clearEditorErrors() {
+  if (window.SqlEditorManager && window.SqlEditorManager.isMonacoActive()) {
+    window.SqlEditorManager.clearError();
+  }
+}
+
 const resultContainer = document.getElementById("result-container");
 const resultStatusBadge = document.getElementById("result-status-badge");
 const resultRowsCount = document.getElementById("result-rows-count");
@@ -74,6 +123,7 @@ async function initDatabaseEngine() {
       if (statusDot) statusDot.className = "status-dot ready";
       engineStatusText.textContent = "SQLite พร้อมใช้งาน (Offline In-Memory)";
       updateSchemaSidebar();
+      renderDatabaseTableViewer();
       return;
     } catch (binErr) {
       console.warn("Direct wasmBinary init failed, trying fetch fallback...", binErr);
@@ -90,6 +140,7 @@ async function initDatabaseEngine() {
     if (statusDot) statusDot.className = "status-dot ready";
     engineStatusText.textContent = "SQLite WASM พร้อมใช้งาน (Local)";
     updateSchemaSidebar();
+    renderDatabaseTableViewer();
     return;
   } catch (err) {
     console.warn("Local WASM fetch failed, trying CDN fallback...", err);
@@ -105,6 +156,7 @@ async function initDatabaseEngine() {
     if (statusDot) statusDot.className = "status-dot ready";
     engineStatusText.textContent = "SQLite CDN พร้อมใช้งาน";
     updateSchemaSidebar();
+    renderDatabaseTableViewer();
   } catch (fallbackErr) {
     console.error("Critical: Cannot initialize SQLite engine", fallbackErr);
     if (statusDot) statusDot.className = "status-dot error";
@@ -204,16 +256,66 @@ function renderCurriculum() {
 }
 
 // =============================================================================
+// Render Exam Simulator Navigation (In-Class Individual Test)
+// =============================================================================
+function renderExamModules() {
+  if (!examContainer || typeof EXAM_MODULES === "undefined") return;
+  examContainer.innerHTML = "";
+
+  EXAM_MODULES.forEach((mod, mIdx) => {
+    const group = document.createElement("div");
+    group.className = "module-group";
+
+    const title = document.createElement("div");
+    title.className = "module-title";
+    title.textContent = mod.name;
+    group.appendChild(title);
+
+    mod.exercises.forEach((ex, eIdx) => {
+      const item = document.createElement("div");
+      item.className = "exercise-item";
+      item.id = `nav-${ex.id}`;
+
+      const nameSpan = document.createElement("span");
+      nameSpan.textContent = ex.title;
+
+      const badgeSpan = document.createElement("span");
+      badgeSpan.className = "ex-badge";
+      badgeSpan.textContent = ex.badge || "Exam";
+
+      item.appendChild(nameSpan);
+      item.appendChild(badgeSpan);
+
+      item.addEventListener("click", () => {
+        loadExercise(mIdx, eIdx, "exam");
+      });
+
+      group.appendChild(item);
+    });
+
+    examContainer.appendChild(group);
+  });
+}
+
+// =============================================================================
 // Load Exercise
 // =============================================================================
-function loadExercise(mIdx, eIdx, isBeginner = true) {
-  isBeginnerMode = isBeginner;
+function loadExercise(mIdx, eIdx, mode = "beginner") {
+  if (typeof mode === "boolean") {
+    currentMode = mode ? "beginner" : "curriculum";
+    isBeginnerMode = mode;
+  } else {
+    currentMode = mode;
+    isBeginnerMode = mode === "beginner";
+  }
   currentModuleIndex = mIdx;
   currentExerciseIndex = eIdx;
 
-  const currentModuleList = isBeginner ? BEGINNER_MODULES : LAB_MODULES;
-  const currentMod = currentModuleList[mIdx];
-  const currentEx = currentMod.exercises[eIdx];
+  const currentModuleList = getCurrentModuleList();
+  const currentMod = currentModuleList[mIdx] || currentModuleList[0];
+  if (!currentMod) return;
+  const currentEx = currentMod.exercises[eIdx] || currentMod.exercises[0];
+  if (!currentEx) return;
 
   // Update Breadcrumbs
   crumbModule.textContent = currentMod.name;
@@ -221,7 +323,7 @@ function loadExercise(mIdx, eIdx, isBeginner = true) {
 
   // Update Theory Panel
   theoryTitle.textContent = currentEx.title;
-  theoryBadge.textContent = currentEx.badge || (isBeginner ? "101" : "Lab");
+  theoryBadge.textContent = currentEx.badge || (currentMode === "exam" ? "Exam" : (isBeginnerMode ? "101" : "Lab"));
   theoryBody.innerHTML = currentEx.theory || "<p>ไม่มีคำอธิบายเพิ่มเติม</p>";
 
   // Update Active Item in Sidebar
@@ -241,10 +343,8 @@ function loadExercise(mIdx, eIdx, isBeginner = true) {
   }
 
   // Load default SQL into editor
-  sqlEditor.value = currentEx.defaultSql || "";
-  if (typeof updateLineNumbers === "function") {
-    updateLineNumbers();
-  }
+  setEditorValue(currentEx.defaultSql || "");
+  clearEditorErrors();
 
   // Reset result viewer state
   resultStatusBadge.textContent = "พร้อมทำงาน";
@@ -278,7 +378,7 @@ function executeSql() {
     return;
   }
 
-  const query = sqlEditor.value.trim();
+  const query = getEditorValue().trim();
   if (!query) {
     resultContainer.innerHTML = `
       <div class="empty-state">
@@ -296,6 +396,9 @@ function executeSql() {
     const duration = (endTime - startTime).toFixed(1);
 
     resultExecTime.textContent = `${duration} ms`;
+    clearEditorErrors();
+
+    let totalReturnedRows = 0;
 
     if (!results || results.length === 0) {
       resultStatusBadge.textContent = "สำเร็จ (Success)";
@@ -315,8 +418,9 @@ function executeSql() {
       `;
     } else {
       const lastResult = results[results.length - 1];
-      const rows = lastResult.values;
-      const columns = lastResult.columns;
+      const rows = lastResult.values || [];
+      const columns = lastResult.columns || [];
+      totalReturnedRows = rows.length;
 
       resultStatusBadge.textContent = "สำเร็จ (Success)";
       resultStatusBadge.style.color = "var(--accent-emerald)";
@@ -326,12 +430,31 @@ function executeSql() {
     }
 
     updateSchemaSidebar();
+    renderDatabaseTableViewer();
+
+    const subpaneQueryInfo = document.getElementById("subpane-query-info");
+    if (subpaneQueryInfo) {
+      if (!results || results.length === 0) {
+        subpaneQueryInfo.textContent = `สำเร็จ (${duration} ms)`;
+      } else {
+        subpaneQueryInfo.textContent = `${totalReturnedRows} แถว (${duration} ms)`;
+      }
+      subpaneQueryInfo.style.color = "var(--text-muted)";
+    }
   } catch (err) {
     const endTime = performance.now();
     resultExecTime.textContent = `${(endTime - startTime).toFixed(1)} ms`;
     resultStatusBadge.textContent = "ผิดพลาด (Error)";
     resultStatusBadge.style.color = "var(--accent-rose)";
     resultRowsCount.textContent = "-";
+
+    const subpaneQueryInfo = document.getElementById("subpane-query-info");
+    if (subpaneQueryInfo) {
+      subpaneQueryInfo.textContent = `เกิดข้อผิดพลาด (${(endTime - startTime).toFixed(1)} ms)`;
+      subpaneQueryInfo.style.color = "var(--accent-rose)";
+    }
+
+    setEditorError(err.message, query);
 
     resultContainer.innerHTML = `
       <div class="error-banner">
@@ -426,18 +549,31 @@ function updateSchemaSidebar() {
 
       const head = document.createElement("div");
       head.className = "schema-table-head";
-      head.title = `คลิกเพื่อสร้างคำสั่ง SELECT * FROM ${tableName}`;
+      head.title = `คลิกเพื่อเปิดดูข้อมูลในตาราง ${tableName}`;
       head.innerHTML = `
-        <strong>${escapeHtml(tableName)}</strong>
-        <span class="schema-badge">${rowCount} แถว</span>
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+          <div>
+            <strong>${escapeHtml(tableName)}</strong>
+            <span class="schema-badge">${rowCount} แถว</span>
+          </div>
+          <div style="display: flex; gap: 4px;">
+            <button class="tool-btn schema-view-btn" style="padding: 2px 6px; font-size: 0.68rem; background: rgba(56, 189, 248, 0.2); color: #38bdf8;" title="เปิดดูตารางข้อมูล">ดูข้อมูล</button>
+            <button class="tool-btn schema-select-btn" style="padding: 2px 6px; font-size: 0.68rem;" title="ใส่คำสั่ง SELECT">SELECT</button>
+          </div>
+        </div>
       `;
 
-      head.addEventListener("click", () => {
-        sqlEditor.value = `SELECT * FROM "${tableName}" LIMIT 50;`;
-        if (typeof updateLineNumbers === "function") {
-          updateLineNumbers();
+      head.addEventListener("click", (e) => {
+        if (e.target.classList.contains("schema-select-btn")) {
+          e.stopPropagation();
+          setEditorValue(`SELECT * FROM "${tableName}" LIMIT 50;`);
+          executeSql();
+        } else {
+          if (currentResultView !== "dual") {
+            switchResultView("db");
+          }
+          renderDatabaseTableViewer(tableName);
         }
-        executeSql();
       });
 
       const colsList = document.createElement("div");
@@ -463,6 +599,551 @@ function updateSchemaSidebar() {
 }
 
 // =============================================================================
+// Multi-Tabs System (VS Code Style Tabs)
+// =============================================================================
+let editorTabs = [
+  { id: "tab-1", title: "test.sql", content: "" }
+];
+let activeTabId = "tab-1";
+let tabSequence = 1;
+
+function renderEditorTabs() {
+  const tabsList = document.getElementById("editor-tabs-list");
+  if (!tabsList) return;
+  tabsList.innerHTML = "";
+
+  editorTabs.forEach((tab) => {
+    const tabEl = document.createElement("div");
+    tabEl.className = `editor-tab-item ${tab.id === activeTabId ? "active" : ""}`;
+    tabEl.dataset.tabId = tab.id;
+
+    tabEl.innerHTML = `
+      <span class="tab-icon">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+      </span>
+      <span class="tab-title">${escapeHtml(tab.title)}</span>
+      ${editorTabs.length > 1 ? `<button class="tab-close-btn" title="ปิดแท็บ" aria-label="ปิดแท็บ">&times;</button>` : ""}
+    `;
+
+    tabEl.addEventListener("click", (e) => {
+      if (e.target.classList.contains("tab-close-btn")) {
+        e.stopPropagation();
+        closeEditorTab(tab.id);
+      } else {
+        switchEditorTab(tab.id);
+      }
+    });
+
+    tabsList.appendChild(tabEl);
+  });
+}
+
+function switchEditorTab(targetId) {
+  if (targetId === activeTabId) return;
+
+  // Save current tab content
+  const currentTab = editorTabs.find((t) => t.id === activeTabId);
+  if (currentTab) {
+    currentTab.content = getEditorValue();
+  }
+
+  activeTabId = targetId;
+  const newTab = editorTabs.find((t) => t.id === targetId);
+  if (newTab) {
+    setEditorValue(newTab.content);
+    focusEditor();
+  }
+
+  renderEditorTabs();
+}
+
+function createNewEditorTab(initialContent = "", customTitle = null) {
+  // Save current tab content
+  const currentTab = editorTabs.find((t) => t.id === activeTabId);
+  if (currentTab) {
+    currentTab.content = getEditorValue();
+  }
+
+  tabSequence++;
+  const newId = `tab-${Date.now()}`;
+  const title = customTitle || `query${tabSequence}.sql`;
+
+  editorTabs.push({
+    id: newId,
+    title: title,
+    content: initialContent
+  });
+
+  activeTabId = newId;
+  setEditorValue(initialContent);
+  focusEditor();
+  renderEditorTabs();
+}
+
+function closeEditorTab(targetId) {
+  if (editorTabs.length <= 1) return;
+
+  const index = editorTabs.findIndex((t) => t.id === targetId);
+  if (index === -1) return;
+
+  editorTabs.splice(index, 1);
+
+  if (activeTabId === targetId) {
+    const nextTab = editorTabs[Math.max(0, index - 1)];
+    activeTabId = nextTab.id;
+    setEditorValue(nextTab.content);
+  }
+
+  renderEditorTabs();
+}
+
+// Bind Add Tab Button
+const btnAddTab = document.getElementById("btn-add-tab");
+if (btnAddTab) {
+  btnAddTab.addEventListener("click", () => {
+    createNewEditorTab();
+  });
+}
+
+// =============================================================================
+// Side-by-Side Split View (แยกดู 2 ฝั่ง ซ้าย-ขวา vs บน-ล่าง)
+// =============================================================================
+let isSideBySide = true;
+
+function initSplitView() {
+  const studioPanel = document.getElementById("studio-panel");
+  const btnToggleSplit = document.getElementById("btn-toggle-split");
+  const splitBtnIcon = document.getElementById("split-btn-icon");
+  const splitBtnLabel = document.getElementById("split-btn-label");
+  const resizerEditor = document.getElementById("resizer-editor");
+  const editorWrapper = document.getElementById("editor-wrapper");
+  const resultWrapper = document.getElementById("result-wrapper");
+
+  try {
+    const saved = localStorage.getItem("sqllab_split_mode");
+    if (saved !== null) {
+      isSideBySide = saved === "side-by-side";
+    } else {
+      isSideBySide = window.innerWidth >= 1000;
+    }
+  } catch (e) {}
+
+  function applySplitMode() {
+    if (!studioPanel) return;
+
+    if (isSideBySide && window.innerWidth >= 768) {
+      studioPanel.classList.add("side-by-side");
+      if (splitBtnIcon) splitBtnIcon.textContent = "⬒";
+      if (splitBtnLabel) splitBtnLabel.textContent = "บน-ล่าง";
+      if (btnToggleSplit) btnToggleSplit.title = "สลับเป็นมุมมอง บน-ล่าง";
+      if (editorWrapper) {
+        editorWrapper.style.height = "100%";
+        editorWrapper.style.width = "50%";
+      }
+      if (resultWrapper) {
+        resultWrapper.style.height = "100%";
+        resultWrapper.style.width = "50%";
+      }
+    } else {
+      studioPanel.classList.remove("side-by-side");
+      if (splitBtnIcon) splitBtnIcon.textContent = "◫";
+      if (splitBtnLabel) splitBtnLabel.textContent = "แยก 2 ฝั่ง";
+      if (btnToggleSplit) btnToggleSplit.title = "สลับเป็นมุมมอง แยกดู 2 ฝั่ง (ซ้าย-ขวา)";
+      if (editorWrapper) {
+        editorWrapper.style.width = "100%";
+        editorWrapper.style.height = "50%";
+      }
+      if (resultWrapper) {
+        resultWrapper.style.width = "100%";
+        resultWrapper.style.height = "50%";
+      }
+    }
+
+    if (window.SqlEditorManager) {
+      window.SqlEditorManager.layout();
+    }
+  }
+
+  if (btnToggleSplit) {
+    btnToggleSplit.addEventListener("click", () => {
+      isSideBySide = !isSideBySide;
+      try {
+        localStorage.setItem("sqllab_split_mode", isSideBySide ? "side-by-side" : "stacked");
+      } catch (e) {}
+      applySplitMode();
+    });
+  }
+
+  // Resizer dragging logic for both Horizontal and Vertical splits
+  if (resizerEditor && editorWrapper && resultWrapper) {
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let startEditorW = 0;
+    let startEditorH = 0;
+    let panelW = 0;
+    let panelH = 0;
+
+    resizerEditor.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      startEditorW = editorWrapper.offsetWidth;
+      startEditorH = editorWrapper.offsetHeight;
+      panelW = studioPanel.offsetWidth;
+      panelH = studioPanel.offsetHeight;
+
+      document.body.style.userSelect = "none";
+      document.body.style.cursor = isSideBySide ? "col-resize" : "row-resize";
+      resizerEditor.classList.add("resizing");
+
+      const onMouseMove = (ev) => {
+        if (!isDragging) return;
+        if (isSideBySide) {
+          const deltaX = ev.clientX - startX;
+          const newW = Math.max(220, Math.min(panelW - 220, startEditorW + deltaX));
+          const pct = (newW / panelW) * 100;
+          editorWrapper.style.width = `${pct}%`;
+          resultWrapper.style.width = `${100 - pct}%`;
+        } else {
+          const deltaY = ev.clientY - startY;
+          const newH = Math.max(120, Math.min(panelH - 120, startEditorH + deltaY));
+          const pct = (newH / panelH) * 100;
+          editorWrapper.style.height = `${pct}%`;
+          resultWrapper.style.height = `${100 - pct}%`;
+        }
+        if (window.SqlEditorManager) window.SqlEditorManager.layout();
+      };
+
+      const onMouseUp = () => {
+        isDragging = false;
+        document.body.style.userSelect = "";
+        document.body.style.cursor = "";
+        resizerEditor.classList.remove("resizing");
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseup", onMouseUp);
+        if (window.SqlEditorManager) window.SqlEditorManager.layout();
+      };
+
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseup", onMouseUp);
+    });
+
+    resizerEditor.addEventListener("dblclick", () => {
+      if (isSideBySide) {
+        editorWrapper.style.width = "50%";
+        resultWrapper.style.width = "50%";
+      } else {
+        editorWrapper.style.height = "50%";
+        resultWrapper.style.height = "50%";
+      }
+      if (window.SqlEditorManager) window.SqlEditorManager.layout();
+    });
+  }
+
+  applySplitMode();
+}
+
+// =============================================================================
+// Database Table Viewer (like lab.db SQLite Viewer)
+// =============================================================================
+let currentDbvTable = null;
+let currentDbvFilter = "";
+let currentDbvPage = 1;
+const DBV_PAGE_SIZE = 50;
+let currentResultView = "dual"; // 'dual', 'result', 'db'
+
+function switchResultView(viewType) {
+  currentResultView = viewType;
+  const tabDual = document.getElementById("tab-view-dual");
+  const tabResults = document.getElementById("tab-view-results");
+  const tabDb = document.getElementById("tab-view-db");
+  const splitArea = document.getElementById("result-split-area");
+  const resultContainer = document.getElementById("result-container");
+  const dbviewerContainer = document.getElementById("dbviewer-container");
+  const metaBar = document.getElementById("result-meta-bar");
+  const queryPane = document.getElementById("result-pane-query");
+  const dbPane = document.getElementById("result-pane-db");
+
+  if (tabDual) tabDual.classList.toggle("active", viewType === "dual");
+  if (tabResults) tabResults.classList.toggle("active", viewType === "result");
+  if (tabDb) tabDb.classList.toggle("active", viewType === "db");
+
+  if (resultContainer) resultContainer.style.display = "";
+  if (dbviewerContainer) dbviewerContainer.style.display = "";
+
+  if (viewType === "dual") {
+    if (splitArea) splitArea.className = "result-split-area view-dual";
+    let pct = 50;
+    try {
+      const savedPct = localStorage.getItem("sqllab_result_dual_split_pct");
+      if (savedPct) pct = parseFloat(savedPct);
+    } catch (e) {}
+    if (queryPane) {
+      queryPane.style.width = `${pct}%`;
+      queryPane.style.flex = "none";
+    }
+    if (dbPane) {
+      dbPane.style.width = `${100 - pct}%`;
+      dbPane.style.flex = "none";
+    }
+    if (metaBar) metaBar.style.display = "flex";
+    renderDatabaseTableViewer();
+  } else if (viewType === "result") {
+    if (splitArea) splitArea.className = "result-split-area view-query";
+    if (queryPane) {
+      queryPane.style.width = "100%";
+      queryPane.style.flex = "none";
+    }
+    if (dbPane) {
+      dbPane.style.width = "0%";
+      dbPane.style.flex = "none";
+    }
+    if (metaBar) metaBar.style.display = "flex";
+  } else if (viewType === "db") {
+    if (splitArea) splitArea.className = "result-split-area view-db";
+    if (queryPane) {
+      queryPane.style.width = "0%";
+      queryPane.style.flex = "none";
+    }
+    if (dbPane) {
+      dbPane.style.width = "100%";
+      dbPane.style.flex = "none";
+    }
+    if (metaBar) metaBar.style.display = "none";
+    renderDatabaseTableViewer();
+  }
+}
+
+function renderDatabaseTableViewer(targetTableName = null) {
+  if (!db) return;
+
+  const tablesTotalEl = document.getElementById("dbv-tables-total");
+  const rowsTotalEl = document.getElementById("dbv-rows-total");
+  const tablesListEl = document.getElementById("dbv-tables-list");
+  const tableCountBadge = document.getElementById("db-tables-count-badge");
+  const activeTableTitle = document.getElementById("dbv-active-table-name");
+  const activeTableRowsBadge = document.getElementById("dbv-active-table-rows");
+  const gridContainer = document.getElementById("dbv-grid-container");
+
+  try {
+    const res = db.exec("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name;");
+    const tables = (res && res[0] && res[0].values) ? res[0].values.map(r => r[0]) : [];
+
+    if (tablesTotalEl) tablesTotalEl.textContent = tables.length;
+    if (tableCountBadge) tableCountBadge.textContent = tables.length;
+
+    let grandTotalRows = 0;
+    const tableStats = [];
+
+    tables.forEach(t => {
+      let count = 0;
+      try {
+        const cRes = db.exec(`SELECT COUNT(*) FROM "${t}";`);
+        if (cRes && cRes[0] && cRes[0].values) count = cRes[0].values[0][0];
+      } catch (e) {}
+      grandTotalRows += count;
+      tableStats.push({ name: t, count: count });
+    });
+
+    if (rowsTotalEl) rowsTotalEl.textContent = grandTotalRows;
+
+    if (tables.length === 0) {
+      if (tablesListEl) tablesListEl.innerHTML = `<div style="color:var(--text-muted); font-size:0.75rem; padding:10px;">ยังไม่มีตารางใน lab.db</div>`;
+      if (activeTableTitle) activeTableTitle.textContent = "ไม่มีตาราง";
+      if (activeTableRowsBadge) activeTableRowsBadge.textContent = "0 rows";
+      if (gridContainer) gridContainer.innerHTML = `<div class="empty-state"><p>ยังไม่มีตารางในฐานข้อมูล ลองรันคำสั่ง CREATE TABLE ในหน้าต่างโค้ด</p></div>`;
+      return;
+    }
+
+    if (!targetTableName) {
+      if (!currentDbvTable || !tables.includes(currentDbvTable)) {
+        currentDbvTable = tables[0];
+      }
+    } else {
+      currentDbvTable = targetTableName;
+    }
+
+    // Render left tables list
+    if (tablesListEl) {
+      tablesListEl.innerHTML = "";
+      tableStats.forEach(st => {
+        const item = document.createElement("div");
+        item.className = `dbv-table-item ${st.name === currentDbvTable ? "active" : ""}`;
+        item.innerHTML = `
+          <span class="dbv-table-item-name">
+            <span style="opacity: 0.7;">#</span>
+            <span>${escapeHtml(st.name)}</span>
+          </span>
+          <span class="dbv-table-item-rows">${st.count} rows</span>
+        `;
+        item.addEventListener("click", () => {
+          currentDbvTable = st.name;
+          currentDbvPage = 1;
+          renderDatabaseTableViewer(st.name);
+        });
+        tablesListEl.appendChild(item);
+      });
+    }
+
+    // Render active table grid
+    const activeStat = tableStats.find(s => s.name === currentDbvTable) || { name: currentDbvTable, count: 0 };
+    if (activeTableTitle) activeTableTitle.textContent = currentDbvTable;
+    if (activeTableRowsBadge) activeTableRowsBadge.textContent = `${activeStat.count} rows`;
+
+    renderTableGrid(currentDbvTable);
+  } catch (err) {
+    console.error("renderDatabaseTableViewer error:", err);
+  }
+}
+
+function renderTableGrid(tableName) {
+  const gridContainer = document.getElementById("dbv-grid-container");
+  const footerText = document.getElementById("dbv-footer-text");
+  const pageInfo = document.getElementById("dbv-page-info");
+  const prevBtn = document.getElementById("dbv-prev-page");
+  const nextBtn = document.getElementById("dbv-next-page");
+
+  if (!gridContainer || !db) return;
+
+  try {
+    const dataRes = db.exec(`SELECT * FROM "${tableName}";`);
+    if (!dataRes || !dataRes.length || !dataRes[0].columns) {
+      gridContainer.innerHTML = `<div class="empty-state"><p>ตาราง "${escapeHtml(tableName)}" ไม่มีข้อมูล (0 rows)</p></div>`;
+      if (footerText) footerText.textContent = "0 rows";
+      if (pageInfo) pageInfo.textContent = "0 / 0";
+      if (prevBtn) prevBtn.disabled = true;
+      if (nextBtn) nextBtn.disabled = true;
+      return;
+    }
+
+    const columns = dataRes[0].columns;
+    let allRows = dataRes[0].values || [];
+
+    // Filter rows if search query exists
+    if (currentDbvFilter && currentDbvFilter.trim()) {
+      const q = currentDbvFilter.trim().toLowerCase();
+      allRows = allRows.filter(row => {
+        return row.some(cell => String(cell).toLowerCase().includes(q));
+      });
+    }
+
+    const totalRows = allRows.length;
+    const totalPages = Math.max(1, Math.ceil(totalRows / DBV_PAGE_SIZE));
+    if (currentDbvPage > totalPages) currentDbvPage = totalPages;
+
+    const startIdx = (currentDbvPage - 1) * DBV_PAGE_SIZE;
+    const pageRows = allRows.slice(startIdx, startIdx + DBV_PAGE_SIZE);
+
+    // Build Table HTML
+    let html = `<table class="sql-table"><thead><tr>`;
+    columns.forEach(col => {
+      html += `<th>${escapeHtml(col)}</th>`;
+    });
+    html += `</tr></thead><tbody>`;
+
+    if (pageRows.length === 0) {
+      html += `<tr><td colspan="${columns.length}" style="text-align:center; color:var(--text-muted); padding:30px;">ไม่พบข้อมูลที่ตรงกับคำค้นหา</td></tr>`;
+    } else {
+      pageRows.forEach(row => {
+        html += `<tr>`;
+        row.forEach(val => {
+          if (val === null || val === undefined) {
+            html += `<td class="null-val">NULL</td>`;
+          } else {
+            html += `<td>${escapeHtml(String(val))}</td>`;
+          }
+        });
+        html += `</tr>`;
+      });
+    }
+
+    html += `</tbody></table>`;
+    gridContainer.innerHTML = html;
+
+    if (footerText) footerText.textContent = `${totalRows} rows`;
+    if (pageInfo) pageInfo.textContent = `${currentDbvPage} / ${totalPages}`;
+    if (prevBtn) prevBtn.disabled = currentDbvPage <= 1;
+    if (nextBtn) nextBtn.disabled = currentDbvPage >= totalPages;
+  } catch (err) {
+    gridContainer.innerHTML = `<div class="error-banner">เกิดข้อผิดพลาดในการโหลดตาราง: ${escapeHtml(err.message)}</div>`;
+  }
+}
+
+function exportCurrentTableToCsv() {
+  if (!db || !currentDbvTable) return;
+  try {
+    const res = db.exec(`SELECT * FROM "${currentDbvTable}";`);
+    if (!res || !res.length) return;
+    const cols = res[0].columns;
+    const rows = res[0].values;
+    let csv = cols.map(c => `"${c}"`).join(",") + "\n";
+    rows.forEach(r => {
+      csv += r.map(v => (v === null ? '""' : `"${String(v).replace(/"/g, '""')}"`)).join(",") + "\n";
+    });
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${currentDbvTable}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch (e) {
+    alert("ไม่สามารถส่งออก CSV ได้: " + e.message);
+  }
+}
+
+// Bind Database Viewer Event Listeners
+const tabDualBtn = document.getElementById("tab-view-dual");
+const tabResultsBtn = document.getElementById("tab-view-results");
+const tabDbBtn = document.getElementById("tab-view-db");
+if (tabDualBtn) tabDualBtn.addEventListener("click", () => switchResultView("dual"));
+if (tabResultsBtn) tabResultsBtn.addEventListener("click", () => switchResultView("result"));
+if (tabDbBtn) tabDbBtn.addEventListener("click", () => switchResultView("db"));
+
+const dbvFilterInput = document.getElementById("dbv-filter-input");
+if (dbvFilterInput) {
+  dbvFilterInput.addEventListener("input", (e) => {
+    currentDbvFilter = e.target.value;
+    currentDbvPage = 1;
+    renderTableGrid(currentDbvTable);
+  });
+}
+
+const dbvRefreshBtn = document.getElementById("dbv-btn-refresh");
+if (dbvRefreshBtn) {
+  dbvRefreshBtn.addEventListener("click", () => {
+    renderDatabaseTableViewer(currentDbvTable);
+  });
+}
+
+const dbvExportCsvBtn = document.getElementById("dbv-btn-export-csv");
+if (dbvExportCsvBtn) {
+  dbvExportCsvBtn.addEventListener("click", () => {
+    exportCurrentTableToCsv();
+  });
+}
+
+const dbvPrevPageBtn = document.getElementById("dbv-prev-page");
+const dbvNextPageBtn = document.getElementById("dbv-next-page");
+if (dbvPrevPageBtn) {
+  dbvPrevPageBtn.addEventListener("click", () => {
+    if (currentDbvPage > 1) {
+      currentDbvPage--;
+      renderTableGrid(currentDbvTable);
+    }
+  });
+}
+if (dbvNextPageBtn) {
+  dbvNextPageBtn.addEventListener("click", () => {
+    currentDbvPage++;
+    renderTableGrid(currentDbvTable);
+  });
+}
+
+// =============================================================================
 // Helper Functions & Event Listeners
 // =============================================================================
 function escapeHtml(str) {
@@ -475,39 +1156,21 @@ function escapeHtml(str) {
 }
 
 // Tab Switching in Sidebar
-if (tabBeginner) {
-  tabBeginner.addEventListener("click", () => {
-    tabBeginner.classList.add("active");
-    tabCurriculum.classList.remove("active");
-    tabSchema.classList.remove("active");
-    beginnerContainer.style.display = "block";
-    curriculumContainer.style.display = "none";
-    schemaContainer.style.display = "none";
+function switchSidebarTab(target) {
+  [tabExam, tabBeginner, tabCurriculum, tabSchema].forEach(t => {
+    if (t) t.classList.toggle("active", t === target);
   });
+  if (examContainer) examContainer.style.display = target === tabExam ? "block" : "none";
+  if (beginnerContainer) beginnerContainer.style.display = target === tabBeginner ? "block" : "none";
+  if (curriculumContainer) curriculumContainer.style.display = target === tabCurriculum ? "block" : "none";
+  if (schemaContainer) schemaContainer.style.display = target === tabSchema ? "block" : "none";
+  if (target === tabSchema) updateSchemaSidebar();
 }
 
-if (tabCurriculum) {
-  tabCurriculum.addEventListener("click", () => {
-    tabCurriculum.classList.add("active");
-    if (tabBeginner) tabBeginner.classList.remove("active");
-    tabSchema.classList.remove("active");
-    if (beginnerContainer) beginnerContainer.style.display = "none";
-    curriculumContainer.style.display = "block";
-    schemaContainer.style.display = "none";
-  });
-}
-
-if (tabSchema) {
-  tabSchema.addEventListener("click", () => {
-    tabSchema.classList.add("active");
-    if (tabBeginner) tabBeginner.classList.remove("active");
-    tabCurriculum.classList.remove("active");
-    if (beginnerContainer) beginnerContainer.style.display = "none";
-    curriculumContainer.style.display = "none";
-    schemaContainer.style.display = "block";
-    updateSchemaSidebar();
-  });
-}
+if (tabExam) tabExam.addEventListener("click", () => switchSidebarTab(tabExam));
+if (tabBeginner) tabBeginner.addEventListener("click", () => switchSidebarTab(tabBeginner));
+if (tabCurriculum) tabCurriculum.addEventListener("click", () => switchSidebarTab(tabCurriculum));
+if (tabSchema) tabSchema.addEventListener("click", () => switchSidebarTab(tabSchema));
 
 // Run Button
 btnRunSql.addEventListener("click", executeSql);
@@ -537,10 +1200,11 @@ btnResetDb.addEventListener("click", () => {
 
 // Reload Clean Slate for Current Exercise
 btnLoadCleanSlate.addEventListener("click", () => {
-  const currentList = isBeginnerMode ? BEGINNER_MODULES : LAB_MODULES;
-  const currentEx = currentList[currentModuleIndex].exercises[currentExerciseIndex];
-  sqlEditor.value = currentEx.defaultSql || "";
-  updateLineNumbers();
+  const currentList = getCurrentModuleList();
+  const currentEx = currentList[currentModuleIndex] && currentList[currentModuleIndex].exercises[currentExerciseIndex];
+  if (currentEx) {
+    setEditorValue(currentEx.defaultSql || "");
+  }
   resultContainer.innerHTML = `
     <div class="empty-state">
       <p>โหลดโค้ดตั้งต้นใหม่แล้ว กด <b>"เรียกให้ทำงาน (Run)"</b> เพื่อทดสอบ</p>
@@ -550,7 +1214,7 @@ btnLoadCleanSlate.addEventListener("click", () => {
 
 // Copy Code
 btnCopyCode.addEventListener("click", () => {
-  navigator.clipboard.writeText(sqlEditor.value).then(() => {
+  navigator.clipboard.writeText(getEditorValue()).then(() => {
     const originalText = btnCopyCode.textContent;
     btnCopyCode.textContent = "คัดลอกแล้ว! ✅";
     setTimeout(() => {
@@ -561,16 +1225,19 @@ btnCopyCode.addEventListener("click", () => {
 
 // Clear Editor
 btnClearCode.addEventListener("click", () => {
-  sqlEditor.value = "";
-  sqlEditor.focus();
+  setEditorValue("");
+  focusEditor();
   hideAutocomplete();
-  updateLineNumbers();
 });
 
 // Format SQL Button
 if (btnFormatSql) {
   btnFormatSql.addEventListener("click", () => {
-    formatSqlCode();
+    if (window.SqlEditorManager && window.SqlEditorManager.isMonacoActive()) {
+      window.SqlEditorManager.formatCode();
+    } else {
+      formatSqlCode();
+    }
   });
 }
 
@@ -1791,6 +2458,97 @@ function initResizablePanels() {
     }
   });
 
+  // 4. Result Subpane Dual Resizer (Horizontal between Query Result & lab.db Viewer)
+  const resizerResultDual = document.getElementById("resizer-result-dual");
+  const splitArea = document.getElementById("result-split-area");
+  const queryPane = document.getElementById("result-pane-query");
+  const dbPane = document.getElementById("result-pane-db");
+
+  if (resizerResultDual && splitArea && queryPane && dbPane) {
+    let isDraggingDual = false;
+
+    function startDragDual(clientX) {
+      if (currentResultView !== "dual") return;
+      isDraggingDual = true;
+      document.body.classList.add("resizing-horizontal");
+      resizerResultDual.classList.add("resizing");
+
+      window.addEventListener("mousemove", onMoveDual);
+      window.addEventListener("mouseup", onEndDual);
+      window.addEventListener("touchmove", onTouchMoveDual, { passive: false });
+      window.addEventListener("touchend", onEndDual);
+    }
+
+    function doResizeDual(clientX) {
+      if (!isDraggingDual) return;
+      const rect = splitArea.getBoundingClientRect();
+      if (rect.width <= 0) return;
+      const offset = clientX - rect.left;
+      let pct = (offset / rect.width) * 100;
+      if (pct < 15) pct = 15;
+      if (pct > 85) pct = 85;
+
+      queryPane.style.width = `${pct}%`;
+      queryPane.style.flex = "none";
+      dbPane.style.width = `${100 - pct}%`;
+      dbPane.style.flex = "none";
+    }
+
+    function onMoveDual(e) {
+      doResizeDual(e.clientX);
+    }
+
+    function onTouchMoveDual(e) {
+      if (!isDraggingDual) return;
+      if (e.cancelable) e.preventDefault();
+      if (e.touches && e.touches[0]) {
+        doResizeDual(e.touches[0].clientX);
+      }
+    }
+
+    function onEndDual() {
+      if (!isDraggingDual) return;
+      isDraggingDual = false;
+      document.body.classList.remove("resizing-horizontal");
+      resizerResultDual.classList.remove("resizing");
+
+      window.removeEventListener("mousemove", onMoveDual);
+      window.removeEventListener("mouseup", onEndDual);
+      window.removeEventListener("touchmove", onTouchMoveDual);
+      window.removeEventListener("touchend", onEndDual);
+
+      const rect = splitArea.getBoundingClientRect();
+      const qRect = queryPane.getBoundingClientRect();
+      if (rect.width > 0) {
+        const pct = Math.round((qRect.width / rect.width) * 100);
+        try {
+          localStorage.setItem("sqllab_result_dual_split_pct", String(pct));
+        } catch (e) {}
+      }
+    }
+
+    resizerResultDual.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      startDragDual(e.clientX);
+    });
+
+    resizerResultDual.addEventListener("touchstart", (e) => {
+      if (e.touches && e.touches[0]) {
+        startDragDual(e.touches[0].clientX);
+      }
+    }, { passive: true });
+
+    resizerResultDual.addEventListener("dblclick", () => {
+      queryPane.style.width = "50%";
+      queryPane.style.flex = "none";
+      dbPane.style.width = "50%";
+      dbPane.style.flex = "none";
+      try {
+        localStorage.removeItem("sqllab_result_dual_split_pct");
+      } catch (e) {}
+    });
+  }
+
   // On window resize: handle responsive constraints gracefully
   window.addEventListener("resize", () => {
     if (window.innerWidth < 1024) {
@@ -1826,18 +2584,45 @@ function initResizablePanels() {
 }
 
 // Start App
+renderExamModules();
 renderBeginnerModules();
 renderCurriculum();
-loadExercise(0, 0, true);
+renderEditorTabs();
+initSplitView();
+switchSidebarTab(tabExam);
+loadExercise(0, 0, "exam");
 updateLineNumbers();
 initResponsiveMobile();
 initResizablePanels();
+switchResultView("dual");
 initDatabaseEngine();
 
-// Check for prefilled query passed from Wiki Web Reader
+// Initialize Monaco Editor with VS Code / Antigravity capabilities
+if (window.SqlEditorManager) {
+  window.SqlEditorManager.setDbGetter(() => db);
+  window.SqlEditorManager.init((success) => {
+    if (success) {
+      const currentList = getCurrentModuleList();
+      const currentEx = currentList[currentModuleIndex] && currentList[currentModuleIndex].exercises[currentExerciseIndex];
+      if (currentEx && currentEx.defaultSql) {
+        setEditorValue(currentEx.defaultSql);
+      }
+      try {
+        const prefillQuery = localStorage.getItem('sqllab_prefill_query');
+        if (prefillQuery) {
+          setEditorValue(prefillQuery);
+          localStorage.removeItem('sqllab_prefill_query');
+          showToast('📥 นำเข้าคำสั่ง SQL จากสารานุกรม Wiki เรียบร้อยแล้ว!');
+        }
+      } catch (e) {}
+    }
+  });
+}
+
+// Fallback prefill check if Monaco is not used
 try {
   const prefillQuery = localStorage.getItem('sqllab_prefill_query');
-  if (prefillQuery && sqlEditor) {
+  if (prefillQuery && sqlEditor && (!window.SqlEditorManager || !window.SqlEditorManager.isMonacoActive())) {
     sqlEditor.value = prefillQuery;
     localStorage.removeItem('sqllab_prefill_query');
     updateLineNumbers();

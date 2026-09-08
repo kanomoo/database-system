@@ -1162,3 +1162,485 @@ SELECT * FROM View_OrderSummary ORDER BY NetAmount DESC;`
     ]
   }
 ];
+
+// =============================================================================
+// 🎯 ชุดข้อสอบจำลองเก็บคะแนนเดี่ยวในชั้นเรียน (In-Class Exam Simulator)
+// =============================================================================
+const EXAM_MODULES = [
+  {
+    id: "exam-mod-1",
+    name: "🏫 ชุดที่ 1: ระบบลงทะเบียนเรียนมหาวิทยาลัย (University Enrollment)",
+    desc: "ตาราง ADVISORS, STUDENTS, COURSES, ENROLLMENTS (หั่นจากตารางรวมที่มี Anomalies)",
+    exercises: [
+      {
+        id: "exam-1-1",
+        title: "1.1 กรองวิชา 3 หน่วยกิต เรียงจาก A-Z",
+        badge: "Filter & Sort",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 1.1: ค้นหารายวิชา</h4>
+          <p><b>สถานการณ์:</b> ฝ่ายทะเบียนต้องการตรวจสอบรายวิชาในระบบ</p>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงเขียนคำสั่ง SQL แสดงรายชื่อวิชา (<code>CourseName</code>) และจำนวนหน่วยกิต (<code>Credits</code>) ที่มีจำนวน 3 หน่วยกิต โดยเรียงลำดับตามชื่อวิชาจาก A ถึง Z
+          </div>
+          <p>💡 <i>คำใบ้:</i> ใช้ <code>WHERE Credits = 3</code> ร่วมกับ <code>ORDER BY CourseName ASC;</code></p>
+        `,
+        cleanSlateSql: `DROP TABLE IF EXISTS ENROLLMENTS;
+DROP TABLE IF EXISTS STUDENTS;
+DROP TABLE IF EXISTS COURSES;
+DROP TABLE IF EXISTS ADVISORS;
+
+CREATE TABLE ADVISORS (
+    AdvisorID VARCHAR(10) PRIMARY KEY,
+    AdvisorName VARCHAR(50),
+    AdvisorOffice VARCHAR(20)
+);
+
+CREATE TABLE STUDENTS (
+    StudentID VARCHAR(10) PRIMARY KEY,
+    StudentName VARCHAR(50),
+    Major VARCHAR(30),
+    AdvisorID VARCHAR(10),
+    FOREIGN KEY (AdvisorID) REFERENCES ADVISORS(AdvisorID)
+);
+
+CREATE TABLE COURSES (
+    CourseID VARCHAR(10) PRIMARY KEY,
+    CourseName VARCHAR(50),
+    Credits INT
+);
+
+CREATE TABLE ENROLLMENTS (
+    StudentID VARCHAR(10),
+    CourseID VARCHAR(10),
+    Semester VARCHAR(10),
+    Grade VARCHAR(2),
+    PRIMARY KEY (StudentID, CourseID, Semester),
+    FOREIGN KEY (StudentID) REFERENCES STUDENTS(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES COURSES(CourseID)
+);
+
+INSERT INTO ADVISORS VALUES 
+('ADV01', 'ศ.ดร.สมชาย ใจดี', 'SC401'),
+('ADV02', 'รศ.ดร.วิภาวรรณ นาวิน', 'SC405'),
+('ADV03', 'ผศ.บุญส่ง ทองคำ', 'SC410');
+
+INSERT INTO STUDENTS VALUES 
+('S6801', 'นายกิตติกร เก่งกล้า', 'Computer Science', 'ADV01'),
+('S6802', 'นางสาวพิมพ์ใจ มีสุข', 'Computer Science', 'ADV01'),
+('S6803', 'นายภาณุเดช มั่นคง', 'Information Technology', 'ADV02'),
+('S6804', 'นางสาวณิชา รัตนพล', 'Data Science', 'ADV02');
+
+INSERT INTO COURSES VALUES 
+('CS101', 'Introduction to Programming', 3),
+('CS201', 'Data Structures and Algorithms', 4),
+('CS202', 'Database Systems', 3),
+('CS301', 'Operating Systems', 3),
+('GEN101', 'English for Communication', 2);
+
+INSERT INTO ENROLLMENTS VALUES 
+('S6801', 'CS101', '1/2569', 'A'),
+('S6801', 'CS202', '1/2569', 'B+'),
+('S6801', 'GEN101', '1/2569', 'A'),
+('S6802', 'CS101', '1/2569', 'B'),
+('S6802', 'CS202', '1/2569', 'A'),
+('S6803', 'CS202', '1/2569', 'C+'),
+('S6803', 'CS201', '1/2569', 'B');`,
+        defaultSql: `-- เตรียมฐานข้อมูลและข้อมูลตัวอย่าง
+DROP TABLE IF EXISTS ENROLLMENTS;
+DROP TABLE IF EXISTS STUDENTS;
+DROP TABLE IF EXISTS COURSES;
+DROP TABLE IF EXISTS ADVISORS;
+
+CREATE TABLE ADVISORS (AdvisorID VARCHAR(10) PRIMARY KEY, AdvisorName VARCHAR(50), AdvisorOffice VARCHAR(20));
+CREATE TABLE STUDENTS (StudentID VARCHAR(10) PRIMARY KEY, StudentName VARCHAR(50), Major VARCHAR(30), AdvisorID VARCHAR(10));
+CREATE TABLE COURSES (CourseID VARCHAR(10) PRIMARY KEY, CourseName VARCHAR(50), Credits INT);
+CREATE TABLE ENROLLMENTS (StudentID VARCHAR(10), CourseID VARCHAR(10), Semester VARCHAR(10), Grade VARCHAR(2), PRIMARY KEY (StudentID, CourseID, Semester));
+
+INSERT INTO ADVISORS VALUES ('ADV01', 'ศ.ดร.สมชาย ใจดี', 'SC401'), ('ADV02', 'รศ.ดร.วิภาวรรณ นาวิน', 'SC405'), ('ADV03', 'ผศ.บุญส่ง ทองคำ', 'SC410');
+INSERT INTO STUDENTS VALUES ('S6801', 'นายกิตติกร เก่งกล้า', 'Computer Science', 'ADV01'), ('S6802', 'นางสาวพิมพ์ใจ มีสุข', 'Computer Science', 'ADV01'), ('S6803', 'นายภาณุเดช มั่นคง', 'Information Technology', 'ADV02'), ('S6804', 'นางสาวณิชา รัตนพล', 'Data Science', 'ADV02');
+INSERT INTO COURSES VALUES ('CS101', 'Introduction to Programming', 3), ('CS201', 'Data Structures and Algorithms', 4), ('CS202', 'Database Systems', 3), ('CS301', 'Operating Systems', 3), ('GEN101', 'English for Communication', 2);
+INSERT INTO ENROLLMENTS VALUES ('S6801', 'CS101', '1/2569', 'A'), ('S6801', 'CS202', '1/2569', 'B+'), ('S6801', 'GEN101', '1/2569', 'A'), ('S6802', 'CS101', '1/2569', 'B'), ('S6802', 'CS202', '1/2569', 'A'), ('S6803', 'CS202', '1/2569', 'C+'), ('S6803', 'CS201', '1/2569', 'B');
+
+-- ✍️ เขียนคำสั่ง SQL ของคุณด้านล่าง:
+SELECT CourseName, Credits
+FROM COURSES
+WHERE Credits = 3
+ORDER BY CourseName ASC;`
+      },
+      {
+        id: "exam-1-2",
+        title: "1.2 นักศึกษาที่ได้เกรด A ในภาคเรียน 1/2569 (JOIN 3 ตาราง)",
+        badge: "Multi-Table JOIN",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 1.2: เชื่อมโยง 3 ตาราง</h4>
+          <p><b>สถานการณ์:</b> ตรวจสอบนักศึกษาที่ได้ผลการเรียนระดับยอดเยี่ยม</p>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงแสดงรหัสนักศึกษา (<code>StudentID</code>), ชื่อนักศึกษา (<code>StudentName</code>), ชื่อวิชา (<code>CourseName</code>), และเกรด (<code>Grade</code>) เฉพาะในภาคการศึกษา <code>'1/2569'</code> สำหรับผู้ที่ได้เกรด <code>'A'</code>
+          </div>
+          <p>💡 <i>คำใบ้:</i> เชื่อม <code>ENROLLMENTS</code> เข้ากับ <code>STUDENTS</code> และ <code>COURSES</code></p>
+        `,
+        defaultSql: `-- คำสั่ง Query ตรวจสอบเกรด A
+SELECT s.StudentID, s.StudentName, c.CourseName, e.Grade
+FROM ENROLLMENTS e
+JOIN STUDENTS s ON e.StudentID = s.StudentID
+JOIN COURSES c ON e.CourseID = c.CourseID
+WHERE e.Semester = '1/2569' AND e.Grade = 'A';`
+      },
+      {
+        id: "exam-1-3",
+        title: "1.3 สรุปจำนวนวิชาและหน่วยกิตรวม (GROUP BY & HAVING)",
+        badge: "GROUP BY & HAVING",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 1.3: สรุปข้อมูลรายคน</h4>
+          <p><b>สถานการณ์:</b> ฝ่ายทะเบียนต้องการหานักศึกษาที่ลงทะเบียนตั้งแต่ 3 วิชาขึ้นไป</p>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงแสดงรหัสนักศึกษา, ชื่อนักศึกษา, จำนวนวิชาที่ลงเรียนทั้งหมด (<code>TotalCourses</code>), และผลรวมหน่วยกิต (<code>TotalCredits</code>) โดยแสดงเฉพาะนักศึกษาที่ลงทะเบียนเรียนตั้งแต่ 3 วิชาขึ้นไป
+          </div>
+          <p>💡 <i>คำใบ้:</i> ใช้ <code>GROUP BY s.StudentID, s.StudentName</code> และ <code>HAVING COUNT(e.CourseID) >= 3;</code></p>
+        `,
+        defaultSql: `SELECT s.StudentID, s.StudentName, 
+       COUNT(e.CourseID) AS TotalCourses, 
+       SUM(c.Credits) AS TotalCredits
+FROM STUDENTS s
+JOIN ENROLLMENTS e ON s.StudentID = e.StudentID
+JOIN COURSES c ON e.CourseID = c.CourseID
+GROUP BY s.StudentID, s.StudentName
+HAVING COUNT(e.CourseID) >= 3;`
+      },
+      {
+        id: "exam-1-4",
+        title: "1.4 อาจารย์ที่ปรึกษาที่ยังไม่มีนักศึกษาในสังกัด (Anti-Join)",
+        badge: "Subquery / Anti-Join",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 1.4: ค้นหาความสัมพันธ์ที่ว่างเปล่า</h4>
+          <p><b>สถานการณ์:</b> ตรวจสอบอาจารย์ท่านใดที่ยังไม่ได้รับมอบหมายนักศึกษาที่ปรึกษา</p>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงหารายชื่ออาจารย์ที่ปรึกษา (รหัส, ชื่ออาจารย์, ห้องทำงาน) ที่<b>ยังไม่มีนักศึกษาคนใดในระบบสังกัดเป็นที่ปรึกษาเลย</b>
+          </div>
+          <p>💡 <i>คำใบ้:</i> ใช้ <code>LEFT JOIN ... WHERE s.StudentID IS NULL</code> หรือ <code>WHERE AdvisorID NOT IN (...)</code></p>
+        `,
+        defaultSql: `SELECT a.AdvisorID, a.AdvisorName, a.AdvisorOffice
+FROM ADVISORS a
+LEFT JOIN STUDENTS s ON a.AdvisorID = s.AdvisorID
+WHERE s.StudentID IS NULL;`
+      }
+    ]
+  },
+  {
+    id: "exam-mod-2",
+    name: "🛒 ชุดที่ 2: ระบบสั่งซื้อสินค้าและใบเสร็จ (E-Commerce Invoicing)",
+    desc: "ตาราง CUSTOMERS, INVOICES, PRODUCTS, INVOICE_ITEMS (แก้ปัญหา 2NF/3NF)",
+    exercises: [
+      {
+        id: "exam-2-1",
+        title: "2.1 คำนวณยอดเงินแต่ละรายการในใบเสร็จ INV-1001",
+        badge: "Calculation",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 2.1: คำนวณราคา x จำนวน</h4>
+          <p><b>สถานการณ์:</b> ลูกค้าต้องการดูรายละเอียดสินค้าในบิล INV-1001</p>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงแสดงเลขที่ใบเสร็จ, ชื่อสินค้า, ราคาต่อหน่วย, จำนวนชิ้น, และยอดรวมแต่ละรายการ (<code>UnitPrice * Quantity</code> AS ItemTotal) สำหรับใบเสร็จ <code>'INV-1001'</code>
+          </div>
+        `,
+        defaultSql: `-- เตรียมโครงสร้างตารางและข้อมูล E-Commerce
+DROP TABLE IF EXISTS INVOICE_ITEMS;
+DROP TABLE IF EXISTS INVOICES;
+DROP TABLE IF EXISTS PRODUCTS;
+DROP TABLE IF EXISTS CUSTOMERS;
+
+CREATE TABLE CUSTOMERS (CustomerID VARCHAR(10) PRIMARY KEY, CustomerName VARCHAR(50), CustomerCity VARCHAR(30));
+CREATE TABLE INVOICES (InvoiceNo VARCHAR(10) PRIMARY KEY, InvoiceDate DATE, CustomerID VARCHAR(10));
+CREATE TABLE PRODUCTS (ProductID VARCHAR(10) PRIMARY KEY, ProductName VARCHAR(50), Category VARCHAR(30), UnitPrice DECIMAL(10,2));
+CREATE TABLE INVOICE_ITEMS (InvoiceNo VARCHAR(10), ProductID VARCHAR(10), Quantity INT, PRIMARY KEY (InvoiceNo, ProductID));
+
+INSERT INTO CUSTOMERS VALUES ('C01', 'สมชาย การค้า', 'Bangkok'), ('C02', 'วิภาดา ดีไซน์', 'Chiang Mai'), ('C03', 'อนุชา มาร์เก็ต', 'Phuket'), ('C04', 'นันทนา สโตร์', 'Bangkok');
+INSERT INTO INVOICES VALUES ('INV-1001', '2026-09-01', 'C01'), ('INV-1002', '2026-09-02', 'C02'), ('INV-1003', '2026-09-05', 'C01');
+INSERT INTO PRODUCTS VALUES ('P01', 'Wireless Mouse', 'Electronics', 650.00), ('P02', 'Mechanical Keyboard', 'Electronics', 2490.00), ('P03', 'Coffee Mug Ceramic', 'Home & Living', 180.00), ('P04', 'Ergonomic Desk Chair', 'Furniture', 4500.00);
+INSERT INTO INVOICE_ITEMS VALUES ('INV-1001', 'P01', 2), ('INV-1001', 'P02', 1), ('INV-1002', 'P03', 4), ('INV-1003', 'P04', 1);
+
+-- ✍️ เขียนคำสั่ง SQL คำนวณยอดเงินของบิล INV-1001
+SELECT ii.InvoiceNo, p.ProductName, p.UnitPrice, ii.Quantity, 
+       (p.UnitPrice * ii.Quantity) AS ItemTotal
+FROM INVOICE_ITEMS ii
+JOIN PRODUCTS p ON ii.ProductID = p.ProductID
+WHERE ii.InvoiceNo = 'INV-1001';`
+      },
+      {
+        id: "exam-2-2",
+        title: "2.2 ยอดสั่งซื้อรวมสุทธิของลูกค้าแต่ละคน",
+        badge: "Aggregation",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 2.2: หายอดขายรวมต่อลูกค้า</h4>
+          <p><b>สถานการณ์:</b> ฝ่ายขายต้องการจัดอันดับลูกค้าชั้นยอด (Top Spender)</p>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงแสดงรหัสลูกค้า, ชื่อลูกค้า, และยอดเงินรวมสุทธิที่ซื้อทั้งหมด (<code>TotalSpent</code>) โดยเรียงลำดับจากลูกค้าที่มียอดซื้อสูงสุดลงมา
+          </div>
+        `,
+        defaultSql: `SELECT c.CustomerID, c.CustomerName, 
+       SUM(p.UnitPrice * ii.Quantity) AS TotalSpent
+FROM CUSTOMERS c
+JOIN INVOICES i ON c.CustomerID = i.CustomerID
+JOIN INVOICE_ITEMS ii ON i.InvoiceNo = ii.InvoiceNo
+JOIN PRODUCTS p ON ii.ProductID = p.ProductID
+GROUP BY c.CustomerID, c.CustomerName
+ORDER BY TotalSpent DESC;`
+      },
+      {
+        id: "exam-2-3",
+        title: "2.3 หมวดหมู่สินค้าที่มียอดขายรวมเกิน 3,000 บาท",
+        badge: "HAVING Filter",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 2.3: กรองกลุ่มด้วย HAVING</h4>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงหาชื่อหมวดหมู่สินค้า (<code>Category</code>) และยอดขายรวมของหมวดหมู่นั้น เฉพาะหมวดที่มียอดขายรวมเกิน 3,000 บาท
+          </div>
+        `,
+        defaultSql: `SELECT p.Category, SUM(p.UnitPrice * ii.Quantity) AS CategorySales
+FROM PRODUCTS p
+JOIN INVOICE_ITEMS ii ON p.ProductID = ii.ProductID
+GROUP BY p.Category
+HAVING SUM(p.UnitPrice * ii.Quantity) > 3000;`
+      },
+      {
+        id: "exam-2-4",
+        title: "2.4 ลูกค้าที่ไม่เคยซื้อสินค้าหมวด Electronics เลย",
+        badge: "NOT IN Subquery",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 2.4: คำสั่ง Subquery กรองลูกค้า</h4>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงหารายชื่อลูกค้าทั้งหมด (รหัส, ชื่อ, จังหวัด) ที่<b>ไม่เคยสั่งซื้อสินค้าในหมวดหมู่ <code>'Electronics'</code> เลยแม้แต่ชิ้นเดียว</b>
+          </div>
+        `,
+        defaultSql: `SELECT c.CustomerID, c.CustomerName, c.CustomerCity
+FROM CUSTOMERS c
+WHERE c.CustomerID NOT IN (
+    SELECT i.CustomerID
+    FROM INVOICES i
+    JOIN INVOICE_ITEMS ii ON i.InvoiceNo = ii.InvoiceNo
+    JOIN PRODUCTS p ON ii.ProductID = p.ProductID
+    WHERE p.Category = 'Electronics'
+);`
+      }
+    ]
+  },
+  {
+    id: "exam-mod-3",
+    name: "🏥 ชุดที่ 3: ระบบคลินิกรักษาพยาบาล (Clinic & Patient Management)",
+    desc: "ตาราง PATIENTS, DOCTORS, APPOINTMENTS (แก้ปัญหา Transitive Dependencies)",
+    exercises: [
+      {
+        id: "exam-3-1",
+        title: "3.1 นัดตรวจแผนก Cardiology ที่ค่ารักษาเกิน 1,500 บาท",
+        badge: "Filter & JOIN",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 3.1: กรองเงื่อนไขซ้อน</h4>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงแสดงชื่อคนไข้ (<code>PatientName</code>), วันนัดหมาย, ชื่อแพทย์, และค่ารักษาพยาบาล สำหรับการนัดหมายที่ตรวจกับแพทย์เฉพาะทางด้าน <code>'Cardiology'</code> และมีค่ารักษามากกว่า 1,500 บาท
+          </div>
+        `,
+        defaultSql: `-- เตรียมโครงสร้างตารางคลินิก
+DROP TABLE IF EXISTS APPOINTMENTS;
+DROP TABLE IF EXISTS DOCTORS;
+DROP TABLE IF EXISTS PATIENTS;
+
+CREATE TABLE PATIENTS (PatientID VARCHAR(10) PRIMARY KEY, PatientName VARCHAR(50), PatientPhone VARCHAR(20));
+CREATE TABLE DOCTORS (DoctorID VARCHAR(10) PRIMARY KEY, DoctorName VARCHAR(50), Specialty VARCHAR(30), RoomNo VARCHAR(10));
+CREATE TABLE APPOINTMENTS (AppointID VARCHAR(10) PRIMARY KEY, AppointDate DATE, PatientID VARCHAR(10), DoctorID VARCHAR(10), Diagnosis VARCHAR(100), TreatmentFee DECIMAL(10,2));
+
+INSERT INTO PATIENTS VALUES ('P001', 'นายสมคิด ยั่งยืน', '081-111-2222'), ('P002', 'นางสาวกาญจนา สดใส', '082-333-4444'), ('P003', 'นายประเสริฐ สุขี', '083-555-6666');
+INSERT INTO DOCTORS VALUES ('D01', 'นพ.สมศักดิ์ รักดี', 'Cardiology', 'ROOM-101'), ('D02', 'พญ.นลินี วิจิตร', 'Dermatology', 'ROOM-102'), ('D03', 'นพ.ปรีชา ชาญชัย', 'Orthopedics', 'ROOM-103');
+INSERT INTO APPOINTMENTS VALUES 
+('APT-01', '2026-09-01', 'P001', 'D01', 'Coronary Artery Screening', 2500.00),
+('APT-02', '2026-09-02', 'P002', 'D02', 'Acne & Skin Rash Treatment', 800.00),
+('APT-03', '2026-09-03', 'P003', 'D03', 'Bone Fracture Check', 1200.00),
+('APT-04', '2026-09-05', 'P001', 'D01', 'Follow-up ECG Monitoring', 1800.00),
+('APT-05', '2026-09-06', 'P002', 'D01', 'Heart Palpitations', 1600.00);
+
+-- ✍️ แสดงชื่อคนไข้ที่ตรวจ Cardiology และค่ารักษา > 1500
+SELECT p.PatientName, a.AppointDate, d.DoctorName, a.TreatmentFee
+FROM APPOINTMENTS a
+JOIN PATIENTS p ON a.PatientID = p.PatientID
+JOIN DOCTORS d ON a.DoctorID = d.DoctorID
+WHERE d.Specialty = 'Cardiology' AND a.TreatmentFee > 1500;`
+      },
+      {
+        id: "exam-3-2",
+        title: "3.2 สรุปจำนวนครั้งที่คนไข้มาตรวจและยอดเงินรวม",
+        badge: "Group Summary",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 3.2: สรุปประวัติคนไข้</h4>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงหารหัสคนไข้, ชื่อคนไข้, จำนวนครั้งที่มาตรวจ (<code>TotalVisits</code>), และยอดเงินค่ารักษารวมที่จ่ายไปทั้งหมด (<code>TotalPaid</code>)
+          </div>
+        `,
+        defaultSql: `SELECT p.PatientID, p.PatientName, 
+       COUNT(a.AppointID) AS TotalVisits, 
+       SUM(a.TreatmentFee) AS TotalPaid
+FROM PATIENTS p
+JOIN APPOINTMENTS a ON p.PatientID = a.PatientID
+GROUP BY p.PatientID, p.PatientName;`
+      },
+      {
+        id: "exam-3-3",
+        title: "3.3 รายการนัดตรวจที่มีค่ารักษาสูงกว่าค่าเฉลี่ยของทั้งคลินิก",
+        badge: "Scalar Subquery",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 3.3: เปรียบเทียบกับค่าเฉลี่ย (Subquery)</h4>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงหารายการนัดตรวจ (รหัสนัด, ชื่อคนไข้, ชื่อแพทย์, ค่ารักษา) ที่มีค่ารักษาพยาบาลสูงกว่าค่ารักษาพยาบาลเฉลี่ยของทั้งคลินิก
+          </div>
+        `,
+        defaultSql: `SELECT a.AppointID, p.PatientName, d.DoctorName, a.TreatmentFee
+FROM APPOINTMENTS a
+JOIN PATIENTS p ON a.PatientID = p.PatientID
+JOIN DOCTORS d ON a.DoctorID = d.DoctorID
+WHERE a.TreatmentFee > (SELECT AVG(TreatmentFee) FROM APPOINTMENTS);`
+      }
+    ]
+  },
+  {
+    id: "exam-mod-4",
+    name: "🏢 ชุดที่ 4: ระบบโครงการและมอบหมายงานพนักงาน (Company Projects)",
+    desc: "ตาราง DEPARTMENTS, EMPLOYEES, PROJECTS, WORKS_ON (แก้ปัญหา M:N Relations)",
+    exercises: [
+      {
+        id: "exam-4-1",
+        title: "4.1 พนักงานที่ทำงานในโครงการมากกว่า 20 ชั่วโมง",
+        badge: "Filter & JOIN",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 4.1: ค้นหาชั่วโมงการทำงาน</h4>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงแสดงชื่อพนักงาน, ตำแหน่ง, ชื่อโครงการ, และจำนวนชั่วโมงทำงาน เฉพาะผู้ที่ลงเวลาทำงานในโครงการนั้นมากกว่า 20 ชั่วโมง
+          </div>
+        `,
+        defaultSql: `-- สร้างตารางจำลองระบบงานโครงการ
+DROP TABLE IF EXISTS WORKS_ON;
+DROP TABLE IF EXISTS PROJECTS;
+DROP TABLE IF EXISTS EMPLOYEES;
+DROP TABLE IF EXISTS DEPARTMENTS;
+
+CREATE TABLE DEPARTMENTS (DeptID VARCHAR(10) PRIMARY KEY, DeptName VARCHAR(50));
+CREATE TABLE EMPLOYEES (EmpID VARCHAR(10) PRIMARY KEY, EmpName VARCHAR(50), Position VARCHAR(30), DeptID VARCHAR(10));
+CREATE TABLE PROJECTS (ProjID VARCHAR(10) PRIMARY KEY, ProjName VARCHAR(50), Budget DECIMAL(12,2));
+CREATE TABLE WORKS_ON (EmpID VARCHAR(10), ProjID VARCHAR(10), HoursWorked DECIMAL(5,1), PRIMARY KEY (EmpID, ProjID));
+
+INSERT INTO DEPARTMENTS VALUES ('D01', 'Research & Development'), ('D02', 'Information Systems'), ('D03', 'Human Resources');
+INSERT INTO EMPLOYEES VALUES ('E01', 'นายสมพร ช่างคิด', 'Senior Engineer', 'D01'), ('E02', 'นางสาววรรณา วิเคราะห์', 'Data Analyst', 'D02'), ('E03', 'นายพิชัย จัดการ', 'Project Lead', 'D01'), ('E04', 'นางสาวศิริพร บุคคล', 'HR Officer', 'D03');
+INSERT INTO PROJECTS VALUES ('PRJ-01', 'AI Diagnostics', 5000000.00), ('PRJ-02', 'Cloud ERP Migration', 2000000.00), ('PRJ-03', 'Mobile Portal App', 800000.00);
+INSERT INTO WORKS_ON VALUES ('E01', 'PRJ-01', 35.0), ('E01', 'PRJ-02', 15.0), ('E02', 'PRJ-01', 25.0), ('E03', 'PRJ-01', 40.0), ('E03', 'PRJ-02', 30.0);
+
+-- ✍️ ค้นหาพนักงานที่ทำงานในโครงการ > 20 ชั่วโมง
+SELECT e.EmpName, e.Position, p.ProjName, w.HoursWorked
+FROM WORKS_ON w
+JOIN EMPLOYEES e ON w.EmpID = e.EmpID
+JOIN PROJECTS p ON w.ProjID = p.ProjID
+WHERE w.HoursWorked > 20;`
+      },
+      {
+        id: "exam-4-2",
+        title: "4.2 โครงการที่มีชั่วโมงการทำงานรวมเกิน 50 ชั่วโมง",
+        badge: "GROUP BY & HAVING",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 4.2: สรุปชั่วโมงรวมโครงการ</h4>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงแสดงชื่อโครงการ, งบประมาณ, และผลรวมชั่วโมงการทำงานทั้งหมด (<code>TotalHours</code>) เฉพาะโครงการที่มีชั่วโมงทำงานรวมเกิน 50 ชั่วโมง
+          </div>
+        `,
+        defaultSql: `SELECT p.ProjID, p.ProjName, p.Budget, SUM(w.HoursWorked) AS TotalHours
+FROM PROJECTS p
+JOIN WORKS_ON w ON p.ProjID = w.ProjID
+GROUP BY p.ProjID, p.ProjName, p.Budget
+HAVING SUM(w.HoursWorked) > 50;`
+      },
+      {
+        id: "exam-4-3",
+        title: "4.3 พนักงานที่ยังไม่ได้รับมอบหมายโครงการใดๆ เลย",
+        badge: "Anti-Join",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 4.3: หาพนักงานว่าง (Unassigned)</h4>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงหารายชื่อพนักงาน (รหัส, ชื่อ, ตำแหน่ง, ชื่อแผนก) ที่<b>ยังไม่เคยถูกมอบหมายให้ทำงานในโครงการใดๆ เลยในระบบ</b>
+          </div>
+        `,
+        defaultSql: `SELECT e.EmpID, e.EmpName, e.Position, d.DeptName
+FROM EMPLOYEES e
+JOIN DEPARTMENTS d ON e.DeptID = d.DeptID
+LEFT JOIN WORKS_ON w ON e.EmpID = w.EmpID
+WHERE w.ProjID IS NULL;`
+      }
+    ]
+  },
+  {
+    id: "exam-mod-5",
+    name: "🏨 ชุดที่ 5: ระบบจองห้องพักโรงแรม (Hotel Reservations & Billing)",
+    desc: "ตาราง GUESTS, ROOMS, BOOKINGS (วิเคราะห์ค่าใช้จ่ายและอัตราการเข้าพัก)",
+    exercises: [
+      {
+        id: "exam-5-1",
+        title: "5.1 สรุปรายได้รวมแยกตามแต่ละประเภทห้องพัก",
+        badge: "Revenue Summary",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 5.1: สรุปรายได้ตามประเภทห้อง</h4>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงแสดงประเภทห้องพัก (<code>RoomType</code>), จำนวนครั้งที่มีการจอง (<code>TotalBookings</code>), และรายได้รวมทั้งหมด (<code>TotalRevenue</code>) โดยเรียงลำดับจากรายได้มากที่สุดลงมา
+          </div>
+        `,
+        defaultSql: `-- สร้างตารางจำลองระบบโรงแรม
+DROP TABLE IF EXISTS BOOKINGS;
+DROP TABLE IF EXISTS ROOMS;
+DROP TABLE IF EXISTS GUESTS;
+
+CREATE TABLE GUESTS (GuestID VARCHAR(10) PRIMARY KEY, GuestName VARCHAR(50), GuestEmail VARCHAR(50));
+CREATE TABLE ROOMS (RoomNo VARCHAR(10) PRIMARY KEY, RoomType VARCHAR(30), RatePerNight DECIMAL(8,2));
+CREATE TABLE BOOKINGS (BookingID VARCHAR(10) PRIMARY KEY, CheckInDate DATE, CheckOutDate DATE, GuestID VARCHAR(10), RoomNo VARCHAR(10), TotalNights INT, TotalAmount DECIMAL(10,2));
+
+INSERT INTO GUESTS VALUES ('G01', 'นายอนันต์ รวยทรัพย์', 'anan@email.com'), ('G02', 'นางสุดา งามสง่า', 'suda@email.com'), ('G03', 'นายธนา ร่มรื่น', 'thana@email.com');
+INSERT INTO ROOMS VALUES ('R101', 'Superior Room', 1500.00), ('R102', 'Superior Room', 1500.00), ('R201', 'Deluxe Suite', 3500.00), ('R202', 'Deluxe Suite', 3500.00), ('R301', 'Presidential Suite', 12000.00);
+INSERT INTO BOOKINGS VALUES 
+('BK001', '2026-09-01', '2026-09-03', 'G01', 'R201', 2, 7000.00),
+('BK002', '2026-09-02', '2026-09-05', 'G02', 'R101', 3, 4500.00),
+('BK003', '2026-09-04', '2026-09-06', 'G01', 'R202', 2, 7000.00),
+('BK004', '2026-09-05', '2026-09-06', 'G03', 'R102', 1, 1500.00);
+
+-- ✍️ สรุปรายได้แยกตามประเภทห้องพัก
+SELECT r.RoomType, COUNT(b.BookingID) AS TotalBookings, SUM(b.TotalAmount) AS TotalRevenue
+FROM ROOMS r
+JOIN BOOKINGS b ON r.RoomNo = b.RoomNo
+GROUP BY r.RoomType
+ORDER BY TotalRevenue DESC;`
+      },
+      {
+        id: "exam-5-2",
+        title: "5.2 แขกที่เคยจองห้องพักตั้งแต่ 2 ครั้งขึ้นไป",
+        badge: "Loyal Customers",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 5.2: ค้นหาลูกค้าประจำ</h4>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงหารายชื่อแขก (รหัส, ชื่อ, อีเมล) และจำนวนครั้งที่จอง (<code>BookingCount</code>) เฉพาะแขกที่เคยจองห้องพักกับโรงแรมตั้งแต่ 2 ครั้งขึ้นไป
+          </div>
+        `,
+        defaultSql: `SELECT g.GuestID, g.GuestName, g.GuestEmail, COUNT(b.BookingID) AS BookingCount
+FROM GUESTS g
+JOIN BOOKINGS b ON g.GuestID = b.GuestID
+GROUP BY g.GuestID, g.GuestName, g.GuestEmail
+HAVING COUNT(b.BookingID) >= 2;`
+      },
+      {
+        id: "exam-5-3",
+        title: "5.3 ห้องพักที่ไม่เคยถูกจองเข้าพักเลย (Unbooked Rooms)",
+        badge: "Anti-Join",
+        theory: `
+          <h4>🎯 ข้อสอบจำลอง 5.3: หาห้องพักที่ว่างตลอดกาล</h4>
+          <div class="tip-box">
+            <b>โจทย์:</b> จงหารายชื่อห้องพัก (<code>RoomNo</code>, <code>RoomType</code>, <code>RatePerNight</code>) ที่<b>ไม่เคยมีประวัติการจองเข้าพักเลยแม้แต่ครั้งเดียว</b>
+          </div>
+        `,
+        defaultSql: `SELECT r.RoomNo, r.RoomType, r.RatePerNight
+FROM ROOMS r
+LEFT JOIN BOOKINGS b ON r.RoomNo = b.RoomNo
+WHERE b.BookingID IS NULL;`
+      }
+    ]
+  }
+];
+

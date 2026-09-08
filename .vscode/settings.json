@@ -1,0 +1,9 @@
+{
+  "sqltools.connections": [
+    {
+      "name": "Database Lab (SQLite)",
+      "adapter": "SQLite",
+      "database": "${workspaceFolder}/Lab/lab.db"
+    }
+  ]
+}

@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Wiki/Lecture 6 - Database Design and Normalization.md",
+                "file": "Wiki/Lecture 8 - Database System Architecture.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Lecture 6 - Database Design and Normalization"
+              "title": "Lecture 8 - Database System Architecture"
             }
           }
         ],
@@ -109,7 +109,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "a95a531ecae2fca0",
@@ -216,6 +217,7 @@
   },
   "active": "7927b98e81174d06",
   "lastOpenFiles": [
+    "Wiki/Lecture 6 - Database Design and Normalization.md",
     "Wiki/Lecture 5 - Functional Dependencies.md",
     "Wiki/Lecture 4 - ER Model.md",
     "Wiki/Lecture 3 - Relational Algebra.md",
@@ -251,7 +253,6 @@
     "web-app/node_modules/dagre-d3-es/LICENSE.md",
     "web-app/node_modules/khroma/readme.md",
     "web-app/node_modules/micromark-core-commonmark/readme.md",
-    "web-app/node_modules/entities/readme.md",
     "web-app/node_modules/cytoscape-fcose/node_modules/layout-base/layout-schema.png",
     "web-app/node_modules/layout-base/layout-schema.png",
     "web-app/node_modules/highlight.js/styles/pojoaque.jpg",

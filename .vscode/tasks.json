@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Current SQL with SQLite",
+      "type": "shell",
+      "command": "target=\"${file}\"; if [[ \"$target\" != *.sql ]]; then target=\"${workspaceFolder}/Lab/test.sql\"; fi; sqlite3 -table \"${workspaceFolder}/Lab/lab.db\" < \"$target\"",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}
