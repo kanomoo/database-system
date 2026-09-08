@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Database System Wiki — สารานุกรมความรู้ระบบฐานข้อมูล</title>
+  <meta name="description" content="คลังความรู้ระบบฐานข้อมูล (Database System) ครบทุกบทเรียน ตั้งแต่ Foundations, ER Model, Relational Algebra, Normalization ไปจนถึง SQL และ NoSQL" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Vendor CSS -->
+  <link rel="stylesheet" href="vendor/prism.css" />
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Reading Progress Bar (Top) -->
+  <div id="reading-progress-bar"></div>
+
+  <!-- Top Navbar -->
+  <header class="wiki-navbar">
+    <div class="nav-left">
+      <button id="mobile-toggle-btn" class="mobile-toggle-btn" title="เปิดเมนูนำทาง" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <a href="#/Database System Index" class="brand-logo" title="หน้าหลักสารานุกรม">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="brand-title">Database Wiki</span>
+        </div>
+        <span class="brand-badge">Docs Hub</span>
+      </a>
+    </div>
+
+    <!-- Search Bar Trigger -->
+    <div class="nav-center">
+      <button id="search-trigger-btn" class="search-trigger-btn" title="ค้นหาทุกบทเรียน (Ctrl + K)">
+        <div class="search-hint-group">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>ค้นหาบทเรียน, สไลด์, หรือคีย์เวิร์ด...</span>
+        </div>
+        <span class="kbd-shortcut">Ctrl K</span>
+      </button>
+    </div>
+
+    <div class="nav-right">
+      <!-- Font Size Controls -->
+      <div class="font-size-group" title="ปรับขนาดตัวอักษรสำหรับอ่าน">
+        <button id="font-decrease-btn" class="font-btn" title="ลดขนาดตัวอักษร">A-</button>
+        <button id="font-increase-btn" class="font-btn" title="เพิ่มขนาดตัวอักษร">A+</button>
+      </div>
+
+      <!-- Theme Switcher -->
+      <button id="theme-toggle-btn" class="btn-nav-action" title="เปลี่ยนโหมดกลางวัน/กลางคืน">
+        ☀️
+      </button>
+
+      <!-- Jump to SQL Lab -->
+      <a href="../SqlLab/index.html" class="btn-nav-action btn-sql-lab" title="เปิดห้องปฏิบัติการภาษา SQL เชิงโต้ตอบ">
+        <span>💻</span>
+        <span>ห้องทดลอง SQL Lab</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="wiki-layout">
+    <!-- Mobile Backdrop -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- Left Sidebar: Curriculum & Navigation -->
+    <aside id="sidebar" class="wiki-sidebar">
+      <div id="sidebar-nav">
+        <!-- Injected dynamically by app.js -->
+      </div>
+    </aside>
+
+    <!-- Center Content: Reading View -->
+    <main class="wiki-content-area">
+      <div class="article-container">
+        <!-- Article Header -->
+        <header class="article-header">
+          <nav class="breadcrumb-nav">
+            <a href="#/Database System Index">สารานุกรม</a>
+            <span>/</span>
+            <span id="breadcrumb-category">Part 1: Foundations</span>
+            <span>/</span>
+            <span id="breadcrumb-current" style="color: var(--text-primary); font-weight: 500;">บทเรียน</span>
+          </nav>
+
+          <h1 id="article-title" class="article-title">กำลังโหลดบทเรียน...</h1>
+
+          <div class="article-meta-badges">
+            <div id="article-meta"></div>
+            <button id="mark-read-btn" class="mark-read-btn">
+              <span>○</span> ทำเครื่องหมายว่าอ่านแล้ว
+            </button>
+          </div>
+        </header>
+
+        <!-- Article Content -->
+        <article id="article-body" class="article-body">
+          <!-- Rendered Markdown goes here -->
+        </article>
+
+        <!-- Footer Pagination (Previous / Next) -->
+        <footer id="article-pagination" class="article-pagination">
+          <!-- Injected dynamically -->
+        </footer>
+      </div>
+    </main>
+
+    <!-- Right Sidebar: Table of Contents (Outline) -->
+    <aside class="wiki-toc">
+      <div class="toc-header">สารบัญในหน้านี้</div>
+      <ul id="toc-list" class="toc-list">
+        <!-- Injected dynamically based on H1, H2, H3 -->
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Omni-Search Modal (Ctrl + K) -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-box">
+      <div class="search-modal-header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input id="search-input" class="search-modal-input" type="text" placeholder="พิมพ์ค้นหา เช่น Normalization, ER Model, Join, Slide 10..." autocomplete="off" />
+        <button id="search-close-btn" class="code-btn" title="ปิดหน้าต่างค้นหา (Esc)">ESC</button>
+      </div>
+      <div id="search-results" class="search-results-list">
+        <!-- Search items dynamically injected -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Diagram Fullscreen Zoom Modal -->
+  <div id="diagram-modal" class="diagram-modal-backdrop">
+    <div class="diagram-modal-bar">
+      <div style="font-weight: 600; font-size: 14px; color: var(--text-primary);">
+        📊 แผนผังแบบขยายเต็มจอ (Mermaid Diagram)
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button id="diagram-zoom-out-btn" class="code-btn" title="ย่อภาพ">➖ ย่อ</button>
+        <button id="diagram-reset-btn" class="code-btn" title="ขนาดมาตรฐาน">1:1</button>
+        <button id="diagram-zoom-in-btn" class="code-btn" title="ขยายภาพ">➕ ขยาย</button>
+        <button id="diagram-close-btn" class="code-btn" style="color: #f87171; border-color: rgba(239,68,68,0.3);" title="ปิดหน้าต่าง (Esc)">✕ ปิด</button>
+      </div>
+    </div>
+    <div id="diagram-canvas" class="diagram-modal-canvas"></div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="wiki-toast" class="wiki-toast"></div>
+
+  <!-- Vendor Scripts (Offline & Zero-setup) -->
+  <script src="vendor/marked.min.js"></script>
+  <script src="vendor/mermaid.min.js"></script>
+  <script src="vendor/prism.min.js"></script>
+  <script src="vendor/prism-sql.min.js"></script>
+
+  <!-- Pre-bundled Wiki Data -->
+  <script src="wiki-data.js"></script>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

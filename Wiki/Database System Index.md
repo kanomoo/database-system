@@ -10,27 +10,50 @@ type: index
 
 # Database System - Comprehensive Master Index
 
-> [!SUMMARY] คลังความรู้ Database System ระดับสมบูรณ์แบบ
-> นี่คือสารบัญดัชนี (Master Index) ที่รวบรวม **"Mega Guides"** สำหรับหลักสูตรระบบฐานข้อมูล (Database System) เนื้อหาทั้งหมดถูกสรุปอย่างละเอียดจากทุกสไลด์ในทุกบทเรียน ครอบคลุมตั้งแต่ภาพรวมของฐานข้อมูล, สถาปัตยกรรม, Relational Model, SQL, Normalization, Transaction Processing ไปจนถึง NoSQL
+> [!IMPORTANT] 🎯 โซนเตรียมตัวสอบปฏิบัติการเดี่ยวในชั้นเรียน (In-Class Practical Test)
+> ตั้งแต่คาบหน้าเป็นต้นไป จะมีการสอบเก็บคะแนนเดี่ยวในชั่วโมงเรียน (50-60 นาที) โดยมีเนื้อหาที่ออกสอบหลัก 2 ส่วน:
+> 1. **การทำ Normalization & การออกแบบแผนภาพ:** (บทที่ 4 ER Model, บทที่ 5 FDs, และ บทที่ 6 Normalization)
+> 2. **การเขียนคำสั่ง SQL ตามสถานการณ์:** (บทที่ 7 SQL พื้นฐาน และ บทที่ 7.2 SQL ขั้นสูง)
+> 👉 **ศึกษาคู่มือและข้อสอบจำลองได้ที่:** **[[In-Class Exam Guide - Normalization and SQL]]**
+
+---
+
+## 🗺️ ตารางเทียบหมวดหมู่และบทเรียนทั้งหมด (Chapter Mapping)
+
+| หมวดหมู่ (Part) | บทเรียนในสไลด์ | เอกสารสรุปใน Wiki | ออกสอบปฏิบัติการ? |
+|---|---|---|---|
+| **Part 1: Foundations** | **บทที่ 1 (Ch1)** | [[Lecture 1 - Overview of Databases and Transaction Processing]] | ทฤษฎีพื้นฐาน |
+| | **บทที่ 2 (Ch2)** | [[Lecture 2 - Database Architecture and Relational Model]] | ทฤษฎีพื้นฐาน |
+| **Part 2: Data Modeling**| **บทที่ 3 (Ch3)** | [[Lecture 3 - Relational Algebra]] | ทฤษฎีพีชคณิต |
+| | **บทที่ 4 (Ch4)** | [[Lecture 4 - ER Model]] | **🎯 ข้อสอบ: ออกแบบแผนภาพ ER** |
+| **Part 3: Database Design**| **บทที่ 5 (Ch5)** | [[Lecture 5 - Functional Dependencies]] | **🎯 ข้อสอบ: วิเคราะห์ FDs** |
+| | **บทที่ 6 (Ch6)** | [[Lecture 6 - Database Design and Normalization]] | **🎯 ข้อสอบ: นอร์มัลไลเซชัน (1NF-5NF)** |
+| **Part 4: SQL Mastery** | **บทที่ 7 (Ch7)** | [[Lecture 7 (Part 1) - SQL Fundamentals (Slide 1-40)]]<br>[[Lecture 7 (Part 2) - SQL Fundamentals (Slide 41-80)]]<br>[[Lecture 7 (Part 3) - SQL Fundamentals (Slide 81-94)]] | **🎯 ข้อสอบ: คำสั่ง SQL, JOIN, GROUP BY** |
+| | **บทที่ 7.2 (Ch7_2)** | [[Lecture 7.5 (Part 1) - Advanced SQL (Slide 1-40)]]<br>[[Lecture 7.5 (Part 2) - Advanced SQL (Slide 41-79)]] | **🎯 ข้อสอบ: Subquery, HAVING, Views** |
+| **Part 5: Advanced Topics**| **บทที่ 8 (Ch8)** | [[Lecture 8 - Database System Architecture]] | ทฤษฎีระดับสูง |
+| | **บทที่ 9 (Ch9)** | [[Lecture 9 - NoSQL Databases]] | ทฤษฎีระดับสูง |
+| **Workshop & Exam** | **Exam Guide** | [[In-Class Exam Guide - Normalization and SQL]] | **⭐ คู่มือเตรียมสอบ & Mock Exam** |
+| | **Lab Guide** | [[SQL Lab Practice Guide - Zero to Hero]] | คู่มือห้องปฏิบัติการ SQL |
+
+---
 
 ```mermaid
 mindmap
   root((DATABASE SYSTEM<br/>KNOWLEDGE BASE))
-    "Part 1: Foundations"
-      "Lecture 1: Overview & TPS"
-      "Lecture 2: Architecture & Relational Model"
-    "Part 2: Data Modeling"
-      "Lecture 3: Relational Algebra"
-      "Lecture 4: ER Model"
-    "Part 3: Database Design"
-      "Lecture 5: Functional Dependencies"
-      "Lecture 6: Normalization"
-    "Part 4: SQL"
-      "Lecture 7: SQL Fundamentals"
-      "Lecture 7.2: SQL Practical Workshop"
-    "Part 5: Advanced Topics"
-      "Lecture 8: Transaction Processing"
-      "Lecture 9: NoSQL Databases"
+    Exam["🎯 ข้อสอบปฏิบัติการเดี่ยว"]
+      Ch4["บทที่ 4 Ch4: ER Model"]
+      Ch5["บทที่ 5 Ch5: Functional Dependencies"]
+      Ch6["บทที่ 6 Ch6: Normalization"]
+      Ch7["บทที่ 7 Ch7: SQL Fundamentals"]
+      Ch72["บทที่ 7.2 Ch7_2: Advanced SQL"]
+    F["Part 1: Foundations"]
+      Ch1["บทที่ 1 Ch1: Overview and TPS"]
+      Ch2["บทที่ 2 Ch2: Architecture and Relational Model"]
+    M["Part 2: Data Modeling"]
+      Ch3["บทที่ 3 Ch3: Relational Algebra"]
+    A["Part 5: Advanced Topics"]
+      Ch8["บทที่ 8 Ch8: Transaction Processing"]
+      Ch9["บทที่ 9 Ch9: NoSQL Databases"]
 ```
 
 ---

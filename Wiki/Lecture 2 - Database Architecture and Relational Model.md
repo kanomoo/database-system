@@ -42,30 +42,29 @@ type: lecture
 แม้ในสไลด์จะเป็นภาพโครงสร้างกราฟิก แต่เราสามารถถอดรหัสออกมาเป็นแผนภาพการทำงานเชิงแนวคิดที่ละเอียดได้ดังนี้:
 
 ```mermaid
-graph TD
-    subgraph "External Level (ระดับผู้ใช้งาน)"
+flowchart TD
+    subgraph External["External Level (ระดับผู้ใช้งาน)"]
         direction LR
-        U1((User 1)) --> V1[External View 1\nเช่น ข้อมูลเงินเดือน]
-        U2((User 2)) --> V2[External View 2\nเช่น ข้อมูลเวลาเข้างาน]
-        U3((User 3)) --> V3[External View 3\nเช่น ข้อมูลประวัติส่วนตัว]
+        U1((User 1)) --> V1["External View 1<br/>เช่น ข้อมูลเงินเดือน"]
+        U2((User 2)) --> V2["External View 2<br/>เช่น ข้อมูลเวลาเข้างาน"]
+        U3((User 3)) --> V3["External View 3<br/>เช่น ข้อมูลประวัติส่วนตัว"]
     end
 
-    subgraph "Conceptual Level (ระดับศูนย์กลาง)"
-        V1 -. "Logical Mapping" .-> CS[Conceptual Schema\nตาราง Employee รวมทุกฟิลด์]
-        V2 -. "Logical Mapping" .-> CS
-        V3 -. "Logical Mapping" .-> CS
+    subgraph Conceptual["Conceptual Level (ระดับศูนย์กลาง)"]
+        CS["Conceptual Schema<br/>ตาราง Employee รวมทุกฟิลด์"]
     end
 
-    subgraph "Internal Level (ระดับกายภาพ)"
-        CS -. "Physical Mapping" .-> IS[Internal Schema\nรูปแบบ B-Tree Index, Data Blocks]
-        IS --> DB[("Physical Storage\n(Hard Disk / SSD)")]
+    V1 -.->|Logical Mapping| CS
+    V2 -.->|Logical Mapping| CS
+    V3 -.->|Logical Mapping| CS
+
+    subgraph Internal["Internal Level (ระดับกายภาพ)"]
+        IS["Internal Schema<br/>รูปแบบ B-Tree Index, Data Blocks"]
+        DB[("Physical Storage<br/>(Hard Disk / SSD)")]
+        IS --> DB
     end
 
-    style V1 fill:#ffcdd2
-    style V2 fill:#ffcdd2
-    style V3 fill:#ffcdd2
-    style CS fill:#fff3e0
-    style IS fill:#c8e6c9
+    CS -.->|Physical Mapping| IS
 ```
 
 > [!INFO] เจาะลึกกลไกของภาพ (Mapping Process)

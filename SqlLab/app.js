@@ -1833,3 +1833,17 @@ updateLineNumbers();
 initResponsiveMobile();
 initResizablePanels();
 initDatabaseEngine();
+
+// Check for prefilled query passed from Wiki Web Reader
+try {
+  const prefillQuery = localStorage.getItem('sqllab_prefill_query');
+  if (prefillQuery && sqlEditor) {
+    sqlEditor.value = prefillQuery;
+    localStorage.removeItem('sqllab_prefill_query');
+    updateLineNumbers();
+    if (typeof updateStatusCursor === 'function') updateStatusCursor();
+    showToast('📥 นำเข้าคำสั่ง SQL จากสารานุกรม Wiki เรียบร้อยแล้ว!');
+  }
+} catch (e) {
+  console.warn('Could not read prefill query:', e);
+}

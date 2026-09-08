@@ -39,29 +39,30 @@ flowchart TD
 ก่อนจะพิมพ์คำสั่งแรก ต้องเข้าใจก่อนว่าสิ่งที่อยู่หน้าจอของเราทำงานร่วมกันอย่างไร:
 
 ```mermaid
-graph LR
+flowchart TD
     subgraph Client["เครื่องของเรา (Client)"]
         File[("ไฟล์แบบฝึกหัด<br/>exercise.sql")]
         IDE["VS Code / DBeaver / Browser"]
+        File -->|ส่งคำสั่ง SQL| IDE
     end
     subgraph Engine["ตัวประมวลผล (RDBMS Engine)"]
         Parser["ตัวตรวจไวยากรณ์ (Parser)"]
         Optimizer["ตัววางแผนค้นหา (Query Optimizer)"]
         Executor["ตัวดึงข้อมูล (Execution Engine)"]
+        Parser --> Optimizer --> Executor
     end
     subgraph Storage["พื้นที่จัดเก็บ (Database Storage)"]
         DB[("Database")]
         T1["Table A"]
         T2["Table B"]
+        DB --> T1
+        DB --> T2
     end
 
-    File -->|ส่งคำสั่ง SQL| IDE
-    IDE -->|Execute Query| Parser
-    Parser --> Optimizer --> Executor
-    Executor <--> DB
-    DB --- T1
-    DB --- T2
-    Executor -->|ส่งคืนตาราง Result Set| IDE
+    IDE -->|1. ส่ง Query| Parser
+    Executor -->|2. ค้นหาข้อมูล| DB
+    DB -->|3. ส่งคืนข้อมูล| Executor
+    Executor -->|4. แสดง Result Set| IDE
 ```
 
 > [!DEFINITION] คำศัพท์พื้นฐาน 5 คำที่ต้องจำให้แม่น
@@ -933,45 +934,45 @@ erDiagram
     Orders ||--o{ OrdersDetail : "contains"
 
     Title {
-        varchar TitleID PK
-        varchar TitleName
+        string TitleID PK "รหัสคำนำหน้า"
+        string TitleName "คำนำหน้าชื่อ"
     }
     Customer {
-        varchar CustID PK
-        varchar CustName
-        varchar CustAddress
-        varchar CustSex
-        decimal CustSalary
-        varchar TitleID FK
+        string CustID PK "รหัสลูกค้า"
+        string CustName "ชื่อ-นามสกุล"
+        string CustAddress "ที่อยู่"
+        string CustSex "เพศ"
+        decimal CustSalary "เงินเดือน"
+        string TitleID "รหัสคำนำหน้า (FK)"
     }
     Category {
-        varchar CateID PK
-        varchar CateName
+        string CateID PK "รหัสหมวดหมู่"
+        string CateName "ชื่อหมวดหมู่"
     }
     Unit {
-        varchar UnitID PK
-        varchar UnitName
+        string UnitID PK "รหัสหน่วยนับ"
+        string UnitName "ชื่อหน่วยนับ"
     }
     Product {
-        varchar ProdID PK
-        varchar ProdName
-        decimal ProdPrice
-        decimal ProdCost
-        int ProdQty
-        varchar CateID FK
-        varchar UnitID FK
+        string ProdID PK "รหัสสินค้า"
+        string ProdName "ชื่อสินค้า"
+        decimal ProdPrice "ราคาขาย"
+        decimal ProdCost "ราคาทุน"
+        int ProdQty "จำนวนคงเหลือ"
+        string CateID "รหัสหมวดหมู่ (FK)"
+        string UnitID "รหัสหน่วยนับ (FK)"
     }
     Orders {
-        varchar OrderID PK
-        date OrderDate
-        varchar CustID FK
+        string OrderID PK "รหัสใบสั่งซื้อ"
+        date OrderDate "วันที่สั่งซื้อ"
+        string CustID "รหัสลูกค้า (FK)"
     }
     OrdersDetail {
-        varchar OrderID PK,FK
-        varchar ProdID PK,FK
-        decimal UnitPrice
-        int Quantity
-        decimal Discount
+        string OrderID PK "รหัสใบสั่งซื้อ (Composite PK / FK)"
+        string ProdID PK "รหัสสินค้า (Composite PK / FK)"
+        decimal UnitPrice "ราคาต่อหน่วย"
+        int Quantity "จำนวนที่สั่ง"
+        decimal Discount "ส่วนลด"
     }
 ```
 

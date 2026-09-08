@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Database System — Knowledge Hub & Interactive Studio</title>
+  <meta name="description" content="ระบบสารานุกรมความรู้และห้องปฏิบัติการภาษา SQL สำหรับวิชาระบบฐานข้อมูล (Database System)" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #0f172a;
+      --card-hover: #162038;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(99, 102, 241, 0.4);
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --brand: #6366f1;
+      --cyan: #06b6d4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans Thai', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 999px;
+      font-size: 13px;
+      color: #a5b4fc;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--text-sub);
+      max-width: 680px;
+      margin: 0 auto 48px auto;
+      line-height: 1.7;
+    }
+
+    .hub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      text-align: left;
+    }
+
+    @media (max-width: 720px) {
+      .hub-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hub-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 28px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hub-card:hover {
+      background: var(--card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.15);
+    }
+
+    .card-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+    }
+
+    .hub-card.sql-lab .card-icon-box {
+      background: rgba(6, 182, 212, 0.12);
+      border-color: rgba(6, 182, 212, 0.25);
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex: 1;
+    }
+
+    .card-features {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .card-features li {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      transition: all 0.2s ease;
+    }
+
+    .hub-card:hover .card-btn {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: white;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+    }
+
+    .hub-card.sql-lab:hover .card-btn {
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      border-color: #06b6d4;
+    }
+
+    footer {
+      margin-top: 48px;
+      font-size: 12.5px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-glow"></div>
+
+  <div class="container">
+    <div class="badge-top">
+      <span>✨</span>
+      <span>ศูนย์รวมความรู้และปฏิบัติการระบบฐานข้อมูล</span>
+    </div>
+
+    <h1>Database System Platform</h1>
+    <p class="subtitle">
+      เครื่องมือช่วยทบทวนเนื้อหาบทเรียนและการเตรียมสอบปฏิบัติการรายบุคคล<br />
+      รวมสรุปเนื้อหาทุกสไลด์อย่างละเอียด พร้อมระบบรันคำสั่ง SQL ทดลองจริงแบบออฟไลน์
+    </p>
+
+    <div class="hub-grid">
+      <!-- Card 1: Wiki Knowledge Hub -->
+      <a href="Wiki/index.html" class="hub-card wiki-hub">
+        <div class="card-icon-box">📚</div>
+        <h2 class="card-title">สารานุกรม Wiki</h2>
+        <p class="card-desc">
+          รวม 16 บทเรียนระดับลึกพิเศษ (Mega Guides) พร้อมสารบัญสไลด์ (Scrollspy), กล่อง Callouts, แผนผัง Mermaid, และระบบค้นหาทั้งเล่ม (Ctrl + K)
+        </p>
+        <ul class="card-features">
+          <li>✓ สรุปทุกสไลด์ละเอียด ไม่มีการรวบรัด</li>
+          <li>✓ Normalization (1NF - 5NF) & Trace Tables</li>
+          <li>✓ แผนผัง ER Model & Relational Algebra</li>
+          <li>✓ ตัวอย่างคำสั่ง SQL ทุกเงื่อนไข</li>
+        </ul>
+        <div class="card-btn">
+          <span>📖 เปิดสารานุกรมความรู้</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- Card 2: SQL Lab Studio -->
+      <a href="SqlLab/index.html" class="hub-card sql-lab">
+        <div class="card-icon-box">💻</div>
+        <h2 class="card-title">ห้องทดลอง SQL Lab</h2>
+        <p class="card-desc">
+          สภาพแวดล้อมจำลองฐานข้อมูล SQLite WASM รันในเบราว์เซอร์ได้ทันที ไม่ต้องต่อเน็ต มีโจทย์แบบฝึกหัดตั้งแต่ระดับพื้นฐานจนถึงขั้นสูง
+        </p>
+        <ul class="card-features">
+          <li>✓ รันคำสั่ง SQL จริงและแสดงตารางผลลัพธ์</li>
+          <li>✓ ตรวจคำตอบอัตโนมัติพร้อมเฉลยละเอียด</li>
+          <li>✓ มีตัวแก้ไขโค้ดพร้อมคีย์ลัดสไตล์ VS Code</li>
+          <li>✓ ดูโครงสร้าง Schema และตารางทั้งหมดได้ทันที</li>
+        </ul>
+        <div class="card-btn">
+          <span>🚀 เข้าสู่ห้องทดลอง SQL</span>
+          <span>→</span>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      Database System Knowledge Base & Interactive Studio — พร้อมใช้งานแบบ 100% Offline
+    </footer>
+  </div>
+</body>
+</html>
