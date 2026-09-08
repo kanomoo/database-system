@@ -1,13 +1,23 @@
-CREATE TABLE Students2(
-    ID INT,
-    Name VARCHAR(50),
-    Age INT
-);
+-- CREATE TABLE Students2(
+--     ID INT,
+--     Name VARCHAR(50),
+--     Age INT
+-- );
 
-INSERT INTO Students(ID,Name,Age) VALUES(1,'Few',20),(2,'John',22),(3,'Jane',21);
+-- INSERT INTO Students(ID,Name,Age) VALUES(1,'Few',20),(2,'John',22),(3,'Jane',21);
 
-SELECT * FROM Students WHERE Age > 20;
+-- SELECT * FROM Students WHERE Age > 20;
 
-UPDATE Students SET Age = 22 WHERE ID = 1;
+-- UPDATE Students SET Age = 22 WHERE ID = 1;
 
-DELETE FROM Students WHERE ID = 3;
+-- DELETE FROM Students WHERE ID = 3;
+
+-- CREATE TABLE Concept(
+--     Saving  INT,
+--     Checking  INT
+-- );
+
+INSERT INTO Concept(Saving,Checking) VALUES(100,200);
+
+SELECT * FROM Concept;
+

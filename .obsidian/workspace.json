@@ -42,7 +42,7 @@
               "type": "markdown",
               "state": {
                 "file": "Wiki/Lecture 8 - Database System Architecture.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -217,6 +217,9 @@
   },
   "active": "7927b98e81174d06",
   "lastOpenFiles": [
+    "Wiki/Lecture 9 - NoSQL Databases.md",
+    "Wiki/Lecture 8 - Database System Architecture.md",
+    "Lab/lab.db-journal",
     "Wiki/Lecture 6 - Database Design and Normalization.md",
     "Wiki/Lecture 5 - Functional Dependencies.md",
     "Wiki/Lecture 4 - ER Model.md",
@@ -230,7 +233,6 @@
     "web-app/node_modules/lucide-react/dynamic.d.mts",
     "web-app/node_modules/es-toolkit/util.js",
     "web-app/node_modules/es-toolkit/util.d.ts",
-    "web-app/node_modules/es-toolkit/string.js",
     "web-app/node_modules/lucide-react/README.md",
     "web-app/node_modules/mermaid/README.zh-CN.md",
     "web-app/node_modules/mermaid/README.md",
@@ -251,8 +253,6 @@
     "web-app/node_modules/mdast-util-to-markdown/readme.md",
     "web-app/node_modules/dagre-d3-es/README.md",
     "web-app/node_modules/dagre-d3-es/LICENSE.md",
-    "web-app/node_modules/khroma/readme.md",
-    "web-app/node_modules/micromark-core-commonmark/readme.md",
     "web-app/node_modules/cytoscape-fcose/node_modules/layout-base/layout-schema.png",
     "web-app/node_modules/layout-base/layout-schema.png",
     "web-app/node_modules/highlight.js/styles/pojoaque.jpg",
