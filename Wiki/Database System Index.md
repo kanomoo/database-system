@@ -34,6 +34,7 @@ type: index
 | | **บทที่ 9 (Ch9)** | [[Lecture 9 - NoSQL Databases]] | ทฤษฎีระดับสูง |
 | **Workshop & Exam** | **Exam Guide** | [[In-Class Exam Guide - Normalization and SQL]] | **⭐ คู่มือเตรียมสอบ & Mock Exam** |
 | | **Lab Guide** | [[SQL Lab Practice Guide - Zero to Hero]] | คู่มือห้องปฏิบัติการ SQL |
+| | **Live Quiz & Lecture** | [[In-Class Pop Quiz and Classroom Lecture - Transaction & ACID]] | **🎙️ ถอดเทปบรรยายสด & เฉลยควิซห้องเรียน (8 ก.ย.)** |
 
 ---
 

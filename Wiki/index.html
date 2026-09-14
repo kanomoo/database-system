@@ -158,8 +158,9 @@
   <!-- Diagram Fullscreen Zoom Modal -->
   <div id="diagram-modal" class="diagram-modal-backdrop">
     <div class="diagram-modal-bar">
-      <div style="font-weight: 600; font-size: 14px; color: var(--text-primary);">
-        📊 แผนผังแบบขยายเต็มจอ (Mermaid Diagram)
+      <div style="font-weight: 600; font-size: 14px; color: var(--text-primary); display: flex; align-items: center; gap: 8px; font-family: 'Chakra Petch', sans-serif;">
+        <span style="color: var(--cyan, #4fd1e8); font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 7px; background: rgba(79, 209, 232, 0.12); border: 1px solid rgba(79, 209, 232, 0.35); border-radius: 4px;">DB STUDIO</span>
+        <span>🔬 แบบจำลองโครงสร้างสถาปัตยกรรม (Database Architecture Fullscreen Inspector)</span>
       </div>
       <div style="display: flex; gap: 8px; align-items: center;">
         <button id="diagram-zoom-out-btn" class="code-btn" title="ย่อภาพ">➖ ย่อ</button>
@@ -182,6 +183,9 @@
 
   <!-- Pre-bundled Wiki Data -->
   <script src="wiki-data.js"></script>
+
+  <!-- Database Native Architecture Engine (Zero Mermaid Dependency) -->
+  <script src="db-native-visuals.js"></script>
 
   <!-- Application Logic -->
   <script src="app.js"></script>

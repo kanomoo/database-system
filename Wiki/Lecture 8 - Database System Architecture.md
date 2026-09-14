@@ -532,6 +532,9 @@ sequenceDiagram
 > 5. **กรณีที่เป็นขีด (-) คือ ไม่มีการล็อกใดๆ:**
 >    - ตอบ Yes ทุกช่อง ซึ่งหากไม่มีการล็อก ก็จะย้อนกลับไปเกิดปัญหา Concurrency ทั้ง 3 ประการดังที่กล่าวมาแล้ว
 
+> [!TIP] 🎙️ ถอดเทปเสียงบรรยายสดและการสอบควิซในห้องเรียน (8 ก.ย. 2569)
+> เรื่อง **Lock Compatibility Matrix** และโจทย์ **การกู้คืน 5 Transactions หลัง Crash (REDO vs UNDO)** ได้ถูกนำมาออกเป็น **ข้อสอบ Pop Quiz ในห้องเรียน** ดูโจทย์จริง บรรยากาศการสอบ และเฉลยคะแนนเต็ม 100% ได้ที่: [[In-Class Pop Quiz and Classroom Lecture - Transaction & ACID]]
+
 ---
 
 ## 📦 Slide 17: Simple Locking (Trace 1)

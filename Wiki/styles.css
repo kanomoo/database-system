@@ -45,7 +45,7 @@
   --navbar-height: 64px;
   --sidebar-width: 290px;
   --toc-width: 260px;
-  --content-max-width: 880px;
+  --content-max-width: 1260px;
 
   /* Typography */
   --font-sans: 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -828,57 +828,341 @@ body.theme-light .brand-title {
   background: rgba(255, 255, 255, 0.02);
 }
 
-/* Mermaid Diagram Container */
-.mermaid-card {
-  margin: 2rem 0;
-  background: #0b0f19;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+/* ========================================================================= */
+/* DB STUDIO VISUAL ARCHITECTURE MODEL & DIAGRAM ENGINE (ZERO MERMAID)       */
+/* ========================================================================= */
+.mermaid-card,
+.db-model-card {
+  margin: 2.2rem 0;
+  background: radial-gradient(ellipse at 50% -10%, rgba(79, 209, 232, 0.09) 0%, transparent 65%), #11131c;
+  border: 1px solid rgba(79, 209, 232, 0.22);
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.mermaid-card-header {
+.mermaid-card:hover,
+.db-model-card:hover {
+  border-color: rgba(79, 209, 232, 0.5);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6), 0 0 24px rgba(79, 209, 232, 0.15);
+}
+
+.mermaid-card-header,
+.db-model-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 14px;
-  background: rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid var(--border-subtle);
-  font-size: 12px;
-  color: var(--text-muted);
+  padding: 10px 18px;
+  background: linear-gradient(90deg, rgba(20, 23, 34, 0.98), rgba(16, 18, 27, 0.98));
+  border-bottom: 1px solid rgba(79, 209, 232, 0.15);
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.btn-diagram-zoom {
-  background: transparent;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  font-size: 11.5px;
+.db-model-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.db-term-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.db-term-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.db-term-dots i.dot-red {
+  background: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+}
+
+.db-term-dots i.dot-yellow {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.5);
+}
+
+.db-term-dots i.dot-green {
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
+}
+
+.db-studio-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--cyan, #4fd1e8);
+  background: rgba(79, 209, 232, 0.12);
+  border: 1px solid rgba(79, 209, 232, 0.35);
   padding: 3px 8px;
-  border-radius: 4px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.diagram-label,
+.db-model-title {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #e2e8f0;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.db-model-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.db-model-btn,
+.btn-diagram-zoom {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-family: 'IBM Plex Sans Thai', -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 11px;
+  border-radius: 7px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
 
+.db-model-btn:hover,
 .btn-diagram-zoom:hover {
-  background: var(--bg-surface-hover);
-  color: var(--text-primary);
+  background: rgba(79, 209, 232, 0.12);
+  color: #fff;
+  border-color: var(--cyan, #4fd1e8);
+  box-shadow: 0 0 12px rgba(79, 209, 232, 0.25);
 }
 
-.mermaid-viewport {
-  padding: 24px;
+.db-model-btn.highlight {
+  background: linear-gradient(135deg, rgba(79, 209, 232, 0.2), rgba(99, 102, 241, 0.25));
+  border-color: rgba(79, 209, 232, 0.5);
+  color: var(--cyan, #4fd1e8);
+  font-weight: 600;
+}
+
+.db-model-btn.highlight:hover {
+  background: linear-gradient(135deg, var(--cyan, #4fd1e8), #2563eb);
+  color: #0b0f19;
+  border-color: var(--cyan, #4fd1e8);
+  box-shadow: 0 0 16px rgba(79, 209, 232, 0.5);
+}
+
+.mermaid-viewport,
+.db-model-viewport {
+  padding: 24px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow-x: auto;
-  min-height: 120px;
+  width: 100%;
+  min-height: 140px;
+  background: rgba(13, 15, 23, 0.7);
 }
 
-.mermaid-viewport svg {
+.db-native-wrap {
+  width: 100%;
   max-width: 100%;
-  height: auto;
+  overflow-x: auto;
+  font-family: 'IBM Plex Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* --- Native Entity Cards (ER Modeling) --- */
+.db-entity-card {
+  background: #141724;
+  border: 1.5px solid rgba(79, 209, 232, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.db-entity-card:hover {
+  transform: translateY(-2px);
+  border-color: #4fd1e8;
+}
+
+.db-entity-header {
+  padding: 8px 12px;
+  background: rgba(79, 209, 232, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #4fd1e8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.db-entity-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+.db-attr-list {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.db-attr-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.db-pk-badge {
+  background: #f59e0b;
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 9.5px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.db-fk-badge {
+  background: #3b82f6;
+  color: #fff;
+  font-weight: 800;
+  font-size: 9.5px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.db-data-type {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #64748b;
+}
+
+/* --- Storage Memory Slots (CHAR vs VARCHAR) --- */
+.db-slot-cell {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.db-slot-cell.occupied {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: #f59e0b;
+  color: #fbbf24;
+}
+
+.db-slot-cell.wasted {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  font-size: 10.5px;
+}
+
+/* --- State Transition Machine --- */
+.db-state-node {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1.5px solid;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  font-size: 12.5px;
+  text-align: center;
+}
+
+/* --- Venn Diagram Cards (JOINs) --- */
+.db-venn-card {
+  background: #131722;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --- Tree Footer Chips --- */
+.db-tree-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.db-tree-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #6ee7b7;
+  padding: 5px 14px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* Light theme support */
+body.theme-light .db-model-card {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+body.theme-light .db-model-header {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+body.theme-light .db-model-title {
+  color: #0f172a;
+}
+body.theme-light .db-model-viewport {
+  background: #f8fafc;
+}
+body.theme-light .db-entity-card {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+body.theme-light .db-attr-list {
+  color: #334155;
+}
+body.theme-light .db-card {
+  background: #f1f5f9 !important;
+}
+body.theme-light .db-native-wrap [style*="background:#131722"] {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
 }
 
 /* Footer Pagination */
@@ -1210,6 +1494,41 @@ body.theme-light .brand-title {
     margin: 0 10px;
   }
 }
+
+/* ==========================================================================
+   Markdown Images - High Quality Presentation & Interactive Zoom
+   ========================================================================== */
+.markdown-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.75rem auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  background-color: #ffffff;
+  padding: 8px;
+  cursor: zoom-in;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.markdown-body img:hover {
+  transform: translateY(-2px) scale(1.008);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  border-color: #3b82f6;
+}
+
+body.theme-light .markdown-body img {
+  background-color: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+body.theme-light .markdown-body img:hover {
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.14);
+  border-color: #2563eb;
+}
+
 
 /* Suppress and hide any rogue error SVGs that Mermaid library tries to dump into DOM */
 div[id^="dmermaid-"],
