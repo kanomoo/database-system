@@ -18,6 +18,8 @@ type: lecture
 ---
 
 ## 🚀 Slide 1: Enabling Extreme Scalability with NoSQL
+
+![ภาพสไลด์ที่ 1: Enabling Extreme Scalability with NoSQL](images/ch9/slide_1.png)
 **บทนำ: การขยายระบบขั้นสุดด้วย NoSQL**
 
 โลกเปลี่ยนไป ความต้องการของฐานข้อมูลก็เปลี่ยนตาม (Demand of your DB is changing) นี่คือจุดเริ่มต้นของการทำความรู้จักกับฐานข้อมูลยุคใหม่ที่ชื่อว่า NoSQL
@@ -25,6 +27,8 @@ type: lecture
 ---
 
 ## 📋 Slide 2: What is covered in this presentation?
+
+![ภาพสไลด์ที่ 2: What is covered in this presentation?](images/ch9/slide_2.png)
 **หัวข้อที่จะครอบคลุมในบทเรียนนี้**
 
 1. ประวัติศาสตร์โดยย่อของฐานข้อมูล
@@ -36,6 +40,8 @@ type: lecture
 ---
 
 ## 📖 Slide 3: Introduction
+
+![ภาพสไลด์ที่ 3: Introduction](images/ch9/slide_3.png)
 **ความรู้พื้นฐาน**
 
 - **Database:** คือแหล่งรวบรวมข้อมูลที่ถูกจัดระเบียบไว้
@@ -45,6 +51,8 @@ type: lecture
 ---
 
 ## ⏳ Slide 4: A brief history
+
+![ภาพสไลด์ที่ 4: A brief history](images/ch9/slide_4.png)
 **ประวัติศาสตร์การพัฒนาฐานข้อมูล**
 
 - **ยุค 1970:** จุดเริ่มต้นของ Codd's Relational Model (จุดกำเนิด RDBMS)
@@ -55,6 +63,8 @@ type: lecture
 ---
 
 ## 🗄️ Slide 5: Relational databases
+
+![ภาพสไลด์ที่ 5: Relational databases](images/ch9/slide_5.png)
 **ข้อดีของฐานข้อมูลเชิงสัมพันธ์ (RDBMS)**
 
 ก่อนจะไป NoSQL เราต้องยอมรับว่า RDBMS (SQL) มีข้อดีที่ทรงพลังมาก:
@@ -67,6 +77,8 @@ type: lecture
 ---
 
 ## 🏢 Slide 6: SQL databases
+
+![ภาพสไลด์ที่ 6: SQL databases](images/ch9/slide_6.png)
 **ตัวอย่างยี่ห้อฐานข้อมูลกลุ่ม SQL**
 
 ยี่ห้อที่คุ้นเคยในฝั่ง Relational ได้แก่:
@@ -75,6 +87,8 @@ type: lecture
 ---
 
 ## 🧩 Slide 7: RDBMS
+
+![ภาพสไลด์ที่ 7: RDBMS](images/ch9/slide_7.png)
 **หน้าตาของ RDBMS**
 
 โครงสร้างของ SQL ถูกผูกมัดด้วย **"Schema (โครงสร้างตารางตายตัว)"** ต้องมีตาราง (Table), มีแถว (Row), และมีการเชื่อมความสัมพันธ์ด้วย Foreign Key อย่างชัดเจน (เช่น ตาราง Dog เชื่อมกับ ตาราง Bark)
@@ -82,6 +96,8 @@ type: lecture
 ---
 
 ## 🤔 Slide 8: NoSQL why, what and when? (The Problem)
+
+![ภาพสไลด์ที่ 8: NoSQL why, what and when?](images/ch9/slide_8.png)
 **ทำไมต้องมี NoSQL? (ปัญหาของ RDBMS)**
 
 **But... (แต่ว่า...)** ฐานข้อมูลแบบ Relational ไม่ได้ถูกออกแบบมาสำหรับระบบ **Distributed Computing (การประมวลผลแบบกระจายศูนย์)** 
@@ -95,6 +111,8 @@ type: lecture
 ---
 
 ## 🐢 Slide 9: NoSQL why, what and when? (The Weakness)
+
+![ภาพสไลด์ที่ 9: NoSQL why, what and when?](images/ch9/slide_9.png)
 **จุดอ่อนของ SQL ในยุคใหม่**
 
 เมื่อเจอกับข้อมูลระดับมหาศาลข้ามโลก SQL จะมีจุดอ่อนรุนแรงในเรื่อง:
@@ -105,6 +123,8 @@ type: lecture
 ---
 
 ## 🚀 Slide 10: Why NOSQL now?? Ans. Driving Trends
+
+![ภาพสไลด์ที่ 10: Why NOSQL now?? Ans. Driving Trends](images/ch9/slide_10.png)
 **ทำไม NoSQL ถึงมาบูมในยุคนี้?**
 
 แรงผลักดัน (Driving Trends) ที่ทำให้โลกต้องทิ้ง SQL บางส่วน:
@@ -118,6 +138,8 @@ type: lecture
 ---
 
 ## 📉 Slide 11: Side note: RDBMS performance
+
+![ภาพสไลด์ที่ 11: Side note: RDBMS performance](images/ch9/slide_11.png)
 **ความสัมพันธ์ระหว่างความซับซ้อนและประสิทธิภาพของ RDBMS**
 
 > [!INFO] กราฟ Performance vs Data Complexity
@@ -126,6 +148,8 @@ type: lecture
 ---
 
 ## 💡 Slide 12: But.. What’s NoSQL?
+
+![ภาพสไลด์ที่ 12: But.. What’s NoSQL?](images/ch9/slide_12.png)
 **NoSQL คืออะไร?**
 
 - **ความหมายดั้งเดิม:** กลไกการเก็บและดึงข้อมูลที่ใช้กฎเรื่อง Consistency แบบผ่อนปรน (ยืดหยุ่นกว่า RDBMS)
@@ -134,6 +158,8 @@ type: lecture
 ---
 
 ## 🚫 Slide 13: Characteristics of NoSQL databases
+
+![ภาพสไลด์ที่ 13: Characteristics of NoSQL databases](images/ch9/slide_13.png)
 **ลักษณะเฉพาะและข้อดีของ NoSQL**
 
 **สิ่งที่ NoSQL หลีกเลี่ยง (Avoids):**
@@ -151,6 +177,8 @@ type: lecture
 ---
 
 ## ⚖️ Slide 14: When and When not to use it?
+
+![ภาพสไลด์ที่ 14: When and When not to use it?](images/ch9/slide_14.png)
 **เมื่อไหร่ควรใช้ และไม่ควรใช้ NoSQL**
 
 > [!TIP] **WHEN / WHY? (เมื่อไหร่ควรใช้ NoSQL)**
@@ -168,6 +196,8 @@ type: lecture
 ---
 
 ## 🌟 Slide 15: NoSQL is getting more & more popular
+
+![ภาพสไลด์ที่ 15: NoSQL is getting more & more popular](images/ch9/slide_15.png)
 **ความนิยมของ NoSQL**
 
 บริษัทระดับโลกที่หันมาใช้ NoSQL เป็นแกนหลัก: Google, eBay, LinkedIn, Yahoo!, Netflix, Amazon, Facebook, The Guardian ฯลฯ
@@ -175,6 +205,8 @@ type: lecture
 ---
 
 ## 🔓 Slide 16: What is a schema-less data model?
+
+![ภาพสไลด์ที่ 16: What is a schema-less data model?](images/ch9/slide_16.png)
 **Schema-less คืออะไร? (เปรียบเทียบกับ RDBMS)**
 
 **ปัญหาของ Relational Database:**
@@ -186,6 +218,8 @@ type: lecture
 ---
 
 ## 📂 Slide 17: What is a schema-less data model? (cont.)
+
+![ภาพสไลด์ที่ 17: What is a schema-less data model?](images/ch9/slide_17.png)
 **ความยืดหยุ่นของ Schema-less ใน NoSQL**
 
 **สวรรค์ของ NoSQL:**
@@ -198,6 +232,8 @@ type: lecture
 ---
 
 ## 🏛️ Slide 18: Aggregate Data Models
+
+![ภาพสไลด์ที่ 18: Aggregate Data Models](images/ch9/slide_18.png)
 **4 ตระกูลหลักของ NoSQL**
 
 NoSQL แบ่งออกเป็น 4 รูปแบบสถาปัตยกรรม (Data models) ซึ่งแต่ละตัวก็จะมีภาษาคิวรีเป็นของตัวเอง:
@@ -209,6 +245,8 @@ NoSQL แบ่งออกเป็น 4 รูปแบบสถาปัต�
 ---
 
 ## 🔑 Slide 19: Key-value data model
+
+![ภาพสไลด์ที่ 19: Key-value data model](images/ch9/slide_19.png)
 **1. ฐานข้อมูลแบบ Key-Value**
 
 - **ลักษณะ:** เป็น NoSQL ที่เรียบง่ายที่สุด (Simplest)
@@ -220,6 +258,8 @@ NoSQL แบ่งออกเป็น 4 รูปแบบสถาปัต�
 ---
 
 ## 🏛️ Slide 20: Column family data model
+
+![ภาพสไลด์ที่ 20: Column family data model](images/ch9/slide_20.png)
 **2. ฐานข้อมูลแบบ Column family**
 
 - **ลักษณะ:** "Column (คอลัมน์)" คือหน่วยข้อมูลที่เล็กที่สุด
@@ -229,6 +269,8 @@ NoSQL แบ่งออกเป็น 4 รูปแบบสถาปัต�
 ---
 
 ## ⚡ Slide 21: Column family data model (Cassandra)
+
+![ภาพสไลด์ที่ 21: Column family data model](images/ch9/slide_21.png)
 **สถิติการใช้งานจริงของ Column family (Facebook Search)**
 
 Facebook เปลี่ยนระบบค้นหามาใช้ **Cassandra**:
@@ -244,6 +286,8 @@ Facebook เปลี่ยนระบบค้นหามาใช้ **Cassa
 ---
 
 ## 🕸️ Slide 22: Graph data model
+
+![ภาพสไลด์ที่ 22: Graph data model](images/ch9/slide_22.png)
 **3. ฐานข้อมูลแบบ Graph**
 
 - **ลักษณะ:** มีพื้นฐานมาจากทฤษฎีกราฟ (Graph Theory) เก็บข้อมูลเป็น Node (จุด) และ Edge (เส้นเชื่อมความสัมพันธ์)
@@ -254,6 +298,8 @@ Facebook เปลี่ยนระบบค้นหามาใช้ **Cassa
 ---
 
 ## 📄 Slide 23: Document based data model
+
+![ภาพสไลด์ที่ 23: Document based data model](images/ch9/slide_23.png)
 **4. ฐานข้อมูลแบบ Document**
 
 - **ลักษณะ:** คล้าย Key-Value แต่ฝั่ง Value จะเก็บโครงสร้างที่ซับซ้อนที่เรียกว่า **"Document"** (มักจะมาในรูปแบบ JSON หรือ XML)
@@ -264,6 +310,8 @@ Facebook เปลี่ยนระบบค้นหามาใช้ **Cassa
 ---
 
 ## 📱 Slide 24: Document based data model (UI Mapping)
+
+![ภาพสไลด์ที่ 24: Document based data model](images/ch9/slide_24.png)
 **ตัวอย่างการนำ Document ไปผูกกับหน้าจอ Facebook**
 
 ในโลก NoSQL แบบ Document การออกแบบ Database มักจะทำแบบ "หน้าจอนึง ดึงข้อมูลก้อนเดียว (Document)" 
@@ -272,6 +320,8 @@ Facebook เปลี่ยนระบบค้นหามาใช้ **Cassa
 ---
 
 ## ⚔️ Slide 25: SQL vs NOSQL
+
+![ภาพสไลด์ที่ 25: SQL vs NOSQL](images/ch9/slide_25.png)
 **ตารางเปรียบเทียบจุดแตกต่าง**
 
 | หัวข้อ | SQL Databases | NoSQL Database |
@@ -286,6 +336,8 @@ Facebook เปลี่ยนระบบค้นหามาใช้ **Cassa
 ---
 
 ## 🏗️ Slide 26: What we need ? (The Impossible DB)
+
+![ภาพสไลด์ที่ 26: What we need ?](images/ch9/slide_26.png)
 **ความฝันสูงสุดของการทำ Distributed Database**
 
 เราทุกคนต่างใฝ่ฝันอยากได้ฐานข้อมูลแบบกระจายศูนย์ (Distributed database) ที่มี 4 พลังนี้ครบถ้วน:
@@ -300,6 +352,8 @@ Facebook เปลี่ยนระบบค้นหามาใช้ **Cassa
 ---
 
 ## 🔺 Slide 27: CAP theorem
+
+![ภาพสไลด์ที่ 27: CAP theorem](images/ch9/slide_27.png)
 **ทฤษฎี CAP**
 
 > [!IMPORTANT] The CAP Theorem
@@ -313,6 +367,8 @@ Facebook เปลี่ยนระบบค้นหามาใช้ **Cassa
 ---
 
 ## 🔄 Slide 28: CAP theorem (Traditional vs NoSQL)
+
+![ภาพสไลด์ที่ 28: CAP theorem](images/ch9/slide_28.png)
 **การแลกเปลี่ยน (Trade-off) ใน CAP Theorem**
 
 - **RDBMS (กลุ่ม CA):** เลือกความเป๊ะ (Consistency) และความพร้อม (Availability) แต่แลกมาด้วยการขยายเครื่องเป็น Cluster ยากมาก ถ้าสายแลนขาด ระบบล่มทันที
@@ -322,6 +378,8 @@ Facebook เปลี่ยนระบบค้นหามาใช้ **Cassa
 ---
 
 ## 🏁 Slide 29: Conclusion....
+
+![ภาพสไลด์ที่ 29: Conclusion....](images/ch9/slide_29.png)
 **บทสรุปการเลือกใช้งาน**
 
 > [!TIP] สรุปสั้นๆ (In Conclusion!)
@@ -337,6 +395,8 @@ Facebook เปลี่ยนระบบค้นหามาใช้ **Cassa
 ---
 
 ## 📚 Slide 30: References
+
+![ภาพสไลด์ที่ 30: References](images/ch9/slide_30.png)
 **เอกสารอ้างอิง**
 
 - nosql-database.org/
@@ -347,6 +407,8 @@ Facebook เปลี่ยนระบบค้นหามาใช้ **Cassa
 ---
 
 ## 🙏 Slide 31: Thanks...
+
+![ภาพสไลด์ที่ 31: Thanks...](images/ch9/slide_31.png)
 **จบการนำเสนอ**
 Any Questions??
 

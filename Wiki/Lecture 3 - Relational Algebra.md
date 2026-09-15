@@ -18,6 +18,8 @@ type: lecture
 ---
 
 ## 🗣️ Slide 1: Relational Algebra
+
+![ภาพสไลด์ที่ 1: Relational Algebra](images/ch3/slide_1.png)
 **พีชคณิตเชิงสัมพันธ์**
 
 บทเรียนนี้เริ่มต้นด้วยการแนะนำให้รู้จักกับแก่นแท้ของระบบฐานข้อมูลเชิงสัมพันธ์ นั่นคือทฤษฎีทางคณิตศาสตร์ที่เรียกว่า "พีชคณิตเชิงสัมพันธ์ (Relational Algebra)" ซึ่งเป็นกระบวนการในการดึงและจัดการข้อมูลที่ถูกเก็บอยู่ในรูปแบบตาราง
@@ -25,6 +27,8 @@ type: lecture
 ---
 
 ## 🔤 Slide 2: Relational Query Languages
+
+![ภาพสไลด์ที่ 2: Relational Query Languages](images/ch3/slide_2.png)
 **ภาษาสำหรับการสืบค้นข้อมูลเชิงสัมพันธ์**
 
 เมื่อเราต้องการสืบค้นข้อมูล (Query) บน Relational database จะมีตัวเลือกภาษาอยู่ 2 แบบหลัก:
@@ -38,6 +42,8 @@ type: lecture
 ---
 
 ## 🧮 Slide 3: Algebra
+
+![ภาพสไลด์ที่ 3: Algebra](images/ch3/slide_3.png)
 **หลักการของพีชคณิต**
 
 ในทางคณิตศาสตร์ พีชคณิตประกอบไปด้วย "ตัวดำเนินการ (Operators)" และ "ขอบเขตของข้อมูล (Domain)"
@@ -47,6 +53,8 @@ type: lecture
 ---
 
 ## 🛠️ Slide 4: Relational Algebra
+
+![ภาพสไลด์ที่ 4: Relational Algebra](images/ch3/slide_4.png)
 **ความหมายของพีชคณิตเชิงสัมพันธ์**
 
 เจาะลึกองค์ประกอบของ RA:
@@ -58,6 +66,8 @@ type: lecture
 ---
 
 ## ⚙️ Slide 5: Relational Algebra in a DBMS
+
+![ภาพสไลด์ที่ 5: Relational Algebra in a DBMS](images/ch3/slide_5.png)
 **แผนผังกระบวนการประมวลผลภายใน DBMS**
 
 แผนภาพนี้แสดงลำดับขั้นเมื่อ DBMS ได้รับคำสั่ง SQL จากผู้ใช้:
@@ -89,6 +99,8 @@ flowchart LR
 ---
 
 ## 🧩 Slide 6: Set Operators
+
+![ภาพสไลด์ที่ 6: Set Operators](images/ch3/slide_6.png)
 **ตัวดำเนินการทางเซต**
 
 เนื่องจาก "ตาราง (Relation)" คือ "เซตของแถว (Set of tuples)" ดังนั้นหลักการทางทฤษฎีเซตจึงถูกนำมาใช้:
@@ -98,6 +110,8 @@ flowchart LR
 ---
 
 ## 🤝 Slide 7: Union Compatible Relations
+
+![ภาพสไลด์ที่ 7: Union Compatible Relations](images/ch3/slide_7.png)
 **ความเข้ากันได้แบบยูเนียน**
 
 > [!DEFINITION] กฎเหล็ก 3 ข้อของการเข้ากันได้
@@ -111,6 +125,8 @@ flowchart LR
 ---
 
 ## 🟢 Slide 8: Union Operator
+
+![ภาพสไลด์ที่ 8: Union Operator](images/ch3/slide_8.png)
 **ตัวดำเนินการยูเนียน**
 
 การนำแถวข้อมูลทั้งหมดของ 2 ตารางมากองรวมกัน โดยผลลัพธ์จะต้อง "ไม่มีแถวข้อมูลที่ซ้ำกัน 100%" (หากซ้ำกันจะถูกยุบให้เหลือแค่ 1 บรรทัดตามหลักทฤษฎีเซต)
@@ -143,6 +159,8 @@ flowchart LR
 ---
 
 ## 🔵 Slide 9: Intersection Operator
+
+![ภาพสไลด์ที่ 9: Intersection Operator](images/ch3/slide_9.png)
 **ตัวดำเนินการอินเตอร์เซกชัน**
 
 การสร้างตารางใหม่โดยดึงเอาเฉพาะ **"แถวข้อมูลที่มีอยู่ทั้งในตาราง A และตาราง B พร้อมๆ กัน"** แถวที่ปรากฏเพียงฝั่งเดียวจะถูกตัดทิ้ง
@@ -159,6 +177,8 @@ flowchart LR
 ---
 
 ## 🔴 Slide 10: Difference Operator
+
+![ภาพสไลด์ที่ 10: Difference Operator](images/ch3/slide_10.png)
 **ตัวดำเนินการผลต่าง**
 
 การนำตารางตัวหน้ามาตั้ง และลบทิ้งด้วยสมาชิกที่ดันไปโผล่ในตารางตัวหลัง
@@ -180,11 +200,13 @@ flowchart LR
 ---
 
 ## ✖️ Slide 11: Cartesian Product
-**ผลคูณคาร์ทีเซียน ($R \times S$)**
+
+![ภาพสไลด์ที่ 11: Cartesian Product](images/ch3/slide_11.png)
+**ผลคูณคาร์ทีเซียน (R × S)**
 
 เป็นการนำทุกแถวของตาราง R มาจับคู่กับทุกแถวของตาราง S 
 - ไม่จำเป็นต้องเป็น Union compatible (ตารางหน้าตาไม่เหมือนกันเลยก็คูณได้)
-- **ปัญหา:** เป็นคำสั่งที่ราคาแพงมากๆ (Expensive to compute) เพราะจำนวนแถวจะกลายเป็น $R \times S$ (Quadratic)
+- **ปัญหา:** เป็นคำสั่งที่ราคาแพงมากๆ (Expensive to compute) เพราะจำนวนแถวจะกลายเป็น R × S (Quadratic)
 
 > [!EXAMPLE] Trace Table: Cartesian Product
 > 
@@ -202,7 +224,7 @@ flowchart LR
 > | y1 | y2 |
 > | y3 | y4 |
 > 
-> **Result: $R \times S$** (กระจายจับคู่)
+> **Result: R × S** (กระจายจับคู่)
 > 
 > | a | b | c | d |
 > |---|---|---|---|
@@ -214,10 +236,12 @@ flowchart LR
 ---
 
 ## 🔍 Slide 12: Select Operator
-**ตัวดำเนินการคัดเลือกแถว ($\sigma$)**
+
+![ภาพสไลด์ที่ 12: Select Operator](images/ch3/slide_12.png)
+**ตัวดำเนินการคัดเลือกแถว (σ)**
 
 คัดลอก "แถว (Rows)" ของตารางที่ตรงตามเงื่อนไข (Condition) สร้างเป็นซับเซต (Subset) ของตารางต้นฉบับ
-รูปแบบ: $\sigma_{\text{condition}}(\text{relation})$
+รูปแบบ: σ_{condition}(relation)
 
 > [!EXAMPLE] Trace Table: Select
 > 
@@ -230,7 +254,7 @@ flowchart LR
 > | 5556 | Mary | 7 Lake Dr | hiking |
 > | 9876 | Bart | 5 Pine St | stamps |
 > 
-> **คำสั่ง:** $\sigma_{\text{Hobby='stamps'}}(\text{Person})$
+> **คำสั่ง:** σ_{Hobby='stamps'}(Person)
 > 
 > | Id | Name | Address | Hobby |
 > |---|---|---|---|
@@ -240,6 +264,8 @@ flowchart LR
 ---
 
 ## 📝 Slide 13: Selection Condition
+
+![ภาพสไลด์ที่ 13: Selection Condition](images/ch3/slide_13.png)
 **เงื่อนไขในการคัดเลือกแถว**
 
 - **Operators (เครื่องหมาย):** `<`, `<=`, `>=`, `>`, `=`, `!=`
@@ -251,23 +277,27 @@ flowchart LR
 ---
 
 ## 🎯 Slide 14: Selection Condition - Examples
+
+![ภาพสไลด์ที่ 14: Selection Condition - Examples](images/ch3/slide_14.png)
 **ตัวอย่างเงื่อนไขในการคัดเลือกแถว**
 
-- $\sigma_{\text{Id>3000 OR Hobby='hiking'}}(\text{Person})$ (รหัสเกิน 3000 หรือชอบปีนเขา)
-- $\sigma_{\text{Id>3000 AND Id<3999}}(\text{Person})$ (รหัสอยู่ระหว่าง 3001 ถึง 3998)
-- $\sigma_{\text{NOT(Hobby='hiking')}}(\text{Person})$ (คนที่ไม่ชอบปีนเขา)
-- $\sigma_{\text{Hobby} \neq \text{'hiking'}}(\text{Person})$ (เขียนได้สองแบบ ความหมายเหมือนบรรทัดบน)
+- σ_{Id>3000 OR Hobby='hiking'}(Person) (รหัสเกิน 3000 หรือชอบปีนเขา)
+- σ_{Id>3000 AND Id<3999}(Person) (รหัสอยู่ระหว่าง 3001 ถึง 3998)
+- σ_{NOT(Hobby='hiking')}(Person) (คนที่ไม่ชอบปีนเขา)
+- σ_{Hobby ≠ 'hiking'}(Person) (เขียนได้สองแบบ ความหมายเหมือนบรรทัดบน)
 
 ---
 
 ## ✂️ Slide 15: Project Operator
-**ตัวดำเนินการคัดเลือกคอลัมน์ ($\pi$)**
+
+![ภาพสไลด์ที่ 15: Project Operator](images/ch3/slide_15.png)
+**ตัวดำเนินการคัดเลือกคอลัมน์ (π)**
 
 สร้างซับเซตแนวดิ่ง โดยเก็บเฉพาะ "คอลัมน์ (Columns)" ที่กำหนดไว้ในพารามิเตอร์ และทิ้งคอลัมน์อื่นทั้งหมด
-รูปแบบ: $\pi_{\text{attribute-list}}(\text{relation})$
+รูปแบบ: π_{attribute-list}(relation)
 
 > [!EXAMPLE] Trace Table: Project
-> **คำสั่ง:** $\pi_{\text{Name, Hobby}}(\text{Person})$
+> **คำสั่ง:** π_{Name, Hobby}(Person)
 > 
 > | Name | Hobby |
 > |---|---|
@@ -279,12 +309,14 @@ flowchart LR
 ---
 
 ## 📏 Slide 16: Project Operator (Result is a table)
+
+![ภาพสไลด์ที่ 16: Project Operator](images/ch3/slide_16.png)
 **กฎการยุบตัวซ้ำของโปรเจคต์**
 
 ผลลัพธ์ของสมการต้องเป็นตารางเชิงสัมพันธ์ (Relation) ดังนั้น หากตัดคอลัมน์ทิ้งแล้วบรรทัดข้อมูลดันหน้าตาเหมือนกัน 100% ระบบจะยุบทิ้งไม่ให้มีค่าซ้ำซ้อน (no duplicates)
 
 > [!EXAMPLE] Trace Table: Project (No Duplicates)
-> **คำสั่ง:** $\pi_{\text{Name, Address}}(\text{Person})$
+> **คำสั่ง:** π_{Name, Address}(Person)
 > 
 > | Name | Address |
 > |---|---|
@@ -296,12 +328,14 @@ flowchart LR
 ---
 
 ## 🔄 Slide 17: Expressions
+
+![ภาพสไลด์ที่ 17: Expressions](images/ch3/slide_17.png)
 **การเขียนสมการซ้อนกัน**
 
 เราสามารถเอาคำสั่ง Select และ Project มาซ้อนกันได้ (Nested Operations)
 
 > [!EXAMPLE] Trace: Expression
-> **สมการ:** $\pi_{\text{Id, Name}} ( \sigma_{\text{Hobby='stamps' OR Hobby='coins'}} (\text{Person}) )$
+> **สมการ:** π_{Id, Name} ( σ_{Hobby='stamps' OR Hobby='coins'} (Person) )
 > 
 > ผลลัพธ์:
 > 
@@ -314,14 +348,18 @@ flowchart LR
 ---
 
 ## 🏷️ Slide 18: Renaming
+
+![ภาพสไลด์ที่ 18: Renaming](images/ch3/slide_18.png)
 **การเปลี่ยนชื่อ**
 
-**ปัญหา:** Cartesian product อาจทำให้คอลัมน์ชื่อชนกัน (เช่น $a = c$) ซึ่งผิดกฎของตารางที่ห้ามมีคอลัมน์ชื่อซ้ำกัน
+**ปัญหา:** Cartesian product อาจทำให้คอลัมน์ชื่อชนกัน (เช่น a = c) ซึ่งผิดกฎของตารางที่ห้ามมีคอลัมน์ชื่อซ้ำกัน
 **ทางแก้:** ตัวดำเนินการเปลี่ยนชื่อ (Renaming operator) จะช่วยจัดระเบียบให้ โดยสามารถกำหนดชื่อคอลัมน์ใหม่ทั้งหมดตามลำดับได้ด้วยสัญลักษณ์ `expression [A1, A2, ... An]`
 
 ---
 
 ## 📛 Slide 19: Example
+
+![ภาพสไลด์ที่ 19: Example](images/ch3/slide_19.png)
 **ตัวอย่างการใช้ตัวดำเนินการเปลี่ยนชื่อ**
 
 > [!EXAMPLE] Trace: Rename Example
@@ -331,28 +369,32 @@ flowchart LR
 > - `Teaching(ProfId, CrsCode, Semester)`
 > 
 > **สมการ:**
-> $\pi_{\text{StudId, CrsCode}} (\text{Transcript})\mathbf{[StudId, SCrsCode]}$ 
-> $\times$ 
-> $\pi_{\text{ProfId, CrsCode}} (\text{Teaching})\mathbf{[ProfId, PCrscode]}$
+> π_{StudId, CrsCode} (Transcript)mathbf{[StudId, SCrsCode]} 
+> × 
+> π_{ProfId, CrsCode} (Teaching)mathbf{[ProfId, PCrscode]}
 > 
 > **ผลลัพธ์:** ได้ตารางกว้าง 4 คอลัมน์ที่ชื่อไม่ชนกันเลยคือ `StudId`, `SCrsCode`, `ProfId`, `PCrsCode`
 
 ---
 
 ## 🔗 Slide 20: Derived Operation: Join
+
+![ภาพสไลด์ที่ 20: Derived Operation: Join](images/ch3/slide_20.png)
 **ตัวดำเนินการเชื่อมตาราง (Theta Join)**
 
 Join ไม่ใช่คำสั่งพื้นฐาน (Derived operation) แต่มันคือการยุบรวม Cartesian Product เข้ากับการ Select
-สมการ: $R \bowtie_{\text{join-condition}} S$ 
-มีค่าเท่ากับ: $\sigma_{\text{join-condition}} (R \times S)$
-โดยเงื่อนไขในการเชื่อม (theta) สามารถใช้ `<, >, =, \neq` ได้ตามต้องการ
+สมการ: R ⋈_{join-condition} S 
+มีค่าเท่ากับ: σ_{join-condition} (R × S)
+โดยเงื่อนไขในการเชื่อม (theta) สามารถใช้ `<, >, =, ≠` ได้ตามต้องการ
 
 ---
 
 ## 🚧 Slide 21: Join and Renaming
+
+![ภาพสไลด์ที่ 21: Join and Renaming](images/ch3/slide_21.png)
 **การเชื่อมตารางและการเปลี่ยนชื่อ**
 
-- **ปัญหา:** $R$ และ $S$ อาจมีชื่อคอลัมน์ซ้ำกัน ถ้าใช้ Cartesian product ปกติระบบจะ Error (not defined)
+- **ปัญหา:** R และ S อาจมีชื่อคอลัมน์ซ้ำกัน ถ้าใช้ Cartesian product ปกติระบบจะ Error (not defined)
 - **การแก้ปัญหา:** 
   1. ให้ Rename เปลี่ยนชื่อคอลัมน์ก่อนทำการ Join
   2. หากใช้ชื่อเดิม ระบบในผลลัพธ์จะต้องควบชื่อตารางไว้ข้างหน้า (เช่น `R.Name`, `S.Name`) เพื่อบ่งบอกว่ามาจากตารางไหน
@@ -360,12 +402,14 @@ Join ไม่ใช่คำสั่งพื้นฐาน (Derived operatio
 ---
 
 ## 🧮 Slide 22: Theta Join – Example
+
+![ภาพสไลด์ที่ 22: Theta Join – Example](images/ch3/slide_22.png)
 **ตัวอย่าง Theta Join**
 
 > [!EXAMPLE] Trace: ค้นหาพนักงานที่รวยกว่าผู้จัดการ
 > 
 > **โจทย์:** จงพ่นชื่อของพนักงานที่ได้เงินเดือนมากกว่าหัวหน้าของตน
-> **สมการ:** $\pi_{\text{Employee.Name}} (\text{Employee} \bowtie_{\text{MngrId=Id AND Salary>Salary}} \text{Manager})$
+> **สมการ:** π_{Employee.Name} (Employee ⋈_{MngrId=Id AND Salary>Salary} Manager)
 > 
 > ตารางผลลัพธ์จากการจอยน์ก่อนทำโปรเจคต์จะประกอบด้วยคอลัมน์:
 > `Employee.Name`, `Employee.Id`, `Employee.Salary`, `MngrId`, `Manager.Name`, `Manager.Id`, `Manager.Salary`
@@ -373,12 +417,14 @@ Join ไม่ใช่คำสั่งพื้นฐาน (Derived operatio
 ---
 
 ## 🤝 Slide 23: Equijoin Join - Example
+
+![ภาพสไลด์ที่ 23: Equijoin Join - Example](images/ch3/slide_23.png)
 **การเชื่อมด้วยเครื่องหมายเท่ากับ**
 
 เป็น Join ที่พบได้บ่อยที่สุดในโลกการทำงาน โดยเงื่อนไขการจอยน์จะบังคับว่าต้องเป็นสมการเท่ากับ (`=`) เท่านั้น
 
 > [!EXAMPLE] Trace Table: Equijoin
-> **สมการ:** $\pi_{\text{Name, CrsCode}} (\text{Student} \bowtie_{\text{Id=StudId}} (\sigma_{\text{Grade='A'}}(\text{Transcript})))$
+> **สมการ:** π_{Name, CrsCode} (Student ⋈_{Id=StudId} (σ_{Grade='A'}(Transcript)))
 > 
 > **Student**
 > 
@@ -408,6 +454,8 @@ Join ไม่ใช่คำสั่งพื้นฐาน (Derived operatio
 ---
 
 ## 🌿 Slide 24: Natural Join
+
+![ภาพสไลด์ที่ 24: Natural Join](images/ch3/slide_24.png)
 **การเชื่อมตารางแบบธรรมชาติ**
 
 นี่คือกรณีพิเศษขั้นสุดของ Equijoin:
@@ -415,34 +463,40 @@ Join ไม่ใช่คำสั่งพื้นฐาน (Derived operatio
 - ระบบจะทำการ **"ยุบคอลัมน์ที่ซ้ำซ้อนกันทิ้ง (Duplicate columns eliminated)"** ออกจากผลลัพธ์ให้เนียนตา
 
 > [!EXAMPLE] กลไกเทียบเท่า
-> $\text{Transcript} \bowtie \text{Teaching}$ มีค่าเทียบเท่ากับการเขียนแบบยาวยืดว่า:
-> $\pi_{\text{StudId, Transcript.CrsCode, Transcript.Sem, Grade, ProfId}} ( \text{Transcript} \bowtie_{\text{CrsCode=CrsCode AND Sem=Sem}} \text{Teaching} )$
+> Transcript ⋈ Teaching มีค่าเทียบเท่ากับการเขียนแบบยาวยืดว่า:
+> π_{StudId, Transcript.CrsCode, Transcript.Sem, Grade, ProfId} ( Transcript ⋈_{CrsCode=CrsCode AND Sem=Sem} Teaching )
 
 ---
 
 ## ⚙️ Slide 25: Natural Join (con't)
+
+![ภาพสไลด์ที่ 25: Natural Join](images/ch3/slide_25.png)
 **สมการทั่วไปของ Natural Join**
 
-$R \bowtie S = \pi_{\text{attr-list}} (\sigma_{\text{join-cond}} (R \times S))$
-โดยคอลัมน์เป้าหมาย $\text{attr-list}$ คือการนำคอลัมน์จาก $R \cup S$ (เพื่อยุบคอลัมน์ซ้ำให้เหลือเสาเดียว) และ $\text{join-cond}$ จะเทียบเท่ากับกับทุกๆ คอลัมน์ที่ชื่อตรงกันระหว่าง $R \cap S$
+R ⋈ S = π_{attr-list} (σ_{join-cond} (R × S))
+โดยคอลัมน์เป้าหมาย attr-list คือการนำคอลัมน์จาก R ∪ (UNION) S (เพื่อยุบคอลัมน์ซ้ำให้เหลือเสาเดียว) และ join-cond จะเทียบเท่ากับกับทุกๆ คอลัมน์ที่ชื่อตรงกันระหว่าง R ∩ (INTERSECT) S
 
 ---
 
 ## 🌟 Slide 26: Natural Join Example
+
+![ภาพสไลด์ที่ 26: Natural Join Example](images/ch3/slide_26.png)
 **ตัวอย่างสุดล้ำของการใช้ Natural Join**
 
 > [!EXAMPLE] Trace: หานักศึกษาที่เรียน "อย่างน้อย 2 วิชาต่างกัน"
 > 
-> **สมการ:** $\pi_{\text{StudId}} ( \sigma_{\text{CrsCode} \neq \text{CrsCode2}} (\text{Transcript} \bowtie \text{Transcript [StudId, CrsCode2, Sem2, Grade2]}) )$
+> **สมการ:** π_{StudId} ( σ_{CrsCode ≠ CrsCode2} (Transcript ⋈ Transcript [StudId, CrsCode2, Sem2, Grade2]) )
 > 
 > **กลไกการทำงาน:** 
 > 1. สำเนา `Transcript` ออกมา เปลี่ยนชื่อคอลัมน์ 3 ตัวหลังเป็น `CrsCode2, Sem2, Grade2`
 > 2. เนื่องจากเหลือเพียง `StudId` ที่ชื่อตรงกัน Natural Join จึงเชื่อมเฉพาะคนที่ `StudId` เท่ากันเท่านั้น
-> 3. จากนั้นนำมา Select กรองว่าวิชาที่ 1 กับวิชาที่ 2 ของคนคนนี้จะต้องไม่ใช่วิชาเดียวกัน ($\text{CrsCode} \neq \text{CrsCode2}$) 
+> 3. จากนั้นนำมา Select กรองว่าวิชาที่ 1 กับวิชาที่ 2 ของคนคนนี้จะต้องไม่ใช่วิชาเดียวกัน (CrsCode ≠ CrsCode2) 
 
 ---
 
 ## 🫂 Slide 27: Outer Join
+
+![ภาพสไลด์ที่ 27: Outer Join](images/ch3/slide_27.png)
 **การเชื่อมตารางแบบรักษาข้อมูลแถวที่ไม่มีคู่**
 
 - เป็นส่วนต่อขยายของการ Join ปกติ เพื่อป้องกันข้อมูลสูญหาย (Avoids loss of information)
@@ -453,6 +507,8 @@ $R \bowtie S = \pi_{\text{attr-list}} (\sigma_{\text{join-cond}} (R \times S))$
 ---
 
 ## 🏢 Slide 28: Outer Join Example (Instructor/Teaches)
+
+![ภาพสไลด์ที่ 28: Outer Join Example](images/ch3/slide_28.png)
 **ตารางตัวอย่างเบื้องต้นสำหรับ Outer Join**
 
 > [!EXAMPLE] ตารางตั้งต้นก่อนทำ Outer Join
@@ -476,11 +532,13 @@ $R \bowtie S = \pi_{\text{attr-list}} (\sigma_{\text{join-cond}} (R \times S))$
 ---
 
 ## ⬅️ Slide 29: Outer Join Example (Left Outer Join)
+
+![ภาพสไลด์ที่ 29: Outer Join Example](images/ch3/slide_29.png)
 **จอยน์ปกติ vs จอยน์ออกซ้าย**
 
 > [!EXAMPLE] Trace Table: Join vs Left Outer Join
 > 
-> **1. Join ธรรมดา (instructor $\bowtie$ teaches)**
+> **1. Join ธรรมดา (instructor ⋈ teaches)**
 > *(คนไร้คู่จะโดนตัดทิ้ง คือ Mozart และ 76766 โดนเด้ง)*
 > 
 > | ID | name | dept_name | course_id |
@@ -488,7 +546,7 @@ $R \bowtie S = \pi_{\text{attr-list}} (\sigma_{\text{join-cond}} (R \times S))$
 > | 10101 | Srinivasan | Comp. Sci. | CS-101 |
 > | 12121 | Wu | Finance | FIN-201 |
 > 
-> **2. Left Outer Join (instructor $\lhd\bowtie$ teaches)**
+> **2. Left Outer Join (instructor lhd⋈ teaches)**
 > *(ตารางซ้ายห้ามหาย Mozart หาคู่ไม่ได้แต่ต้องรอด!)*
 > 
 > | ID | name | dept_name | course_id |
@@ -500,11 +558,13 @@ $R \bowtie S = \pi_{\text{attr-list}} (\sigma_{\text{join-cond}} (R \times S))$
 ---
 
 ## ➡️ Slide 30: Outer Join Example (Right/Full)
+
+![ภาพสไลด์ที่ 30: Outer Join Example](images/ch3/slide_30.png)
 **จอยน์ออกขวา และ จอยน์ออกเต็มสูบ**
 
 > [!EXAMPLE] Trace Table: Right and Full Outer Join
 > 
-> **3. Right Outer Join (instructor $\bowtie\rhd$ teaches)**
+> **3. Right Outer Join (instructor ⋈rhd teaches)**
 > *(ตารางขวาห้ามหาย ID 76766 สอนวิชาชีวะหาชื่ออาจารย์ไม่เจอ แต่ต้องรอด!)*
 > 
 > | ID | name | dept_name | course_id |
@@ -513,7 +573,7 @@ $R \bowtie S = \pi_{\text{attr-list}} (\sigma_{\text{join-cond}} (R \times S))$
 > | 12121 | Wu | Finance | FIN-201 |
 > | **76766** | **null** | **null** | **BIO-101** |
 > 
-> **4. Full Outer Join (instructor $\lhd\bowtie\rhd$ teaches)**
+> **4. Full Outer Join (instructor lhd⋈rhd teaches)**
 > *(ห้ามใครหายทั้งสิ้น ดึงมาให้หมด!)*
 > 
 > | ID | name | dept_name | course_id |
@@ -526,61 +586,73 @@ $R \bowtie S = \pi_{\text{attr-list}} (\sigma_{\text{join-cond}} (R \times S))$
 ---
 
 ## ➗ Slide 31: Division
-**ตัวดำเนินการหาร ($R \div S$)**
 
-เป้าหมายสูงสุดคือ: ผลิตผลลัพธ์เฉพาะตัวแปรต้นในตาราง $r$ ที่สามารถไปจับคู่แมทช์กับตัวแปรในตาราง $s$ ได้แบบ **"ครบทุกตัวแบบไม่มีข้อยกเว้น (Match all tuples in another relation)"**
+![ภาพสไลด์ที่ 31: Division](images/ch3/slide_31.png)
+**ตัวดำเนินการหาร (R div S)**
+
+เป้าหมายสูงสุดคือ: ผลิตผลลัพธ์เฉพาะตัวแปรต้นในตาราง r ที่สามารถไปจับคู่แมทช์กับตัวแปรในตาราง s ได้แบบ **"ครบทุกตัวแบบไม่มีข้อยกเว้น (Match all tuples in another relation)"**
 
 สามารถเขียนในรูปสมการอื่นที่ใช้ตัวดำเนินการพื้นฐาน (Project, Set difference, Cartesian product) ได้ แต่มันจะซับซ้อนมาก
 
 ---
 
 ## 📊 Slide 32: Division (con't)
+
+![ภาพสไลด์ที่ 32: Division](images/ch3/slide_32.png)
 **แผนภาพความสัมพันธ์ของการหาร**
 
 ภาพในสไลด์แสดงกลไกการจับคู่:
-- ในตาราง $S$ มีสมาชิกฝั่ง $B$ คือ `a`, `b`, `c`
-- ในตาราง $R$ ดูสมาชิกฝั่ง $A$ 
+- ในตาราง S มีสมาชิกฝั่ง B คือ `a`, `b`, `c`
+- ในตาราง R ดูสมาชิกฝั่ง A 
   - เบอร์ `1` โยงไปหาแค่ `a`, `b` (ไม่ครบ ขาด `c`) -> ปัดตก
-  - เบอร์ `2` โยงไปหา `a`, `b`, `c` (ครบถ้วน!) -> หยิบไปเป็นคำตอบใน $R \div S$
+  - เบอร์ `2` โยงไปหา `a`, `b`, `c` (ครบถ้วน!) -> หยิบไปเป็นคำตอบใน R div S
   - เบอร์ `3` โยงไปหา `b`, `c` (ไม่ครบ ขาด `a`) -> ปัดตก
   - เบอร์ `4` โยงไปหาแค่ `b`, `c` (ไม่ครบ ขาด `a`) -> ปัดตก
 
-ดังนั้นในผลลัพธ์ $R \div S$ จึงมีแค่ตั๋วเบอร์ `2` ลอยขึ้นมาคนเดียว
+ดังนั้นในผลลัพธ์ R div S จึงมีแค่ตั๋วเบอร์ `2` ลอยขึ้นมาคนเดียว
 
 ---
 
 ## 📚 Slide 33: Division - Example
+
+![ภาพสไลด์ที่ 33: Division - Example](images/ch3/slide_33.png)
 **ตัวอย่างการคำนวณการหาร**
 
 โจทย์: จงหารหัสนักศึกษา (Ids) ที่สอบผ่าน "ครบทุกวิชา" ที่เปิดสอนในเทอม Spring 2017
 - **ตัวตั้ง (Numerator):** ข้อมูล StudId, CrsCode ที่สอบผ่าน (เกรดต้องไม่ใช่ F)
-  $\pi_{\text{StudId, CrsCode}} ( \sigma_{\text{Grade} \neq \text{'F'}} (\text{Transcript}) )$
+  π_{StudId, CrsCode} ( σ_{Grade ≠ 'F'} (Transcript) )
 - **ตัวหาร (Denominator):** รหัสวิชา (CrsCode) ทั้งหมดที่เปิดใน S2017
-  $\pi_{\text{CrsCode}} ( \sigma_{\text{Semester='S2017'}} (\text{Teaching}) )$
-- **ผลลัพธ์ (Result):** นำมาหารกัน $\text{Numerator} \div \text{Denominator}$ ก็จะได้ StudId ออกมา
+  π_{CrsCode} ( σ_{Semester='S2017'} (Teaching) )
+- **ผลลัพธ์ (Result):** นำมาหารกัน Numera→r div Denomina→r ก็จะได้ StudId ออกมา
 
 ---
 
 ## 🏫 Slide 34: Division Query Type
+
+![ภาพสไลด์ที่ 34: Division Query Type](images/ch3/slide_34.png)
 **ประเภทโจทย์ธุรกิจที่ต้องใช้ Division**
 
 - **ประเภทคำถาม (Query Type):** หาซับเซตของฝั่งตั้งต้นที่มีความเชื่อมโยงกับ "สมาชิกทุกตัว (All items)" ในเซตเป้าหมาย
 - **ตัวอย่าง (Example):** ค้นหาชื่อของอาจารย์ (Professors) ที่เคยลงไปสอนคอร์สให้กับ "ทุกแผนกวิชาที่มีในมหาวิทยาลัย (ALL departments)"
-- **แผนภาพ:** ตาราง `(ProfId, DeptId)` $\div$ ตาราง `(DeptId)` จะดึงให้ตั๋ว `ProfId` ที่มี `DeptId` ครบลิสต์ให้โผล่ออกมา
+- **แผนภาพ:** ตาราง `(ProfId, DeptId)` div ตาราง `(DeptId)` จะดึงให้ตั๋ว `ProfId` ที่มี `DeptId` ครบลิสต์ให้โผล่ออกมา
 
 ---
 
 ## 💾 Slide 35: Assignment Operation
-**ตัวดำเนินการกำหนดค่าลงตัวแปร ($\leftarrow$)**
+
+![ภาพสไลด์ที่ 35: Assignment Operation](images/ch3/slide_35.png)
+**ตัวดำเนินการกำหนดค่าลงตัวแปร (←)**
 
 เวลาเขียนสมการ RA ที่ซับซ้อนมากๆ การยัดวงเล็บซ้อน 10 ชั้นจะทำให้อ่านยาก เราจึงใช้คำสั่ง Assignment ได้:
 - เขียนคิวรีเหมือนเป็นลำดับโปรแกรมทีละขั้น (Sequential program)
-- ใช้สัญลักษณ์ $\leftarrow$ เพื่อรับค่าลงตัวแปร
+- ใช้สัญลักษณ์ ← เพื่อรับค่าลงตัวแปร
 - ตัวแปรที่รับค่าจะต้องเป็น "ตารางชั่วคราว (Temporary relation variable)" เสมอ
 
 ---
 
 ## ➕ Slide 36: Aggregate Function
+
+![ภาพสไลด์ที่ 36: Aggregate Function](images/ch3/slide_36.png)
 **ฟังก์ชันสรุปผลรวมและฟังก์ชันทางสถิติ**
 
 ฟังก์ชันพวกนี้จะรับกลุ่มของข้อมูลเข้ามา (Collection of values) แล้วปั่นรวมกันให้คืนค่ากลับมาเป็น **"ค่าเดียวโดดๆ (Single value)"** เสมอ ได้แก่:
@@ -593,32 +665,36 @@ $R \bowtie S = \pi_{\text{attr-list}} (\sigma_{\text{join-cond}} (R \times S))$
 ---
 
 ## 🏷️ Slide 37: Aggregate Function (Operation in RA)
+
+![ภาพสไลด์ที่ 37: Aggregate Function](images/ch3/slide_37.png)
 **สัญลักษณ์ฟังก์ชันสรุปผลทางพีชคณิต**
 
-รูปแบบสมการ: $\text{G}_{1}, \text{G}_{2}, ..., \text{G}_{n} \ \mathcal{G} \ \text{F}_{1}(\text{A}_{1}), ..., \text{F}_{n}(\text{A}_{n}) (E)$
-- $E$ คือ ตารางเป้าหมาย
-- $\text{G}_1...\text{G}_n$ คือ คอลัมน์ที่เราต้องการเอามาทำ Group By (จัดกลุ่มตามตัวแปรนี้) อาจจะว่างเปล่าก็ได้ถ้าไม่ต้องการจัดกลุ่ม
-- $\text{F}_i$ คือ ชื่อ Aggregate function
-- $\text{A}_i$ คือ คอลัมน์ที่ต้องการเอามาปั่นรวม
-*(หมายเหตุ: หนังสือบางเล่มใช้ตัว $\mathcal{F}$ หรือ $\gamma$ Gamma แทนสัญลักษณ์ $\mathcal{G}$)*
+รูปแบบสมการ: G_{1}, G_{2}, ..., G_{n}  mathcal{G}  F_{1}(A_{1}), ..., F_{n}(A_{n}) (E)
+- E คือ ตารางเป้าหมาย
+- G₁...G_n คือ คอลัมน์ที่เราต้องการเอามาทำ Group By (จัดกลุ่มตามตัวแปรนี้) อาจจะว่างเปล่าก็ได้ถ้าไม่ต้องการจัดกลุ่ม
+- F_i คือ ชื่อ Aggregate function
+- A_i คือ คอลัมน์ที่ต้องการเอามาปั่นรวม
+*(หมายเหตุ: หนังสือบางเล่มใช้ตัว mathcal{F} หรือ gamma Gamma แทนสัญลักษณ์ mathcal{G})*
 
 ---
 
 ## 🧮 Slide 38: Aggregate Function Example (Relation r)
+
+![ภาพสไลด์ที่ 38: Aggregate Function Example](images/ch3/slide_38.png)
 **ตัวอย่างการคำนวณเบื้องต้น**
 
 > [!EXAMPLE] Trace Table: การ Aggregate ดิบๆ
 > 
-> **Relation $r$**
+> **Relation r**
 > 
 > | A | B | C |
 > |---|---|---|
-> | $\alpha$ | $\alpha$ | 7 |
-> | $\alpha$ | $\beta$ | 7 |
-> | $\beta$ | $\beta$ | 3 |
-> | $\beta$ | $\beta$ | 10 |
+> | alpha | alpha | 7 |
+> | alpha | beta | 7 |
+> | beta | beta | 3 |
+> | beta | beta | 10 |
 > 
-> **สมการ:** $\mathcal{G}_{\text{sum(c)}} (r)$
+> **สมการ:** mathcal{G}_{sum(c)} (r)
 > *(การวิเคราะห์: สั่งให้เอาข้อมูลทั้งหมดในตารางมารวมค่าคอลัมน์ c โดยไม่มีการ Group By)*
 > 
 > **ผลลัพธ์ (sum(c)):**
@@ -630,11 +706,13 @@ $R \bowtie S = \pi_{\text{attr-list}} (\sigma_{\text{join-cond}} (R \times S))$
 ---
 
 ## 🏢 Slide 39: Aggregate Function Example (Instructor)
+
+![ภาพสไลด์ที่ 39: Aggregate Function Example](images/ch3/slide_39.png)
 **ตัวอย่าง Aggregate Function ระดับองค์กร**
 
 > [!EXAMPLE] Trace Table: การหาเงินเดือนเฉลี่ยแยกแผนก
 > **คำสั่ง:** Find the average salary in each department
-> **สมการ:** $\text{dept\_name} \ \mathcal{G}_{\text{avg(salary)}} (\text{instructor})$
+> **สมการ:** dept_name  mathcal{G}_{avg(salary)} (instruc→r)
 >
 > **Relation instructor (ตารางพนักงานทั้งหมด)**
 > 
@@ -669,13 +747,15 @@ $R \bowtie S = \pi_{\text{attr-list}} (\sigma_{\text{join-cond}} (R \times S))$
 ---
 
 ## 📝 Slide 40: Aggregate Function Example (Renaming)
+
+![ภาพสไลด์ที่ 40: Aggregate Function Example](images/ch3/slide_40.png)
 **การเปลี่ยนชื่อหัวตารางผลลัพธ์**
 
 ผลลัพธ์จากการ Aggregate ปกติจะไม่มีชื่อที่อ่านง่าย (อย่างด้านบนจะได้ชื่อหัวตารางว่า `avg(salary)`) 
 เราสามารถใช้คำสั่ง Rename ภายในตอนประกาศได้เลยด้วยคำสั่ง `as`
 
 > [!EXAMPLE] ตัวอย่างการตั้งชื่อคอลัมน์ใหม่
-> **สมการ:** $\text{dept\_name} \ \mathcal{G}_{\text{avg(salary) as avg\_salary}} (\text{instructor})$
+> **สมการ:** dept_name  mathcal{G}_{avg(salary) as avg_salary} (instruc→r)
 > 
 > ท่านี้จะเปลี่ยนให้หัวตารางของผลลัพธ์ข้างต้น จากที่ชื่อดิบๆ ว่า `avg(salary)` กลายมาเป็น `avg_salary` ที่สวยงามทันที!
 

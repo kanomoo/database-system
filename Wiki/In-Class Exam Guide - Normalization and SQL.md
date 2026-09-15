@@ -25,7 +25,7 @@ type: exam-guide
 >      - โจทย์จะให้ตารางข้อมูลหรือแผนภาพดิบที่ยังไม่ผ่าน Normalization (Unnormalized / เต็มไปด้วย Anomalies)
 >      - นักศึกษาต้องวิเคราะห์ Anomalies ทั้ง 3 รูปแบบ (Insert, Update, Delete)
 >      - เขียน Functional Dependencies (FDs)
->      - ทำการแตกตาราง (Decomposition) ตามลำดับ 1NF $\rightarrow$ 2NF $\rightarrow$ 3NF
+>      - ทำการแตกตาราง (Decomposition) ตามลำดับ 1NF → 2NF → 3NF
 >      - สรุปผลลัพธ์เป็น Relational Schema พร้อมระบุ Primary Key (PK) และ Foreign Key (FK) และวาดแผนภาพ ER Diagram / Relational Diagram ใหม่
 >   2. **ส่วนที่ 2: การเขียนคำสั่ง SQL Query ตามสถานการณ์ที่กำหนด (50 คะแนน):**
 >      - มีโจทย์ความต้องการข้อมูลทางธุรกิจ (Business Requirement)
@@ -98,10 +98,10 @@ flowchart LR
   - *วิธีแก้:* ถ้าฟิลด์ใดขึ้นกับแค่ส่วนหัวของคีย์ ให้ตัดคู่นั้นแยกออกไปตั้งตารางใหม่
 * **3NF:**
   - ต้องผ่าน 2NF มาก่อน
-  - **ห้ามมี Transitive Dependency:** Non-key Attribute ห้ามไประบุค่า Non-key Attribute ตัวอื่น (เช่น $A \rightarrow B$ และ $B \rightarrow C$ โดยที่ $A$ เป็น PK แต่ $B$ ไม่ใช่ PK)
-  - *วิธีแก้:* ตัด $B \rightarrow C$ ออกไปตั้งตารางใหม่ โดยเก็บ $B$ ไว้ในตารางเดิมทำหน้าที่เป็น Foreign Key
+  - **ห้ามมี Transitive Dependency:** Non-key Attribute ห้ามไประบุค่า Non-key Attribute ตัวอื่น (เช่น A → B และ B → C โดยที่ A เป็น PK แต่ B ไม่ใช่ PK)
+  - *วิธีแก้:* ตัด B → C ออกไปตั้งตารางใหม่ โดยเก็บ B ไว้ในตารางเดิมทำหน้าที่เป็น Foreign Key
 * **BCNF:**
-  - ทุกตัวที่อยู่ฝั่งซ้ายของลูกศร Functional Dependency ($X \rightarrow Y$) ตัว $X$ ต้องเป็น **Superkey (Candidate Key)** เสมอ
+  - ทุกตัวที่อยู่ฝั่งซ้ายของลูกศร Functional Dependency (X → Y) ตัว X ต้องเป็น **Superkey (Candidate Key)** เสมอ
 
 ## 3. โครงสร้างการรันคำสั่ง SQL (Logical Query Execution Order)
 เวลาเขียน SQL ต้องแม่นยำลำดับที่เครื่องคอมพิวเตอร์ประมวลผล เพื่อไม่ให้โดนหักคะแนน:
@@ -152,7 +152,7 @@ STUDENT_REGISTRATION (
 จงเขียนชุดของ **Functional Dependencies (FDs)** ทั้งหมดที่มีอยู่ในตารางนี้ พร้อมระบุว่าเป็น Full, Partial หรือ Transitive Dependency
 
 #### คำถามข้อที่ 1.3 (15 คะแนน): 
-จงแสดงกระบวนการ **Decomposition (หั่นตาราง)** จากตารางเดิมให้อยู่ในระดับ **3NF** โดยแสดงขั้นตอนจาก 1NF $\rightarrow$ 2NF $\rightarrow$ 3NF พร้อมอธิบายเหตุผล
+จงแสดงกระบวนการ **Decomposition (หั่นตาราง)** จากตารางเดิมให้อยู่ในระดับ **3NF** โดยแสดงขั้นตอนจาก 1NF → 2NF → 3NF พร้อมอธิบายเหตุผล
 
 #### คำถามข้อที่ 1.4 (15 คะแนน): 
 จงเขียน **Relational Schema** ที่ถูกต้องสมบูรณ์ (ระบุ Primary Key โดยการขีดเส้นใต้ทึบ `PK` และ Foreign Key โดยระบุความสัมพันธ์ `FK`) พร้อมวาด **Mermaid ER Diagram** แสดงความสัมพันธ์แบบ 1-to-Many
@@ -182,20 +182,20 @@ STUDENT_REGISTRATION (
    - *Deletion Anomaly:* หากนักศึกษาคนเดียวยกเลิกการลงทะเบียนวิชาหนึ่ง ข้อมูลชื่อวิชาและหน่วยกิตของวิชานั้นจะถูกลบหายไปจากฐานข้อมูลทันที
    - *Update Anomaly:* หากอาจารย์ที่ปรึกษาเปลี่ยนห้องทำงาน (`AdvisorOffice`) จะต้องไล่แก้ไขในทุกแถวที่นักศึกษาลงทะเบียนเรียน หากแก้ไขไม่ครบ ข้อมูลห้องพักของอาจารย์ท่านเดียวกันจะขัดแย้งกัน
 2. **Functional Dependencies (FDs):**
-   - $FD_1: \text{StudentID} \rightarrow \text{StudentName, Major, AdvisorID}$
-   - $FD_2: \text{AdvisorID} \rightarrow \text{AdvisorName, AdvisorOffice}$ (Transitive ผ่าน StudentID)
-   - $FD_3: \text{CourseID} \rightarrow \text{CourseName, Credits}$ (Partial Dep เทียบกับ Composite Key)
-   - $FD_4: (\text{StudentID, CourseID, Semester}) \rightarrow \text{Grade}$ (Full Functional Dependency)
+   - FD₁: StudentID → StudentName, Major, AdvisorID
+   - FD₂: AdvisorID → AdvisorName, AdvisorOffice (Transitive ผ่าน StudentID)
+   - FD₃: CourseID → CourseName, Credits (Partial Dep เทียบกับ Composite Key)
+   - FD₄: (StudentID, CourseID, Semester) → Grade (Full Functional Dependency)
    - **Candidate Key ของตารางเดิม:** `(StudentID, CourseID, Semester)`
 3. **กระบวนการ Decomposition:**
    - **1NF:** ทุกคอลัมน์เป็น Atomic และใช้ `(StudentID, CourseID, Semester)` เป็น Primary Key
    - **2NF (กำจัด Partial Dependencies):** 
-     - $FD_3$ ขึ้นกับแค่ `CourseID` เท่านั้น จึงแยกออกเป็นตาราง `COURSES`
-     - $FD_1$ ขึ้นกับแค่ `StudentID` เท่านั้น จึงแยกออกเป็นตาราง `STUDENTS_TEMP`
+     - FD₃ ขึ้นกับแค่ `CourseID` เท่านั้น จึงแยกออกเป็นตาราง `COURSES`
+     - FD₁ ขึ้นกับแค่ `StudentID` เท่านั้น จึงแยกออกเป็นตาราง `STUDENTS_TEMP`
      - ส่วนที่เหลือคือ `ENROLLMENTS (StudentID, CourseID, Semester, Grade)`
    - **3NF (กำจัด Transitive Dependencies):**
-     - ในตาราง `STUDENTS_TEMP` มี $FD_1: \text{StudentID} \rightarrow \text{AdvisorID}$ และ $FD_2: \text{AdvisorID} \rightarrow \text{AdvisorName, AdvisorOffice}$ ซึ่งเป็น Non-key ชี้ Non-key
-     - จึงแยก $FD_2$ ออกไปเป็นตาราง `ADVISORS`
+     - ในตาราง `STUDENTS_TEMP` มี FD₁: StudentID → AdvisorID และ FD₂: AdvisorID → AdvisorName, AdvisorOffice ซึ่งเป็น Non-key ชี้ Non-key
+     - จึงแยก FD₂ ออกไปเป็นตาราง `ADVISORS`
 4. **Relational Schema & ER Diagram:**
    - `ADVISORS (`<u>`AdvisorID`</u>`, AdvisorName, AdvisorOffice)`
    - `STUDENTS (`<u>`StudentID`</u>`, StudentName, Major, AdvisorID*)`
@@ -323,17 +323,17 @@ SALES_INVOICE (
    - *Insertion Anomaly:* เพิ่มสินค้าใหม่เข้าสต็อกไม่ได้ หากยังไม่มีลูกค้าเปิดบิลสั่งซื้อสินค้านั้น เพราะ `InvoiceNo` จะเป็น NULL
    - *Update Anomaly:* หากลูกค้าเปลี่ยนจังหวัดที่อยู่ (`CustomerCity`) ต้องตามแก้ทุกแถวของทุกใบเสร็จที่ลูกค้าคนนี้เคยซื้อ หากหลงลืมบางแถว ข้อมูลเมืองของลูกค้าคนเดียวกันจะไม่ตรงกัน
 2. **Functional Dependencies (FDs):**
-   - $FD_1: \text{InvoiceNo} \rightarrow \text{InvoiceDate, CustomerID}$
-   - $FD_2: \text{CustomerID} \rightarrow \text{CustomerName, CustomerCity}$
-   - $FD_3: \text{ProductID} \rightarrow \text{ProductName, Category, UnitPrice}$
-   - $FD_4: (\text{InvoiceNo, ProductID}) \rightarrow \text{Quantity}$
+   - FD₁: InvoiceNo → InvoiceDate, Cus→merID
+   - FD₂: Cus→merID → Cus→merName, Cus→merCity
+   - FD₃: ProductID → ProductName, Category, UnitPrice
+   - FD₄: (InvoiceNo, ProductID) → Quantity
    - **Composite Primary Key เดิม:** `(InvoiceNo, ProductID)`
 3. **Decomposition สู่ 3NF:**
-   - **1NF $\rightarrow$ 2NF:** ตัด Partial Dependencies ($FD_1, FD_2$ ขึ้นกับ InvoiceNo และ $FD_3$ ขึ้นกับ ProductID) ได้เป็น:
+   - **1NF → 2NF:** ตัด Partial Dependencies (FD₁, FD₂ ขึ้นกับ InvoiceNo และ FD₃ ขึ้นกับ ProductID) ได้เป็น:
      - `INVOICE_HEADER (InvoiceNo, InvoiceDate, CustomerID, CustomerName, CustomerCity)`
      - `PRODUCTS (ProductID, ProductName, Category, UnitPrice)`
      - `INVOICE_ITEMS (InvoiceNo, ProductID, Quantity)`
-   - **2NF $\rightarrow$ 3NF:** กำจัด Transitive Dependency ใน `INVOICE_HEADER` โดยตัด $\text{CustomerID} \rightarrow \text{CustomerName, CustomerCity}$ ออกไปเป็นตาราง `CUSTOMERS`
+   - **2NF → 3NF:** กำจัด Transitive Dependency ใน `INVOICE_HEADER` โดยตัด Cus→merID → Cus→merName, Cus→merCity ออกไปเป็นตาราง `CUSTOMERS`
 4. **Relational Schema & ER Diagram:**
    - `CUSTOMERS (`<u>`CustomerID`</u>`, CustomerName, CustomerCity)`
    - `INVOICES (`<u>`InvoiceNo`</u>`, InvoiceDate, CustomerID*)`
@@ -467,12 +467,12 @@ CLINIC_APPOINTMENT_LOG (
 1. **วิเคราะห์การละเมิดกฎ:**
    - ตารางนี้มี Primary Key ตัวเดี่ยวคือ `AppointID`
    - แม้จะผ่าน 2NF (เพราะไม่มี Composite Key จึงไม่มี Partial Dependency) แต่**ละเมิดกฎ 3NF อย่างรุนแรง** เนื่องจากมี **Transitive Dependencies**:
-     - $\text{AppointID} \rightarrow \text{PatientID}$ และ $\text{PatientID} \rightarrow \text{PatientName, PatientPhone}$
-     - $\text{AppointID} \rightarrow \text{DoctorID}$ และ $\text{DoctorID} \rightarrow \text{DoctorName, Specialty, RoomNo}$
+     - AppointID → PatientID และ PatientID → PatientName, PatientPhone
+     - AppointID → Doc→rID และ Doc→rID → Doc→rName, Specialty, RoomNo
 2. **Functional Dependencies (FDs):**
-   - $FD_1: \text{AppointID} \rightarrow \text{AppointDate, PatientID, DoctorID, Diagnosis, TreatmentFee}$
-   - $FD_2: \text{PatientID} \rightarrow \text{PatientName, PatientPhone}$
-   - $FD_3: \text{DoctorID} \rightarrow \text{DoctorName, Specialty, RoomNo}$
+   - FD₁: AppointID → AppointDate, PatientID, Doc→rID, Diagnosis, TreatmentFee
+   - FD₂: PatientID → PatientName, PatientPhone
+   - FD₃: Doc→rID → Doc→rName, Specialty, RoomNo
 3. **Decomposition สู่ 3NF:**
    - แตก Non-key ที่ระบุตัวอื่นออกเป็นตารางของตนเอง:
      - `PATIENTS (`<u>`PatientID`</u>`, PatientName, PatientPhone)`
@@ -570,7 +570,7 @@ PROJECT_ASSIGNMENT (
 จงเขียนสมการ Functional Dependencies (FDs) ทั้งหมด
 
 #### คำถามข้อที่ 1.3 (15 คะแนน): 
-จงแปลงตารางเป็น **1NF $\rightarrow$ 2NF $\rightarrow$ 3NF** อย่างเป็นขั้นตอน
+จงแปลงตารางเป็น **1NF → 2NF → 3NF** อย่างเป็นขั้นตอน
 
 #### คำถามข้อที่ 1.4 (15 คะแนน): 
 จงเขียน Relational Schema ที่มี Primary Key / Foreign Key ครบถ้วน และวาดแผนภาพ Mermaid ER Diagram
@@ -599,13 +599,13 @@ PROJECT_ASSIGNMENT (
      - `EmpName, Position, DeptID, DeptName` ขึ้นอยู่กับแค่ `EmpID` ฝั่งเดียว
      - `ProjName, Budget` ขึ้นอยู่กับแค่ `ProjID` ฝั่งเดียว
 2. **Functional Dependencies:**
-   - $FD_1: \text{EmpID} \rightarrow \text{EmpName, Position, DeptID}$
-   - $FD_2: \text{DeptID} \rightarrow \text{DeptName}$
-   - $FD_3: \text{ProjID} \rightarrow \text{ProjName, Budget}$
-   - $FD_4: (\text{EmpID, ProjID}) \rightarrow \text{HoursWorked}$
+   - FD₁: EmpID → EmpName, Position, DeptID
+   - FD₂: DeptID → DeptName
+   - FD₃: ProjID → ProjName, Budget
+   - FD₄: (EmpID, ProjID) → HoursWorked
 3. **Decomposition สู่ 3NF:**
    - **สู่ 2NF:** แตกเป็น `EMPLOYEES_TEMP`, `PROJECTS`, และ `WORKS_ON (EmpID, ProjID, HoursWorked)`
-   - **สู่ 3NF:** ใน `EMPLOYEES_TEMP` มี $\text{DeptID} \rightarrow \text{DeptName}$ จึงตัดแยกตาราง `DEPARTMENTS` ออกมา
+   - **สู่ 3NF:** ใน `EMPLOYEES_TEMP` มี DeptID → DeptName จึงตัดแยกตาราง `DEPARTMENTS` ออกมา
 4. **Relational Schema & ER Diagram:**
    - `DEPARTMENTS (`<u>`DeptID`</u>`, DeptName)`
    - `EMPLOYEES (`<u>`EmpID`</u>`, EmpName, Position, DeptID*)`
@@ -731,10 +731,10 @@ HOTEL_BOOKING_LOG (
    - *Update Anomaly:* หากปรับราคาห้องประเภท Suite (`RatePerNight`) จะต้องไล่แก้ทุกประวัติการจองในอดีต หากแก้ผิดพลาด ข้อมูลราคาต่อคืนจะไม่สอดคล้องกัน
    - *Insertion Anomaly:* ไม่สามารถเพิ่มห้องพักหมายเลขใหม่ลงฐานข้อมูลได้ หากยังไม่มีแขกมาจองห้องนั้น
 2. **Functional Dependencies:**
-   - $FD_1: \text{BookingID} \rightarrow \text{CheckInDate, CheckOutDate, GuestID, RoomNo, TotalNights, TotalAmount}$
-   - $FD_2: \text{GuestID} \rightarrow \text{GuestName, GuestEmail}$
-   - $FD_3: \text{RoomNo} \rightarrow \text{RoomType, RatePerNight}$
-   - $FD_4: \text{RoomType} \rightarrow \text{RatePerNight}$ (ขึ้นกับประเภทห้อง)
+   - FD₁: BookingID → CheckInDate, CheckOutDate, GuestID, RoomNo, TotalNights, TotalAmount
+   - FD₂: GuestID → GuestName, GuestEmail
+   - FD₃: RoomNo → RoomType, RatePerNight
+   - FD₄: RoomType → RatePerNight (ขึ้นกับประเภทห้อง)
 3. **Decomposition สู่ 3NF:**
    - `GUESTS (`<u>`GuestID`</u>`, GuestName, GuestEmail)`
    - `ROOMS (`<u>`RoomNo`</u>`, RoomType, RatePerNight)`

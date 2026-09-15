@@ -18,6 +18,8 @@ type: lecture
 ---
 
 ## 🌍 Slide 81: UNION and UNION ALL (Example Data)
+
+![ภาพสไลด์ที่ 81: UNION and UNION ALL](images/ch7/slide_81.png)
 **วัตถุดิบสำหรับทดสอบ UNION**
 
 เราจะมาจำลองการเอาตารางสองสาขามาต่อกัน
@@ -47,6 +49,8 @@ type: lecture
 ---
 
 ## 🤜🤛 Slide 82: Using the UNION Command
+
+![ภาพสไลด์ที่ 82: Using the UNION Command](images/ch7/slide_82.png)
 **การทำงานของ UNION ปกติ**
 
 > [!EXAMPLE] Trace Table: UNION (กรองตัวซ้ำ)
@@ -76,6 +80,8 @@ type: lecture
 ---
 
 ## 👯‍♂️ Slide 83: UNION ALL
+
+![ภาพสไลด์ที่ 83: UNION ALL](images/ch7/slide_83.png)
 **การรวมตารางแบบไม่สนใจตัวซ้ำ (UNION ALL)**
 
 หากเราไม่ต้องการให้ระบบเปลืองแรงไปประมวลผลหั่นตัวซ้ำทิ้ง (อยากได้มาเท่าไร ต่อมันเข้าไปให้หมด!) เราต้องใช้คำสั่ง `UNION ALL`
@@ -89,6 +95,8 @@ SELECT E_Name FROM Employees_USA
 ---
 
 ## 📊 Slide 84: UNION ALL Result
+
+![ภาพสไลด์ที่ 84: UNION ALL Result](images/ch7/slide_84.png)
 **ผลลัพธ์จากการใช้ UNION ALL**
 
 > [!EXAMPLE] Trace Table: UNION ALL
@@ -110,6 +118,8 @@ SELECT E_Name FROM Employees_USA
 ---
 
 ## 🛠️ Slide 85: SQL Functions
+
+![ภาพสไลด์ที่ 85: SQL Functions](images/ch7/slide_85.png)
 **ฟังก์ชันสำเร็จรูปใน SQL**
 
 SQL มีฟังก์ชันแถมมาให้พร้อมใช้งานเพียบ เพื่อประหยัดเวลาไม่ต้องไปเขียนโปรแกรมคำนวณข้างนอก
@@ -121,6 +131,8 @@ SQL มีฟังก์ชันแถมมาให้พร้อมใช�
 ---
 
 ## 📉 Slide 86: Aggregate functions
+
+![ภาพสไลด์ที่ 86: Aggregate functions](images/ch7/slide_86.png)
 **ฟังก์ชันสรุปผลรวมและตารางทดสอบ**
 
 ฟังก์ชันกลุ่มนี้จะสูบข้อมูลเข้าไปเป็นคอลเลกชัน (Collection) แล้วปั่นรวมกันคายออกมาเป็น "ค่าเดียว (Single value)"
@@ -139,6 +151,8 @@ SQL มีฟังก์ชันแถมมาให้พร้อมใช�
 ---
 
 ## 🧮 Slide 87: Some Aggregate Functions
+
+![ภาพสไลด์ที่ 87: Some Aggregate Functions](images/ch7/slide_87.png)
 **ฟังก์ชันสรุปผลรวมยอดฮิต**
 
 | Function | Description (คำอธิบาย) | ผลลัพธ์จากตารางหน้า 86 |
@@ -152,6 +166,8 @@ SQL มีฟังก์ชันแถมมาให้พร้อมใช�
 ---
 
 ## 🔧 Slide 88: Scalar Functions
+
+![ภาพสไลด์ที่ 88: Scalar Functions](images/ch7/slide_88.png)
 **ฟังก์ชันระดับรายบรรทัด (Scalar Functions)**
 
 ฟังก์ชันเหล่านี้ทำงานกับข้อมูลตรงๆ ในแต่ละบรรทัด:
@@ -174,6 +190,8 @@ SQL มีฟังก์ชันแถมมาให้พร้อมใช�
 ---
 
 ## 🪟 Slide 89: CREATE VIEW Statement
+
+![ภาพสไลด์ที่ 89: CREATE VIEW Statement](images/ch7/slide_89.png)
 **การสร้างมุมมองตารางเสมือน (View)**
 
 - **View คืออะไร?** มันคือ "ตารางผี" (Virtual table) ที่ไม่ได้เก็บข้อมูลจริงๆ บนฮาร์ดดิสก์ แต่เกิดจากการจำโค้ดคำสั่ง `SELECT` ของเราเอาไว้เป็นหน้าต่าง
@@ -184,6 +202,8 @@ SQL มีฟังก์ชันแถมมาให้พร้อมใช�
 ---
 
 ## 📜 Slide 90: CREATE VIEW Syntax
+
+![ภาพสไลด์ที่ 90: CREATE VIEW Syntax](images/ch7/slide_90.png)
 **ไวยากรณ์การสร้างและกลไกของ View**
 
 - **ไวยากรณ์:**
@@ -198,6 +218,8 @@ SQL มีฟังก์ชันแถมมาให้พร้อมใช�
 ---
 
 ## 🏢 Slide 91: Using Views
+
+![ภาพสไลด์ที่ 91: Using Views](images/ch7/slide_91.png)
 **ตัวอย่างการประยุกต์ใช้ View แบบง่าย**
 
 > [!EXAMPLE] ซ่อนตารางดั้งเดิมให้เหลือแค่สองคอลัมน์
@@ -217,6 +239,8 @@ SQL มีฟังก์ชันแถมมาให้พร้อมใช�
 ---
 
 ## 💰 Slide 92: Using Views (Above average price)
+
+![ภาพสไลด์ที่ 92: Using Views](images/ch7/slide_92.png)
 **การใช้ View เพื่อสร้างการคำนวณสำเร็จรูป**
 
 > [!EXAMPLE] ค้นหาสินค้าแพงเกินหน้าเกินตา
@@ -233,6 +257,8 @@ SQL มีฟังก์ชันแถมมาให้พร้อมใช�
 ---
 
 ## 🛍️ Slide 93: Using Views (Category sales)
+
+![ภาพสไลด์ที่ 93: Using Views](images/ch7/slide_93.png)
 **การใช้ View ซ่อนความซับซ้อนของการ Join**
 
 > [!EXAMPLE] ยุบรวมการ Join ข้าม 4 ตาราง
@@ -249,6 +275,8 @@ SQL มีฟังก์ชันแถมมาให้พร้อมใช�
 ---
 
 ## 📝 Slide 94: CREATE VIEW (With condition)
+
+![ภาพสไลด์ที่ 94: CREATE VIEW](images/ch7/slide_94.png)
 **ปิดท้ายการใช้เงื่อนไขคัดกรองใน View**
 
 เราสามารถสั่ง Filter ข้อมูลได้อิสระ:

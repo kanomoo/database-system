@@ -361,6 +361,8 @@ graph TB
 
 ## 7.1 What is a Transaction? (Slide 9)
 
+![ภาพสไลด์ที่ 9: )](images/ch1/slide_9.png)
+
 > [!DEFINITION] Transaction
 > **Transaction** คือ **หน่วยเชิงตรรกะ (logical unit)** ของการประมวลผลฐานข้อมูลที่ประกอบด้วย access operations หนึ่งรายการขึ้นไป
 
@@ -411,6 +413,8 @@ Step 6: Write(B)          ← เขียนยอดใหม่กลับ
 
 ## 7.2 What is a Transaction Processing System? (Slide 10)
 
+![ภาพสไลด์ที่ 10: )](images/ch1/slide_10.png)
+
 > [!DEFINITION] Transaction Processing System (TPS)
 > จากสไลด์: TPS ประกอบด้วย **3 ส่วน**:
 > 1. **TP Monitor** — ควบคุมการ execute ของ transaction
@@ -447,6 +451,8 @@ graph TB
 
 ## 7.3 Transaction Processing System Architecture (Slide 11)
 
+![ภาพสไลด์ที่ 11: )](images/ch1/slide_11.png)
+
 จากภาพในสไลด์ 11:
 
 ```
@@ -482,6 +488,8 @@ transactions ──→ TP Monitor
 
 ## 8.1 Slide 12: 3 มิติแรก
 
+![ภาพสไลด์ที่ 12: 3 มิติแรก](images/ch1/slide_12.png)
+
 | มิติ | อดีต (Then) | ปัจจุบัน (Now) | ความหมาย |
 |---|---|---|---|
 | **Data View** | Low-level view ของข้อมูล | **Relational model using SQL** — high-level view *(อาจมี NoSQL DB ในบางองค์กร)* | เดิมต้องรู้ physical structure → ปัจจุบันแค่เขียน SQL |
@@ -490,12 +498,16 @@ transactions ──→ TP Monitor
 
 ## 8.2 Slide 13: 2 มิติถัดมา
 
+![ภาพสไลด์ที่ 13: 2 มิติถัดมา](images/ch1/slide_13.png)
+
 | มิติ | อดีต (Then) | ปัจจุบัน (Now) | ความหมาย |
 |---|---|---|---|
 | **Concurrency** | Processed transactions **sequentially** | **Concurrent** — multiple transactions execute simultaneously | เดิมทำทีละ transaction → ปัจจุบันทำพร้อมกันหลาย transaction |
 | **Computation** | **Centralized** systems | **Distributed computation** — different parts of the application execute on different computers | เดิมทำบนเครื่องเดียว → ปัจจุบันกระจายไปหลายเครื่อง |
 
 ## 8.3 Slide 14: 3 มิติสุดท้าย
+
+![ภาพสไลด์ที่ 14: 3 มิติสุดท้าย](images/ch1/slide_14.png)
 
 | มิติ | อดีต (Then) | ปัจจุบัน (Now) | ความหมาย |
 |---|---|---|---|

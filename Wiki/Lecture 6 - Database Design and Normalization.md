@@ -18,6 +18,8 @@ type: lecture
 ---
 
 ## 🗣️ Slide 1: Normalization
+
+![ภาพสไลด์ที่ 1: Normalization](images/ch6/slide_1.png)
 **นอร์มัลไลเซชัน**
 
 กระบวนการนอร์มัลไลเซชันคือ "ศิลปะแห่งการหั่นตาราง" เป็นกระบวนการที่นำตารางขนาดใหญ่ที่เทอะทะและเก็บข้อมูลซ้ำซ้อน มาทำการชำแหละ (Decomposition) ออกเป็นตารางย่อยๆ หลายๆ ตาราง โดยอาศัยหลักการทางคณิตศาสตร์เรื่อง Functional Dependencies (FDs) เข้ามาเป็นเกณฑ์ในการหั่น เพื่อให้ฐานข้อมูลมีประสิทธิภาพสูงสุด
@@ -25,6 +27,8 @@ type: lecture
 ---
 
 ## 📚 Slide 2: Levels of Normalization
+
+![ภาพสไลด์ที่ 2: Levels of Normalization](images/ch6/slide_2.png)
 **ระดับของนอร์มัลไลเซชัน**
 
 กระบวนการนอร์มัลไลเซชันแบ่งออกเป็นลำดับขั้น (Levels) คล้ายกับหัวหอมที่ซ้อนทับกันอยู่เป็นชั้นๆ ดังนี้:
@@ -41,6 +45,8 @@ type: lecture
 ---
 
 ## 🧩 Slide 3: Non Loss Decomposition
+
+![ภาพสไลด์ที่ 3: Non Loss Decomposition](images/ch6/slide_3.png)
 **การหั่นตารางแบบไม่สูญเสียข้อมูล**
 
 หัวใจสำคัญของการทำ Normalization คือเมื่อเรา "หั่น" ตารางแล้ว หากเรานำตารางย่อยๆ เหล่านั้นมา "Join (เชื่อม)" กลับเข้าด้วยกัน ข้อมูลจะต้องกลับมาหน้าตาเหมือนเดิมเป๊ะ 100% ห้ามมีข้อมูลงอกเพิ่ม หรือข้อมูลหายไปเด็ดขาด (Lossless-join decomposition)
@@ -95,6 +101,8 @@ type: lecture
 ---
 
 ## 🥇 Slide 4: First Normal Form (1NF)
+
+![ภาพสไลด์ที่ 4: First Normal Form](images/ch6/slide_4.png)
 **รูปแบบบรรทัดฐานระดับที่ 1**
 
 > [!DEFINITION] 1NF Definition
@@ -106,6 +114,8 @@ type: lecture
 ---
 
 ## 🏗️ Slide 5: 1NF (cont.) - Example
+
+![ภาพสไลด์ที่ 5: 1NF  - Example](images/ch6/slide_5.png)
 **ตัวอย่างตาราง 1NF และแผนภาพ FD**
 
 > [!EXAMPLE] ตาราง FIRST
@@ -121,6 +131,8 @@ type: lecture
 ---
 
 ## 📊 Slide 6: 1NF (cont.) - Data
+
+![ภาพสไลด์ที่ 6: 1NF  - Data](images/ch6/slide_6.png)
 **ข้อมูลตัวอย่างในตาราง FIRST**
 
 > [!EXAMPLE] Trace Table: ตาราง FIRST แบบเต็มๆ
@@ -147,6 +159,8 @@ type: lecture
 ---
 
 ## ⚠️ Slide 7: Problems in any NF (Insert Anomaly)
+
+![ภาพสไลด์ที่ 7: Problems in any NF](images/ch6/slide_7.png)
 **ปัญหาของตารางที่ยังไม่ผ่านกระบวนการหั่น (ปัญหาการเพิ่มข้อมูล)**
 
 ตาราง 1NF ข้างต้นเต็มไปด้วย **"ความซ้ำซ้อนของข้อมูล (Data Redundancy)"** ซึ่งก่อให้เกิดระเบิดเวลาที่เรียกว่า **"Update Anomalies (ความผิดปกติในการอัปเดต)"**
@@ -158,6 +172,8 @@ type: lecture
 ---
 
 ## 🗑️ Slide 8: Problems in any NF (Delete Anomaly)
+
+![ภาพสไลด์ที่ 8: Problems in any NF](images/ch6/slide_8.png)
 **ปัญหาความผิดปกติจากการลบข้อมูล**
 
 > [!WARNING] ปัญหาที่ 2: Delete Anomaly (ลบแล้วข้อมูลอื่นหายไปด้วย)
@@ -167,6 +183,8 @@ type: lecture
 ---
 
 ## 🔄 Slide 9: Problems in any NF (Update Anomaly)
+
+![ภาพสไลด์ที่ 9: Problems in any NF](images/ch6/slide_9.png)
 **ปัญหาความผิดปกติจากการแก้ไขข้อมูล**
 
 > [!WARNING] ปัญหาที่ 3: Update Anomaly (แก้ข้อมูลแล้วตามเช็ดไม่หมด)
@@ -176,6 +194,8 @@ type: lecture
 ---
 
 ## 🥈 Slide 10: 2NF
+
+![ภาพสไลด์ที่ 10: 2NF](images/ch6/slide_10.png)
 **รูปแบบบรรทัดฐานระดับที่ 2**
 
 เพื่อแก้ปัญหาทั้งหมดใน 1NF เราจึงต้องทำการหั่นตาราง `FIRST` ให้แตกออกเป็น 2 ตารางย่อย
@@ -188,6 +208,8 @@ type: lecture
 ---
 
 ## 📊 Slide 11: 2NF (cont.) - Data
+
+![ภาพสไลด์ที่ 11: 2NF  - Data](images/ch6/slide_11.png)
 **ข้อมูลตัวอย่างหลังแปลงเป็น 2NF**
 
 > [!EXAMPLE] Trace Table: ตารางระดับ 2NF
@@ -224,6 +246,8 @@ type: lecture
 ---
 
 ## 📜 Slide 12: 2NF Definition
+
+![ภาพสไลด์ที่ 12: 2NF Definition](images/ch6/slide_12.png)
 **นิยามของ 2NF อย่างเป็นทางการ**
 
 > [!DEFINITION] 2NF Definition
@@ -236,6 +260,8 @@ type: lecture
 ---
 
 ## 🚨 Slide 13: 2NF Update Anomalies (Insert, Delete)
+
+![ภาพสไลด์ที่ 13: 2NF Update Anomalies](images/ch6/slide_13.png)
 **ปัญหาที่ยังคงหลงเหลืออยู่ในระดับ 2NF**
 
 แม้ตาราง `SECOND` จะแก้ปัญหาเรื่องสินค้าไปได้เยอะแล้ว แต่มันก็ยังเกิด Anomalies แบบใหม่ขึ้นมาได้อีก เพราะในตาราง `SECOND` ยังมีความซ้ำซ้อนซ่อนอยู่ (สังเกตว่า `20 London` มีซ้ำกันถึง 2 บรรทัดคือ S1 กับ S4)
@@ -247,6 +273,8 @@ type: lecture
 ---
 
 ## 🔄 Slide 14: 2NF Update Anomalies (Update)
+
+![ภาพสไลด์ที่ 14: 2NF Update Anomalies](images/ch6/slide_14.png)
 **ปัญหาการแก้ไขข้อมูลใน 2NF**
 
 > [!WARNING] ปัญหา Update ใน 2NF
@@ -255,6 +283,8 @@ type: lecture
 ---
 
 ## 🥉 Slide 15: 3NF
+
+![ภาพสไลด์ที่ 15: 3NF](images/ch6/slide_15.png)
 **รูปแบบบรรทัดฐานระดับที่ 3**
 
 เพื่อกำจัดระเบิดเวลาที่เหลือใน 2NF เราต้องหั่นตาราง `SECOND` ออกไปอีกเป็น 2 ตารางย่อย
@@ -289,6 +319,8 @@ type: lecture
 ---
 
 ## 📜 Slide 16: 3NF Definition
+
+![ภาพสไลด์ที่ 16: 3NF Definition](images/ch6/slide_16.png)
 **นิยามของ 3NF อย่างเป็นทางการ**
 
 > [!DEFINITION] 3NF Definition
@@ -296,7 +328,7 @@ type: lecture
 > 1. สอบผ่านการเป็น 2NF มาแล้ว
 > 2. ทุกๆ คอลัมน์ที่ไม่ใช่กุญแจหลัก (Nonkey) จะต้องไม่ขึ้นอยู่กับ PK ผ่านทางอ้อม หรือเรียกว่า **ห้ามมี Transitive dependency**
 
-*(คำอธิบาย: ในตาราง SECOND เก่า การที่ `S#` $\rightarrow$ `CITY` และ `CITY` $\rightarrow$ `STATUS` ทำให้เกิดการถ่ายทอดว่า `S#` $\rightarrow$ `STATUS` แบบทางอ้อม นี่คือความสัมพันธ์แบบ Transitive ซึ่งผิดกฎ 3NF เราจึงต้องจับมันหั่นแยกออกจากกัน)*
+*(คำอธิบาย: ในตาราง SECOND เก่า การที่ `S#` → `CITY` และ `CITY` → `STATUS` ทำให้เกิดการถ่ายทอดว่า `S#` → `STATUS` แบบทางอ้อม นี่คือความสัมพันธ์แบบ Transitive ซึ่งผิดกฎ 3NF เราจึงต้องจับมันหั่นแยกออกจากกัน)*
 
 **ปัญหาถ้าเราหั่นผิดวิธี:**
 ถ้าเราหั่นตารางเป็น (a) `SC{S#, CITY}` และ `CS{CITY, STATUS}` แบบนี้ดีมากเพราะไม่มีข้อมูลสูญหาย (Nonloss)
@@ -305,6 +337,8 @@ type: lecture
 ---
 
 ## 🛡️ Slide 17: Boyce/Codd Normal Form (BCNF)
+
+![ภาพสไลด์ที่ 17: Boyce/Codd Normal Form](images/ch6/slide_17.png)
 **รูปแบบบรรทัดฐานบอยส์-คอดด์ (BCNF)**
 
 แม้ตารางจะเป็น 3NF แล้ว แต่ในกรณีที่ตารางมี Candidate Keys (กุญแจผู้สมัคร) ซ้อนทับกันหลายตัว มันอาจจะยังมีบั๊กซ่อนอยู่ BCNF จึงถูกคิดค้นมาเพื่ออุดช่องโหว่นี้
@@ -318,6 +352,8 @@ type: lecture
 ---
 
 ## 📉 Slide 18: BCNF Example (SJT)
+
+![ภาพสไลด์ที่ 18: BCNF Example](images/ch6/slide_18.png)
 **ตัวอย่างตารางที่เป็น 3NF แต่ตกสอบ BCNF**
 
 > [!EXAMPLE] Trace Table: ตาราง SJT
@@ -340,6 +376,8 @@ type: lecture
 ---
 
 ## 🏫 Slide 19: BCNF Example EXAM
+
+![ภาพสไลด์ที่ 19: BCNF Example EXAM](images/ch6/slide_19.png)
 **ตัวอย่างการประยุกต์ใช้ BCNF**
 
 > [!EXAMPLE] ตาราง EXAM
@@ -356,6 +394,8 @@ type: lecture
 ---
 
 ## ☢️ Slide 20: 4NF Problem
+
+![ภาพสไลด์ที่ 20: 4NF Problem](images/ch6/slide_20.png)
 **ปัญหาความซ้ำซ้อนในระดับที่ 4**
 
 ตารางบางตารางผ่านกฎ BCNF มาได้อย่างสวยงาม (ไม่มีคีย์เถื่อน) แต่กลับมาตกม้าตายเรื่อง "Multi-valued attributes"
@@ -382,6 +422,8 @@ type: lecture
 ---
 
 ## ⚔️ Slide 21: 4NF Solution
+
+![ภาพสไลด์ที่ 21: 4NF Solution](images/ch6/slide_21.png)
 **การแก้ปัญหาโดยหั่นเป็น 4NF**
 
 สาเหตุของตาราง CTX ที่พัง เพราะคอลัมน์ TEACHER และ TEXT ต่างก็มีหลายค่า (Multi-valued) แต่อิสระต่อกัน (Independent) การเอามันมารวมในตารางเดียวกันจึงทำให้เกิด Cartesian product ตัวอักษรทวีคูณ
@@ -413,38 +455,46 @@ type: lecture
 ---
 
 ## 🌌 Slide 22: Multi-valued Dependence (MVD)
+
+![ภาพสไลด์ที่ 22: Multi-valued Dependence](images/ch6/slide_22.png)
 **ทฤษฎีความขึ้นต่อกันแบบหลายค่า**
 
 > [!DEFINITION] นิยามของ MVD
-> ให้ $R$ เป็นตาราง และมีคอลัมน์ A, B, C
-> เราจะกล่าวว่า **"B ขึ้นอยู่กับ A แบบหลายค่า (Multi-dependent)"** เขียนสัญลักษณ์ว่า $A \twoheadrightarrow B \mid C$ ก็ต่อเมื่อ:
+> ให้ R เป็นตาราง และมีคอลัมน์ A, B, C
+> เราจะกล่าวว่า **"B ขึ้นอยู่กับ A แบบหลายค่า (Multi-dependent)"** เขียนสัญลักษณ์ว่า A ↠ B | C ก็ต่อเมื่อ:
 > - ชุดค่าของ B ที่จับคู่กับ A จะขึ้นอยู่กับตัว A เพียงอย่างเดียวเท่านั้น และไม่มีความเกี่ยวข้องหรือพึ่งพาใดๆ กับคอลัมน์ C เลยแม้แต่น้อย (Independent of C)
 
 ---
 
 ## 📜 Slide 23: 4NF (cont.) - Theorems
+
+![ภาพสไลด์ที่ 23: 4NF  - Theorems](images/ch6/slide_23.png)
 **ทฤษฎีบทเพิ่มเติมของ MVD**
 
 - จากสไลด์ที่แล้ว วิชาหนึ่งมีอาจารย์หลายคน และมีหนังสือหลายเล่ม (แต่อาจารย์กับหนังสือไม่เกี่ยวกัน) เราจึงเขียนสมการได้ว่า:
-  $\text{COURSE} \twoheadrightarrow \text{TEACHER} \mid \text{TEXT}$
-- **ทฤษฎีของ Fagin:** ตาราง $R\{A, B, C\}$ จะสามารถหั่นออกเป็น 2 ตารางคือ $\{A, B\}$ และ $\{A, C\}$ แล้วจอยน์กลับมาได้โดยข้อมูลไม่สูญหาย ก็ต่อเมื่อสมการ MVD $A \twoheadrightarrow B \mid C$ นั้นเป็นจริง
+  COURSE ↠ TEACHER | TEXT
+- **ทฤษฎีของ Fagin:** ตาราง R{A, B, C} จะสามารถหั่นออกเป็น 2 ตารางคือ {A, B} และ {A, C} แล้วจอยน์กลับมาได้โดยข้อมูลไม่สูญหาย ก็ต่อเมื่อสมการ MVD A ↠ B | C นั้นเป็นจริง
 - **Trivial FD (สมการไร้สาระ):** การเขียนว่า `{S#, P#} -> S#` เป็นความจริงแท้ที่ไม่ได้ให้อะไรใหม่ (ฝั่งขวาเป็นซับเซตของฝั่งซ้ายอยู่แล้ว)
 
 ---
 
 ## 🎖️ Slide 24: 4NF Definition
+
+![ภาพสไลด์ที่ 24: 4NF Definition](images/ch6/slide_24.png)
 **นิยามของ 4NF อย่างเป็นทางการ**
 
 > [!DEFINITION] 4NF Definition
-> ตาราง $R$ จะถือว่าเป็น 4NF ก็ต่อเมื่อ:
+> ตาราง R จะถือว่าเป็น 4NF ก็ต่อเมื่อ:
 > 1. สอบผ่าน BCNF มาแล้ว
-> 2. ทุกครั้งที่มีการเกิดสมการ MVD $A \twoheadrightarrow B$ ขยายตัวขึ้น, คอลัมน์อื่นๆ ทั้งหมดในตาราง จะต้องขึ้นอยู่กับ A เชิงฟังก์ชันแบบ Single-value ปกติด้วย ($A \rightarrow$ ทุกสิ่ง)
+> 2. ทุกครั้งที่มีการเกิดสมการ MVD A ↠ B ขยายตัวขึ้น, คอลัมน์อื่นๆ ทั้งหมดในตาราง จะต้องขึ้นอยู่กับ A เชิงฟังก์ชันแบบ Single-value ปกติด้วย (A → ทุกสิ่ง)
 > 
 > **พูดภาษาคนคือ:** ห้ามมีสมการ MVD (ลูกศรสองหัว) ซ่อนอยู่ในตารางเลย! ยกเว้นว่าตัวต้นทางจะเป็น Super Key ที่คุมทั้งตารางอยู่แล้ว
 
 ---
 
 ## 🔮 Slide 25: 5NF
+
+![ภาพสไลด์ที่ 25: 5NF](images/ch6/slide_25.png)
 **ปัญหาความซ้ำซ้อนในระดับที่ 5**
 
 ในระดับที่ลึกสุดขั้วนี้ ตารางผ่าน 4NF มาแล้ว ไม่มี MVD ใดๆ แต่เมื่อเราหั่นตารางเป็น 2 ส่วนแล้วเอามา Join กลับ ดันมีข้อมูลผีงอกขึ้นมา! (Spurious tuples)
@@ -470,6 +520,8 @@ type: lecture
 ---
 
 ## 🧩 Slide 26: 5NF (Constraint 3D)
+
+![ภาพสไลด์ที่ 26: 5NF](images/ch6/slide_26.png)
 **เงื่อนไข Join Dependency**
 
 - จากสไลด์ 25 ความพิสดารคือ ตาราง `SPJ` **ไม่สามารถหั่นเป็นแค่ 2 ตารางได้** ไม่ว่าจะจับคู่ไหนก็ตาม ข้อมูลจะพังเสมอ
@@ -479,22 +531,26 @@ type: lecture
 ---
 
 ## 🔗 Slide 27: 5NF Definition (Join Dependency)
+
+![ภาพสไลด์ที่ 27: 5NF Definition](images/ch6/slide_27.png)
 **นิยามของ Join Dependency**
 
 > [!DEFINITION] Join Dependency (JD)
-> ให้ $R$ เป็นตาราง และมีกลุ่มซับเซต $A, B, \dots Z$
-> $R$ จะมีคุณสมบัติ JD เขียนแทนด้วยสัญลักษณ์ `* {A, B, ... Z}` ก็ต่อเมื่อ:
-> ข้อมูลในตาราง $R$ ทุกๆ ความเป็นไปได้ จะต้องเกิดจากการนำเอาโปรเจกชันของ $A, B, \dots Z$ ทั้งหมดนั้นมา Join ประกอบร่างกันอย่างสมบูรณ์แบบ
+> ให้ R เป็นตาราง และมีกลุ่มซับเซต A, B, dots Z
+> R จะมีคุณสมบัติ JD เขียนแทนด้วยสัญลักษณ์ `* {A, B, ... Z}` ก็ต่อเมื่อ:
+> ข้อมูลในตาราง R ทุกๆ ความเป็นไปได้ จะต้องเกิดจากการนำเอาโปรเจกชันของ A, B, dots Z ทั้งหมดนั้นมา Join ประกอบร่างกันอย่างสมบูรณ์แบบ
 > 
 > อย่างตาราง SPJ ก็จะถูกควบคุมด้วยสมการ JD เป็น `* {SP, PJ, JS}`
 
 ---
 
 ## 🥇 Slide 28: 5NF Definition
+
+![ภาพสไลด์ที่ 28: 5NF Definition](images/ch6/slide_28.png)
 **นิยามของ 5NF อย่างเป็นทางการ**
 
 > [!DEFINITION] 5NF Definition (Projection-Join Normal Form)
-> ตาราง $R$ จะถือว่าเป็น 5NF ก็ต่อเมื่อ:
+> ตาราง R จะถือว่าเป็น 5NF ก็ต่อเมื่อ:
 > 1. ผ่านระดับก่อนหน้ามาหมดแล้ว
 > 2. ถ้าตารางนี้มีความสัมพันธ์แบบ Join Dependency ปรากฏอยู่ (`* {A, B, ...}`) องค์ประกอบเหล่านั้นจะต้องเป็นสิ่งที่หลีกเลี่ยงไม่ได้เพราะเกิดจาก Candidate Key ของตารางเอง
 > 
@@ -503,6 +559,8 @@ type: lecture
 ---
 
 ## 🏗️ Slide 29: 5NF (Building-material-supplier Example)
+
+![ภาพสไลด์ที่ 29: 5NF](images/ch6/slide_29.png)
 **ตัวอย่างการประยุกต์ใช้ 5NF ในงานก่อสร้าง**
 
 > [!EXAMPLE] ตารางความสัมพันธ์ 3 เส้า
@@ -522,6 +580,8 @@ type: lecture
 ---
 
 ## 🛠️ Slide 30: 5NF Solution
+
+![ภาพสไลด์ที่ 30: 5NF Solution](images/ch6/slide_30.png)
 **การแก้ปัญหาโดยแยกเป็น 3 ตาราง (5NF)**
 
 **การออกแบบใหม่ (The Solution):**
@@ -543,6 +603,8 @@ type: lecture
 ---
 
 ## 🛑 Slide 31: 5NF SPJ Relation Update Rules
+
+![ภาพสไลด์ที่ 31: 5NF SPJ Relation Update Rules](images/ch6/slide_31.png)
 **ข้อควรระวังในการอัปเดตตาราง SPJ (5NF)**
 
 แม้ตารางแบบ 3 เส้า (อย่าง SPJ) จะมี Join Dependency แต่มันก็บังคับให้การเขียนโปรแกรมเพิ่ม/ลบข้อมูล มีข้อจำกัดที่เข้มงวดสุดๆ (Side effects)

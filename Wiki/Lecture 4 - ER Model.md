@@ -35,15 +35,15 @@ slides_count: 30
 - [Slide 12: Weak Entity Types และ Identifying Relationship](#slide-12-weak-entity-types-เอนทิตีแบบอ่อน)
 - [Slide 13: ER Model และ Data Abstraction 4 มิติ](#slide-13-er-model-and-data-abstraction-แบบจำลอง-er-และการสรุปนามธรรมของข้อมูล)
 - [Slide 14: Constraints on Aggregation (Cardinality และ Participation)](#slide-14-constraints-on-aggregation-ข้อจำกัดบนความสัมพันธ์)
-- [Slide 15: เจาะลึกความสัมพันธ์ 1:N และ N:1 (ถอดรหัส $e_1..e_7, d_1..d_3, r_1..r_7$)](#slide-15-one-to-many1n-or-many-to-one-n1-relationship-เจาะลึกภาพอินสแตนซ์ความสัมพันธ์-e_1e_7-d_1d_3-r_1r_7)
-- [Slide 16: เจาะลึกความสัมพันธ์แบบ Many-to-Many M:N (ถอดรหัส $r_1..r_9$)](#slide-16-many-to-manymn-relationship-เจาะลึกภาพอินสแตนซ์ความสัมพันธ์หลายต่อหลาย)
+- [Slide 15: เจาะลึกความสัมพันธ์ 1:N และ N:1 (ถอดรหัส e₁..e₇, d₁..d₃, r₁..r₇)](#slide-15-one-to-many1n-or-many-to-one-n1-relationship-เจาะลึกภาพอินสแตนซ์ความสัมพันธ์-e_1e_7-d_1d_3-r_1r_7)
+- [Slide 16: เจาะลึกความสัมพันธ์แบบ Many-to-Many M:N (ถอดรหัส r₁..r₉)](#slide-16-many-to-manymn-relationship-เจาะลึกภาพอินสแตนซ์ความสัมพันธ์หลายต่อหลาย)
 - [Slide 17: Structural Constraints บนเส้นความสัมพันธ์ใน ER Diagram](#slide-17-structural-constraints---one-way-to-express-semantics-of-relationships)
 - [Slide 18: สัญลักษณ์ทางเลือกขั้นสูง วงเล็บคู่ (min, max) Notation](#slide-18-alternative-min-max-notation-for-relationship-structural-constraints)
 - [Slide 19: (min, max) กับความสัมพันธ์ขั้นสูง และกฎ Looking-Away](#slide-19-the-minmax-notation-for-higher-order-relationship-type-constraints)
 - [Slide 20: Relationships of Higher Degree (Binary, Ternary, n-ary)](#slide-20-relationships-of-higher-degree-ความสัมพันธ์ระดับสูงกว่า-binary)
 - [Slide 21: TERNARY RELATIONSHIPS (เปรียบเทียบสถาปัตยกรรม 3 รูปแบบ)](#slide-21-ternary-relationships-การเปรียบเทียบสถาปัตยกรรม-ternary-แท้จริง)
 - [Slide 22: กรณีศึกษา TERNARY VS. BINARY (Instructor, Course, Semester)](#slide-22-ternary-vs-binary-relationships-กรณีศึกษา-instructor-course-semester)
-- [Slide 23: TERNARY RELATIONSHIP Instance Diagram (ถอดรหัส $s_i, p_j, j_k, r_m$)](#slide-23-ternary-relationship--instance-diagram-เจาะลึกภาพอินสแตนซ์-3-เส้า-s_i-p_j-j_k-r_m)
+- [Slide 23: TERNARY RELATIONSHIP Instance Diagram (ถอดรหัส s_i, p_j, j_k, r_m)](#slide-23-ternary-relationship--instance-diagram-เจาะลึกภาพอินสแตนซ์-3-เส้า-s_i-p_j-j_k-r_m)
 - [Slide 24: ปัญหาความคลุมเครือของการเขียน m:n:p บนความสัมพันธ์ 3 เส้า](#slide-24-problem-with-constraints-on-higher-order-relationship-types)
 - [Slide 25: การประยุกต์ใช้สัญลักษณ์ (min, max) กับความสัมพันธ์ 3 เส้า](#slide-25-the-minmax-notation-for-higher-order-relationship-type-constraints)
 - [Slide 26: RECURSIVE RELATIONSHIP SUPERVISION (ถอดรหัสบทบาท 1 และ 2)](#slide-26-recursive-relationship-supervision-เจาะลึกภาพอินสแตนซ์ความสัมพันธ์วนกลับ-และบทบาท-1-กับ-2)
@@ -57,6 +57,8 @@ slides_count: 30
 ---
 
 ## Slide 1: Data Modeling Using the Entity-Relationship Model
+
+![ภาพสไลด์ที่ 1: Data Modeling Using the Entity-Relationship Model](images/ch4/slide_1.png)
 **หัวข้อหลักประจำบทเรียน:**
 - แนะนำแนวคิดการสร้างแบบจำลองข้อมูลเชิงมโนทัศน์ (Conceptual Data Modeling)
 - อ้างอิงเนื้อหามาตรฐานจากตำรา: *Fundamentals of Database Systems (4th Edition)* โดย Ramez Elmasri และ Shamkant B. Navathe (Chapter 3)
@@ -71,6 +73,8 @@ slides_count: 30
 ---
 
 ## Slide 2: ER Model Concepts Overview
+
+![ภาพสไลด์ที่ 2: ER Model Concepts Overview](images/ch4/slide_2.png)
 **ภาพรวมแนวคิดสำคัญในแบบจำลอง ER:**
 1. **Entities and Attributes:** เอนทิตีและคุณลักษณะเฉพาะ
 2. **Entity Types, Value Sets, and Key Attributes:** ชนิดของเอนทิตี, ขอบเขตค่าของข้อมูล (Domain), และแอตทริบิวต์ที่เป็นคีย์ระบุตัวตน
@@ -83,7 +87,8 @@ slides_count: 30
 
 ## Slide 3: SUMMARY OF ER-DIAGRAM NOTATION (ตารางสรุปสัญลักษณ์มาตรฐาน Chen Notation)
 
-![Summary of ER-Diagram Notation](images/ch4/slide_3.png)
+![ภาพสไลด์ที่ 3: SUMMARY OF ER-DIAGRAM NOTATION](images/ch4/slide_3.png)
+
 
 > [!INFO] **ถอดรหัสภาพสัญลักษณ์มาตรฐาน (Chen's Notation Summary):**
 > แผนภาพ ER ตามมาตรฐานดั้งเดิมของ Peter Chen กำหนดสัญลักษณ์พื้นฐานสำหรับเขียนแบบจำลองไว้ดังนี้:
@@ -127,6 +132,8 @@ erDiagram
 ---
 
 ## Slide 4: Example COMPANY Database (ความต้องการระบบบริษัท - ส่วนที่ 1)
+
+![ภาพสไลด์ที่ 4: Example COMPANY Database](images/ch4/slide_4.png)
 **ข้อกำหนดความต้องการ (Requirements of the Company - Oversimplified for illustrative purposes):**
 1. บริษัทจัดโครงสร้างออกเป็นหลาย **แผนก (DEPARTMENTs):**
    - แต่ละแผนกมี: ชื่อแผนก (`Name`), หมายเลขแผนก (`Number`), และมีพนักงาน 1 คนทำหน้าที่เป็น **ผู้จัดการแผนก (Manager)**
@@ -137,6 +144,8 @@ erDiagram
 ---
 
 ## Slide 5: Example COMPANY Database (Cont.) (ความต้องการระบบบริษัท - ส่วนที่ 2)
+
+![ภาพสไลด์ที่ 5: Example COMPANY Database](images/ch4/slide_5.png)
 **ข้อกำหนดความต้องการต่อเนื่อง:**
 3. ระบบจัดเก็บข้อมูล **พนักงาน (EMPLOYEEs):**
    - พนักงานแต่ละคนมี: เลขประจำตัวประชาชน (`SSN`), ที่อยู่ (`Address`), เงินเดือน (`Salary`), เพศ (`Sex`), และวันเกิด (`Birthdate`)
@@ -150,7 +159,8 @@ erDiagram
 
 ## Slide 6: ER DIAGRAM FOR THE COMPANY DATABASE (แผนภาพ ER เต็มรูปแบบของระบบบริษัท)
 
-![ER Diagram for the Company Database](images/ch4/slide_6.png)
+![ภาพสไลด์ที่ 6: ER DIAGRAM FOR THE COMPANY DATABASE](images/ch4/slide_6.png)
+
 
 > [!SUMMARY] **การวิเคราะห์โครงสร้างแผนภาพ ER เต็มรูปแบบ (Figure 3.2 Analysis):**
 > แผนภาพด้านบนคือแม่แบบมาตรฐานของ Peter Chen ที่บรรยายระบบ COMPANY ไว้อย่างสมบูรณ์ มีจุดสำคัญที่ต้องสังเกตดังนี้:
@@ -170,6 +180,8 @@ erDiagram
 ---
 
 ## Slide 7: ER Model Concepts: Entities and Attributes (แนวคิดเอนทิตีและแอตทริบิวต์)
+
+![ภาพสไลด์ที่ 7: ER Model Concepts: Entities and Attributes](images/ch4/slide_7.png)
 - **Entities (เอนทิตี):** คือ สิ่งของ วัตถุ หรือบุคคลที่มีตัวตนอยู่ในโลกความจริง (Mini-world) และถูกบันทึกข้อมูลไว้ในฐานข้อมูล เช่น:
   - พนักงานชื่อ *John Smith*
   - แผนกวิจัย *Research DEPARTMENT*
@@ -185,6 +197,8 @@ erDiagram
 ---
 
 ## Slide 8: Types of Attributes (ประเภทของแอตทริบิวต์)
+
+![ภาพสไลด์ที่ 8: Types of Attributes](images/ch4/slide_8.png)
 แอตทริบิวต์แบ่งออกเป็น 4 ชนิดย่อยตามลักษณะโครงสร้างการเก็บข้อมูล:
 
 | ชนิดของ Attribute | นิยามเชิงทฤษฎี | ตัวอย่างจากสไลด์ | วิธีการจัดเก็บในฐานข้อมูลจริง |
@@ -197,6 +211,8 @@ erDiagram
 ---
 
 ## Slide 9: Entity Types and Key Attributes (ชนิดของเอนทิตีและแอตทริบิวต์ที่เป็นคีย์)
+
+![ภาพสไลด์ที่ 9: Entity Types and Key Attributes](images/ch4/slide_9.png)
 - **Entity Type (ชนิดเอนทิตี):** คือ กลุ่มของเอนทิตีที่มีโครงสร้างแอตทริบิวต์พื้นฐานชุดเดียวกัน เช่น ชนิดเอนทิตี `EMPLOYEE` หรือชนิดเอนทิตี `PROJECT`
 - **Key Attribute (แอตทริบิวต์คีย์):** คุณลักษณะที่เอนทิตีแต่ละตัวต้องมีค่าไม่ซ้ำกันอย่างเด็ดขาด (Uniqueness) ใช้เป็นตัวชี้เฉพาะเจาะจง เช่น `SSN` ของ `EMPLOYEE`
 - **Composite Key (คีย์ผสม):** คีย์ที่ต้องนำแอตทริบิวต์หลายตัวมารวมกันจึงจะมีค่าไม่ซ้ำ เช่น ทะเบียนรถยนต์ `VehicleTagNumber(Number, State)`
@@ -208,7 +224,8 @@ erDiagram
 
 ## Slide 10: ENTITY TYPE CAR WITH ATTRIBUTES (ตัวอย่างอินสแตนซ์ของเอนทิตีรถยนต์)
 
-![Entity Type CAR with Attributes](images/ch4/slide_10.png)
+![ภาพสไลด์ที่ 10: ENTITY TYPE CAR WITH ATTRIBUTES](images/ch4/slide_10.png)
+
 
 > [!INFO] **การวิเคราะห์โครงสร้างข้อมูลรถยนต์ (CAR Schema & Instances Trace):**
 > โครงสร้างเอนทิตี: `CAR( Registration(RegistrationNumber, State), VehicleID, Make, Model, Year, {Color} )`
@@ -228,6 +245,8 @@ erDiagram
 ---
 
 ## Slide 11: Relationships and Relationship Types (ความสัมพันธ์และประเภทความสัมพันธ์)
+
+![ภาพสไลด์ที่ 11: Relationships and Relationship Types](images/ch4/slide_11.png)
 - **Relationship (ความสัมพันธ์):** คือ การผูกโยงความหมายระหว่าง 2 เอนทิตีขึ้นไป เช่น:
   - พนักงาน *John Smith* **ทำงานใน (works on)** โครงการ *ProductX*
   - พนักงาน *Franklin Wong* **เป็นผู้จัดการ (manages)** แผนก *Research*
@@ -235,14 +254,15 @@ erDiagram
 - **Degree of Relationship Type (ระดับขั้นของความสัมพันธ์):** จำนวนของชนิดเอนทิตีที่เข้ามาร่วมในความสัมพันธ์นั้น:
   - ร่วม 2 เอนทิตี = **Binary** (เช่น `MANAGES`, `WORKS_ON`)
   - ร่วม 3 เอนทิตี = **Ternary** (เช่น `SUPPLY` ที่มี Supplier, Part, Project)
-  - ร่วม $n$ เอนทิตี = **n-ary**
+  - ร่วม n เอนทิตี = **n-ary**
 - **Multiple Relationships between same Entity Types:** เอนทิตีคู่เดียวกันสามารถมีความสัมพันธ์กันได้มากกว่า 1 รูปแบบ เช่น ระหว่าง `EMPLOYEE` กับ `DEPARTMENT` มีทั้งความสัมพันธ์ `WORKS_FOR` (สังกัดแผนก) และความสัมพันธ์ `MANAGES` (เป็นผู้จัดการแผนก)
 
 ---
 
 ## Slide 12: Weak Entity Types (เอนทิตีแบบอ่อน)
 
-![Weak Entity Types](images/ch4/slide_12.png)
+![ภาพสไลด์ที่ 12: Weak Entity Types](images/ch4/slide_12.png)
+
 
 > [!WARNING] **นิยามและกลไกของ Weak Entity (เอนทิตีแบบอ่อน):**
 > 1. เป็นเอนทิตีที่ **ไม่มี Key Attribute ในตัวเอง** ไม่สามารถระบุตัวตนได้โดยลำพัง
@@ -259,6 +279,8 @@ erDiagram
 ---
 
 ## Slide 13: ER Model and Data Abstraction (แบบจำลอง ER และการสรุปนามธรรมของข้อมูล)
+
+![ภาพสไลด์ที่ 13: ER Model and Data Abstraction](images/ch4/slide_13.png)
 กระบวนการทางความคิดในการสร้าง ER Model เชื่อมโยงกับหลัก 4 ประการของการสรุปข้อมูล (Data Abstraction):
 1. **Classification (การจัดหมวดหมู่):** การรวมเอนทิตีเดี่ยวๆ หลายตัวที่มีคุณสมบัติร่วมกัน ให้กลายเป็น **Entity Type** เช่น รวมนาย ก, นาย ข, นางสาว ค เป็น `EMPLOYEE`
 2. **Aggregation (การประมวลรวม):** การรวมเอนทิตีหลายๆ ชนิดเข้าด้วยกันผ่าน **Relationship Type** เพื่อสร้างเป็นบริบทใหม่ เช่น รวมพนักงานและโครงการผ่านความสัมพันธ์ `WORKS_ON`
@@ -268,6 +290,8 @@ erDiagram
 ---
 
 ## Slide 14: Constraints on Aggregation (ข้อจำกัดบนความสัมพันธ์)
+
+![ภาพสไลด์ที่ 14: Constraints on Aggregation](images/ch4/slide_14.png)
 ข้อจำกัดโครงสร้างบนความสัมพันธ์แบ่งออกเป็น 2 มิติสำคัญ:
 
 1. **Maximum Cardinality (จำนวนสูงสุด / Cardinality Ratio):**
@@ -282,7 +306,8 @@ erDiagram
 
 ## Slide 15: One-to-many(1:N) or Many-to-one (N:1) RELATIONSHIP (เจาะลึกภาพอินสแตนซ์ความสัมพันธ์ e1..e7, d1..d3, r1..r7)
 
-![One-to-many(1:N) or Many-to-one (N:1) Relationship](images/ch4/slide_15.png)
+![ภาพสไลด์ที่ 15: One-to-many or Many-to-one  RELATIONSHIP](images/ch4/slide_15.png)
+
 
 > [!IMPORTANT] **คำอธิบายไขข้อข้องใจ: สัญลักษณ์ e1, d1, r1 ในสไลด์คืออะไร?**
 > ในสไลด์หน้านี้ อาจารย์ไม่ได้แสดงสมการคณิตศาสตร์ลอยๆ แต่กำลังวาด **แผนภาพจำลองอินสแตนซ์ของจริง (Set-Mapping Instance Diagram)** เพื่อพิสูจน์นิยามของความสัมพันธ์แบบ 1:N และ N:1 โดยจำแนกองค์ประกอบออกเป็น 3 วงรี:
@@ -318,7 +343,8 @@ erDiagram
 
 ## Slide 16: MANY-TO-MANY(M:N) RELATIONSHIP (เจาะลึกภาพอินสแตนซ์ความสัมพันธ์หลายต่อหลาย)
 
-![MANY-TO-MANY(M:N) RELATIONSHIP](images/ch4/slide_16.png)
+![ภาพสไลด์ที่ 16: MANY-TO-MANY RELATIONSHIP](images/ch4/slide_16.png)
+
 
 > [!IMPORTANT] **ถอดรหัสความแตกต่างของภาพ Slide 16 เทียบกับ Slide 15:**
 > ในสไลด์ 16 นี้ เป็นตัวอย่างของความสัมพันธ์แบบ **Many-to-Many (M:N)** เช่น พนักงานช่วยงานในโครงการ (`WORKS_ON`) โดยมีอินสแตนซ์ความสัมพันธ์ตรงกลางถึง 9 จุด (r1 ถึง r9):
@@ -345,6 +371,8 @@ erDiagram
 ---
 
 ## Slide 17: Structural Constraints - one way to express semantics of relationships
+
+![ภาพสไลด์ที่ 17: Structural Constraints - one way to express semantics of relationships](images/ch4/slide_17.png)
 **วิธีการเขียนข้อกำหนดโครงสร้างบนแผนภาพ ER (Structural Constraints):**
 1. **Cardinality Ratio (อัตราส่วนคู่สัมพันธ์):**
    - ระบุสัดส่วนการจับคู่สูงสุดระหว่าง 2 เอนทิตี เช่น `1:1`, `1:N`, `N:1`, หรือ `M:N`
@@ -359,42 +387,47 @@ erDiagram
 ---
 
 ## Slide 18: Alternative (min, max) notation for relationship structural constraints
+
+![ภาพสไลด์ที่ 18: Alternative  notation for relationship structural constraints](images/ch4/slide_18.png)
 **สัญลักษณ์ทางเลือกขั้นสูง: สัญลักษณ์วงเล็บคู่ (min, max)**
 เพื่อแก้ปัญหาความคลุมเครือของเส้นคู่และตัวเลข 1, N นักออกแบบจึงคิดค้นสัญลักษณ์ `(min, max)`:
 - กำกับไว้บนเส้นเชื่อมโยงที่ต่อออกมาจากเอนทิตีแต่ละตัว
-- กำหนดว่าเอนทิตีแต่ละตัว ($e \in E$) จะต้องเข้าร่วมในความสัมพันธ์ $R$ **อย่างน้อยที่สุดกี่ครั้ง (`min`)** และ **อย่างมากที่สุดกี่ครั้ง (`max`)**
-- กฎทางคณิตศาสตร์: $0 \le \min \le \max$ และ $\max \ge 1$ (หากไม่ระบุข้อบังคับ ค่าปริยายคือ $(0, n)$)
+- กำหนดว่าเอนทิตีแต่ละตัว (e in E) จะต้องเข้าร่วมในความสัมพันธ์ R **อย่างน้อยที่สุดกี่ครั้ง (`min`)** และ **อย่างมากที่สุดกี่ครั้ง (`max`)**
+- กฎทางคณิตศาสตร์: $0 \le \min \le \maxและ\max \ge 1(หากไม่ระบุข้อบังคับ ค่าปริยายคือ(0, n)$)
 
 **ตัวอย่างการประยุกต์ใช้จริงจากสไลด์ 18:**
 1. **ความสัมพันธ์ `MANAGES` (การบริหารแผนก):**
    - ข้อกำหนด: "แผนกหนึ่งแผนกต้องมีผู้จัดการเป๊ะๆ 1 คน และพนักงานคนหนึ่งสามารถเป็นผู้จัดการได้สูงสุดไม่เกิน 1 แผนก (หรือไม่เป็นเลยก็ได้)"
-   - ฝั่ง `EMPLOYEE`: เขียนกำกับว่า **`(0, 1)`** ($\min=0$ คือไม่ต้องเป็นหัวหน้าใคร, $\max=1$ คือคุมได้สูงสุด 1 แผนก)
-   - ฝั่ง `DEPARTMENT`: เขียนกำกับว่า **`(1, 1)`** ($\min=1$ บังคับต้องมีผู้จัดการขาดไม่ได้, $\max=1$ มีผู้จัดการได้เพียงคนเดียว)
+   - ฝั่ง `EMPLOYEE`: เขียนกำกับว่า **`(0, 1)`** (min=0 คือไม่ต้องเป็นหัวหน้าใคร, max=1 คือคุมได้สูงสุด 1 แผนก)
+   - ฝั่ง `DEPARTMENT`: เขียนกำกับว่า **`(1, 1)`** (min=1 บังคับต้องมีผู้จัดการขาดไม่ได้, max=1 มีผู้จัดการได้เพียงคนเดียว)
 2. **ความสัมพันธ์ `WORKS_FOR` (การสังกัดแผนก):**
    - ข้อกำหนด: "พนักงานทุกคนต้องสังกัดแผนกใดแผนกหนึ่งเป๊ะๆ 1 แผนก แต่แผนกหนึ่งแผนกสามารถมีพนักงานสังกัดได้ไม่จำกัดจำนวน"
-   - ฝั่ง `EMPLOYEE`: เขียนกำกับว่า **`(1, 1)`** ($\min=1$ บังคับต้องมีแผนก, $\max=1$ อยู่ได้แค่แผนกเดียว)
-   - ฝั่ง `DEPARTMENT`: เขียนกำกับว่า **`(0, n)`** หรือ **`(4, n)`** (เพิ่งตั้งแผนกอาจมี 0 คน หรือมี $n$ คนก็ได้)
+   - ฝั่ง `EMPLOYEE`: เขียนกำกับว่า **`(1, 1)`** (min=1 บังคับต้องมีแผนก, max=1 อยู่ได้แค่แผนกเดียว)
+   - ฝั่ง `DEPARTMENT`: เขียนกำกับว่า **`(0, n)`** หรือ **`(4, n)`** (เพิ่งตั้งแผนกอาจมี 0 คน หรือมี n คนก็ได้)
 
 ---
 
 ## Slide 19: The (min,max) notation for higher order relationship type constraints
 
-![The (min,max) notation for higher order relationship type constraints](images/ch4/slide_19.png)
+![ภาพสไลด์ที่ 19: The  notation for higher order relationship type constraints](images/ch4/slide_19.png)
+
 
 > [!DEFINITION] **กฎการอ่านค่า (Looking-Away Rule) บนสัญลักษณ์ (min, max):**
 > - ในการเขียนสัญลักษณ์ `(min, max)` สากล จะใช้กฎ **"Looking Away from the Entity"** คือให้ตัวเอนทิตียืนอยู่ที่ฝั่งของตัวเอง แล้วมองออกไปยังความสัมพันธ์ตรงกลาง เพื่อบอกว่าตัวมันมีพันธะผูกพันกับกิจกรรมนั้นกี่ครั้ง
 > - ตัวอย่างในสไลด์ 19:
 >   - ความสัมพันธ์ `MANAGES`: `EMPLOYEE` มองออกไปเป็น `(0, 1)`, `DEPARTMENT` มองออกไปเป็น `(1, 1)`
 >   - ความสัมพันธ์ `WORKS_FOR`: `EMPLOYEE` มองออกไปเป็น `(1, 1)`, `DEPARTMENT` มองออกไปเป็น `(1, N)`
-> - การใส่ตัวอักษร $M:N:P$ บนแขน 3 ข้างของความสัมพันธ์ระดับสูงนั้น **แทบจะไร้ความหมาย (Essentially meaningless)** เพราะไม่สามารถบอกขอบเขตขั้นต่ำและขั้นสูงของแต่ละฝ่ายได้ การใช้ `(min, max)` จึงเป็นวิธีที่ดีและชัดเจนที่สุด
+> - การใส่ตัวอักษร M:N:P บนแขน 3 ข้างของความสัมพันธ์ระดับสูงนั้น **แทบจะไร้ความหมาย (Essentially meaningless)** เพราะไม่สามารถบอกขอบเขตขั้นต่ำและขั้นสูงของแต่ละฝ่ายได้ การใช้ `(min, max)` จึงเป็นวิธีที่ดีและชัดเจนที่สุด
 
 ---
 
 ## Slide 20: Relationships of Higher Degree (ความสัมพันธ์ระดับสูงกว่า Binary)
+
+![ภาพสไลด์ที่ 20: Relationships of Higher Degree](images/ch4/slide_20.png)
 - **นิยาม Degree ของความสัมพันธ์:**
   - ร่วม 2 เอนทิตี เรียกว่า **Binary** (ระดับ 2)
   - ร่วม 3 เอนทิตี เรียกว่า **Ternary** (ระดับ 3)
-  - ร่วม $n$ เอนทิตี เรียกว่า **n-ary** (ระดับ $n$)
+  - ร่วม n เอนทิตี เรียกว่า **n-ary** (ระดับ n)
 - **ทฤษฎีสำคัญที่สุด (In general, an n-ary relationship is not equivalent to n binary relationships):**
   - **ความสัมพันธ์ระดับ 3 (Ternary) ไม่เท่ากับ ความสัมพันธ์ระดับ 2 จำนวน 3 อัน (Ternary $
 eq$ 3 Binaries)!**
@@ -404,7 +437,8 @@ eq$ 3 Binaries)!**
 
 ## Slide 21: TERNARY RELATIONSHIPS (การเปรียบเทียบสถาปัตยกรรม Ternary แท้จริง)
 
-![Ternary Relationships](images/ch4/slide_21.png)
+![ภาพสไลด์ที่ 21: TERNARY RELATIONSHIPS](images/ch4/slide_21.png)
+
 
 > [!INFO] **การวิเคราะห์แผนผัง 3 รูปแบบใน Slide 21:**
 > สไลด์นี้เปรียบเทียบการออกแบบความสัมพันธ์การจัดส่งชิ้นส่วน 3 แบบ:
@@ -422,7 +456,8 @@ eq$ 3 Binaries)!**
 
 ## Slide 22: TERNARY VS. BINARY RELATIONSHIPS (กรณีศึกษา Instructor, Course, Semester)
 
-![Ternary vs. Binary Relationships](images/ch4/slide_22.png)
+![ภาพสไลด์ที่ 22: TERNARY VS. BINARY RELATIONSHIPS](images/ch4/slide_22.png)
+
 
 > [!SUMMARY] **การวิเคราะห์กรณีศึกษาการเปิดสอนวิชา (Slide 22 Analysis):**
 > ตัวอย่างนี้แสดงให้เห็นความล้มเหลวของการใช้ 3 Binary แทน 1 Ternary:
@@ -440,7 +475,8 @@ eq$ 3 Binaries)!**
 
 ## Slide 23: TERNARY RELATIONSHIP- Instance Diagram (เจาะลึกภาพอินสแตนซ์ 3 เส้า s_i, p_j, j_k, r_m)
 
-![TERNARY RELATIONSHIP- Instance Diagram](images/ch4/slide_23.png)
+![ภาพสไลด์ที่ 23: TERNARY RELATIONSHIP- Instance Diagram](images/ch4/slide_23.png)
+
 
 > [!IMPORTANT] **คำอธิบายไขข้อข้องใจ: สัญลักษณ์ s1, p1, j1, r1 คืออะไร?**
 > สไลด์หน้านี้แสดง **แผนภาพอินสแตนซ์ของความสัมพันธ์ 3 มิติ (Ternary Instance Mapping)**:
@@ -467,10 +503,11 @@ eq$ 3 Binaries)!**
 
 ## Slide 24: Problem with constraints on higher order relationship types
 
-![Problem with constraints on higher order relationship types](images/ch4/slide_24.png)
+![ภาพสไลด์ที่ 24: Problem with constraints on higher order relationship types](images/ch4/slide_24.png)
+
 
 > [!WARNING] **ปัญหาของการเขียน m:n:p บนแขนความสัมพันธ์ 3 เส้า:**
-> - สไลด์แสดงภาพเอนทิตี `Supplier`, `Part`, `Project` เชื่อมต่อเข้ากับ `Supply` โดยมีตัวอักษร $m, n, p$ แปะไว้ที่แขนทั้งสาม
+> - สไลด์แสดงภาพเอนทิตี `Supplier`, `Part`, `Project` เชื่อมต่อเข้ากับ `Supply` โดยมีตัวอักษร m, n, p แปะไว้ที่แขนทั้งสาม
 > - ผู้เขียนตำรา (Elmasri & Navathe) ระบุชัดเจนว่า: **"What does it mean to put m:n:p on the three arms of the relationship? It is essentially meaningless."**
 > - **เหตุผล:** มนุษย์ไม่สามารถตีความได้เลยว่า m:n:p หมายถึงอะไร? ใครเป็น 1 ใครเป็น Many? เมื่อคู่ใดคู่หนึ่งถูกตรึงไว้ อีกฝั่งจะผันแปรได้อย่างไร? ก่อให้เกิดความเข้าใจผิดในการสร้างตารางอย่างร้ายแรง จึงห้ามใช้สัญลักษณ์ m:n:p โดยเด็ดขาด
 
@@ -478,18 +515,19 @@ eq$ 3 Binaries)!**
 
 ## Slide 25: The (min,max) notation for higher order relationship type constraints
 
-![The (min,max) notation for higher order relationship type constraints](images/ch4/slide_25.png)
+![ภาพสไลด์ที่ 25: The  notation for higher order relationship type constraints](images/ch4/slide_25.png)
+
 
 > [!INFO] **ทางออกที่ถูกต้อง: การใช้สัญลักษณ์ (min, max) บนความสัมพันธ์ระดับสูง:**
 > สไลด์ 25 นำเสนอตัวอย่างความสัมพันธ์ Ternary การเปิดสอนวิชา `Offering` ระหว่าง `Teacher`, `Course`, และ `Student` โดยใช้กฎ Looking-Away:
 
 **การแปลความหมายข้อจำกัด (min, max) แต่ละฝั่ง:**
 1. **ฝั่ง `Teacher` กำกับด้วย `(1, 2)`:**
-   - อาจารย์แต่ละคน ต้องมีส่วนร่วมในการเปิดสอน (`Offering`) อย่างน้อยที่สุด 1 ครั้ง ($\min=1$) และรับผิดชอบได้สูงสุดไม่เกิน 2 ครั้ง ($\max=2$)
+   - อาจารย์แต่ละคน ต้องมีส่วนร่วมในการเปิดสอน (`Offering`) อย่างน้อยที่สุด 1 ครั้ง (min=1) และรับผิดชอบได้สูงสุดไม่เกิน 2 ครั้ง (max=2)
 2. **ฝั่ง `Course` กำกับด้วย `(1, 3)`:**
-   - แต่ละรายวิชา สามารถนำมาเปิดสอนได้ตั้งแต่ 1 รอบ ($\min=1$) ถึงสูงสุดไม่เกิน 3 รอบ ($\max=3$)
+   - แต่ละรายวิชา สามารถนำมาเปิดสอนได้ตั้งแต่ 1 รอบ (min=1) ถึงสูงสุดไม่เกิน 3 รอบ (max=3)
 3. **ฝั่ง `Student` กำกับด้วย `(1, 5)`:**
-   - นักศึกษาแต่ละคน ต้องลงทะเบียนเรียนในรอบการเปิดสอนอย่างน้อย 1 รายการ ($\min=1$) และลงทะเบียนได้สูงสุดไม่เกิน 5 รายการ ($\max=5$)
+   - นักศึกษาแต่ละคน ต้องลงทะเบียนเรียนในรอบการเปิดสอนอย่างน้อย 1 รายการ (min=1) และลงทะเบียนได้สูงสุดไม่เกิน 5 รายการ (max=5)
 
 เห็นได้ชัดว่า สัญลักษณ์ `(min, max)` อธิบายข้อจำกัดในชีวิตจริงได้อย่างกระจ่างชัดและไม่คลุมเครือ
 
@@ -497,7 +535,8 @@ eq$ 3 Binaries)!**
 
 ## Slide 26: RECURSIVE RELATIONSHIP SUPERVISION (เจาะลึกภาพอินสแตนซ์ความสัมพันธ์วนกลับ และบทบาท 1 กับ 2)
 
-![RECURSIVE RELATIONSHIP SUPERVISION](images/ch4/slide_26.png)
+![ภาพสไลด์ที่ 26: RECURSIVE RELATIONSHIP SUPERVISION](images/ch4/slide_26.png)
+
 
 > [!IMPORTANT] **คำอธิบายไขข้อข้องใจ: ตัวเลข 1 และ 2 บนเส้นเชื่อมใน Slide 26 คืออะไร?**
 > ในสไลด์หน้านี้ คือ **ความสัมพันธ์แบบเวียนเกิด (Recursive Relationship)** ชนิด `SUPERVISION` (การบังคับบัญชา) โดยมีเอนทิตีเพียงกลุ่มเดียวคือ `EMPLOYEE` (e1 ถึง e7)
@@ -527,6 +566,8 @@ eq$ 3 Binaries)!**
 ---
 
 ## Slide 27: Roles played by Entity Types in Relationship types
+
+![ภาพสไลด์ที่ 27: Roles played by Entity Types in Relationship types](images/ch4/slide_27.png)
 **บทบาทของเอนทิตีและแอตทริบิวต์บนความสัมพันธ์:**
 1. **Role Names (ชื่อบทบาท):**
    - เมื่อเอนทิตีชนิดเดียวกันเข้าร่วมในความสัมพันธ์เดียวกันมากกว่า 1 ด้าน (เช่น Recursive ใน `SUPERVISION`) แขนของความสัมพันธ์จะชี้ไปยังเอนทิตีเดียวกันจนแยกไม่ออก
@@ -543,7 +584,8 @@ eq$ 3 Binaries)!**
 
 ## Slide 28: ER DIAGRAM WITH ROLE NAMES AND MINI-MAX CONSTRAINTS (แผนภาพระบบบริษัทแบบ (min, max))
 
-![ER Diagram with Role Names and Mini-Max Constraints](images/ch4/slide_28.png)
+![ภาพสไลด์ที่ 28: ER DIAGRAM WITH ROLE NAMES AND MINI-MAX CONSTRAINTS )](images/ch4/slide_28.png)
+
 
 > [!SUMMARY] **การวิเคราะห์ระบบ COMPANY ด้วยสัญลักษณ์ (min, max) (Figure 3.15):**
 > แผนภาพนี้แปลงระบบ COMPANY จาก Slide 6 มาเป็นสัญลักษณ์วงเล็บ `(min, max)` และ Role Names ทั้งหมด:
@@ -563,6 +605,8 @@ eq$ 3 Binaries)!**
 ---
 
 ## Slide 29: Data Modeling Tools (เครื่องมือสร้างแบบจำลองข้อมูลในทางปฏิบัติ)
+
+![ภาพสไลด์ที่ 29: Data Modeling Tools](images/ch4/slide_29.png)
 - **เครื่องมือยอดนิยมในวงการอุตสาหกรรม:**
   - **ERWin:** เครื่องมือระดับองค์กรมาตรฐานสูงสำหรับการทำ Data Modeling และ Reverse Engineering
   - **S-Designer (Enterprise Application Suite):** ซอฟต์แวร์ออกแบบเชิงมโนทัศน์และเชิงกายภาพ
@@ -577,7 +621,8 @@ eq$ 3 Binaries)!**
 
 ## Slide 30: ER DIAGRAM FOR A BANK DATABASE (แผนภาพ ER ระบบธนาคารพาณิชย์)
 
-![ER Diagram for a Bank Database](images/ch4/slide_30.png)
+![ภาพสไลด์ที่ 30: ER DIAGRAM FOR A BANK DATABASE](images/ch4/slide_30.png)
+
 
 > [!DEFINITION] **เจาะลึกโครงสร้างแบบจำลองฐานข้อมูลธนาคาร (Bank Database Architecture):**
 > สไลด์สุดท้ายแสดงกรณีศึกษาระบบธนาคารพาณิชย์ขนาดใหญ่ ประกอบด้วย 5 เอนทิตีหลัก:
@@ -722,18 +767,18 @@ flowchart TD
 ```
 
 ### ขั้นตอนที่ 1: แปลง Regular (Strong) Entity Types (การแปลงเอนทิตีปกติ)
-- สำหรับ Regular Entity แต่ละตัว $E$ ใน ER Diagram:
-  - ให้สร้าง Relation (ตาราง) $R$ ขึ้นมา 1 ตาราง
-  - นำ Simple Attributes ทั้งหมดของ $E$ มาเป็นคอลัมน์ของ $R$
+- สำหรับ Regular Entity แต่ละตัว E ใน ER Diagram:
+  - ให้สร้าง Relation (ตาราง) R ขึ้นมา 1 ตาราง
+  - นำ Simple Attributes ทั้งหมดของ E มาเป็นคอลัมน์ของ R
   - สำหรับ Composite Attribute: ให้แตกเฉพาะ **Atomic Components** ของมันมาเป็นคอลัมน์ (ห้ามนำชื่อแม่มาเก็บ เช่น เอา `Fname`, `Minit`, `Lname` มาใส่ แต่ไม่ต้องมีคอลัมน์ `Name`)
-  - เลือก Key Attribute ตัวใดตัวหนึ่งของ $E$ มาเป็น **Primary Key** ของ $R$ (หากคีย์เป็น Composite Key คีย์หลักของตารางก็จะเป็น Composite Primary Key)
+  - เลือก Key Attribute ตัวใดตัวหนึ่งของ E มาเป็น **Primary Key** ของ R (หากคีย์เป็น Composite Key คีย์หลักของตารางก็จะเป็น Composite Primary Key)
 
 ### ขั้นตอนที่ 2: แปลง Weak Entity Types (การแปลงเอนทิตีแบบอ่อน)
-- สำหรับ Weak Entity แต่ละตัว $W$ ที่ขึ้นตรงกับ Owner Entity $E$ ผ่าน Identifying Relationship:
-  - สร้างตาราง $R$ สำหรับ $W$
-  - นำ Simple Attributes ของ $W$ มาเป็นคอลัมน์
-  - **ดึง Primary Key ของ Owner Entity $E$ เข้ามาใส่ใน $R$ ในฐานะ Foreign Key (FK)**
-  - **Primary Key ของ $R$:** เกิดจากการนำ `Primary Key ของ Owner (FK)` มารวมกับ `Partial Key ของ Weak Entity` กลายเป็น Composite Primary Key เสมอ
+- สำหรับ Weak Entity แต่ละตัว W ที่ขึ้นตรงกับ Owner Entity E ผ่าน Identifying Relationship:
+  - สร้างตาราง R สำหรับ W
+  - นำ Simple Attributes ของ W มาเป็นคอลัมน์
+  - **ดึง Primary Key ของ Owner Entity E เข้ามาใส่ใน R ในฐานะ Foreign Key (FK)**
+  - **Primary Key ของ R:** เกิดจากการนำ `Primary Key ของ Owner (FK)` มารวมกับ `Partial Key ของ Weak Entity` กลายเป็น Composite Primary Key เสมอ
   - *ข้อกำหนดความคงสภาพ (Integrity Rule):* ต้องตั้ง Foreign Key เป็น `ON DELETE CASCADE` เสมอ เพื่อให้เวลาลบ Owner แล้ว ข้อมูลของ Weak Entity จะถูกลบตามไปด้วย
 
 ### ขั้นตอนที่ 3: แปลง Binary 1:1 Relationship Types (ความสัมพันธ์แบบหนึ่งต่อหนึ่ง)
@@ -748,7 +793,7 @@ flowchart TD
    - สร้างตารางเชื่อมแยกต่างหาก ดึง PK ทั้งสองฝั่งมาเป็น FK (ไม่ค่อยนิยมสำหรับ 1:1 เพราะสิ้นเปลืองการ JOIN)
 
 ### ขั้นตอนที่ 4: แปลง Binary 1:N Relationship Types (ความสัมพันธ์แบบหนึ่งต่อกลุ่ม)
-- สำหรับความสัมพันธ์ 1:N ใดๆ ระหว่างเอนทิตี $S$ (ฝั่ง 1) และ $T$ (ฝั่ง N):
+- สำหรับความสัมพันธ์ 1:N ใดๆ ระหว่างเอนทิตี S (ฝั่ง 1) และ T (ฝั่ง N):
   - **กฎเหล็ก:** **"นำ Primary Key ของฝั่ง 1 ไปวางเป็น Foreign Key ในฝั่ง N เสมอ!"**
   - เหตุผล: ฝั่ง N (เช่น พนักงาน) แต่ละคนมีสังกัดได้เพียง 1 แผนก จึงเก็บค่ารหัสแผนกเป็นคอลัมน์เดี่ยวในแถวของพนักงานได้โดยไม่เกิด Repeating Group
   - ห้ามเอา PK ฝั่ง N ไปใส่ในฝั่ง 1 เด็ดขาด เพราะแผนก 1 แผนกจะมีพนักงานหลายคน ทำให้เกิดหลายค่าใน 1 ช่อง ขัดแย้งกับกฎ 1NF
@@ -774,9 +819,9 @@ flowchart TD
   - **Primary Key ของตารางนี้:** คือคีย์ผสม `(Dnumber, Dlocation)`
 
 ### ขั้นตอนที่ 7: แปลง N-ary Relationship Types (ความสัมพันธ์ระดับ 3 ขึ้นไป)
-- สำหรับความสัมพันธ์ระดับ $n$ ($n > 2$) เช่น Ternary `SUPPLY` ระหว่าง `SUPPLIER`, `PART`, `PROJECT`:
+- สำหรับความสัมพันธ์ระดับ n (n > 2) เช่น Ternary `SUPPLY` ระหว่าง `SUPPLIER`, `PART`, `PROJECT`:
   - **กฎเหล็ก:** **"ต้องสร้างตารางความสัมพันธ์แยกต่างหาก 1 ตารางเสมอ"**
-  - ดึง Primary Key ของเอนทิตีที่เข้าร่วมทั้ง $n$ ตัวเข้ามาเป็น Foreign Key:
+  - ดึง Primary Key ของเอนทิตีที่เข้าร่วมทั้ง n ตัวเข้ามาเป็น Foreign Key:
     - `Sno` ชี้ไปที่ `SUPPLIER`
     - `Pno` ชี้ไปที่ `PART`
     - `Jno` ชี้ไปที่ `PROJECT`
@@ -974,13 +1019,13 @@ CREATE TABLE ENROLLMENT (
 ### คำศัพท์เทคนิคสำคัญ (Key Terminology):
 1. **Entity (เอนทิตี):** วัตถุหรือบุคคลที่สามารถแยกแยะได้ในโลกจริง (เช่น พนักงานสมชาย)
 2. **Entity Type (ชนิดของเอนทิตี):** การนิยามกลุ่มโครงสร้างของเอนทิตี (เช่น ตารางพนักงาน `EMPLOYEE`)
-3. **Entity Set (เซตของเอนทิตี):** กลุ่มของเอนทิตีทั้งหมดที่มีอยู่ในฐานข้อมูล ณ เวลาใดเวลาหนึ่ง ($e_1, e_2, \dots, e_n$)
+3. **Entity Set (เซตของเอนทิตี):** กลุ่มของเอนทิตีทั้งหมดที่มีอยู่ในฐานข้อมูล ณ เวลาใดเวลาหนึ่ง (e₁, e₂, dots, e_n)
 4. **Attribute (แอตทริบิวต์):** คุณสมบัติของเอนทิตี (เช่น ชื่อ, เงินเดือน, เพศ)
 5. **Domain / Value Set:** ขอบเขตของค่าที่อนุญาตให้ใส่ในแอตทริบิวต์ (เช่น อายุต้องเป็นจำนวนเต็มบวก)
 6. **Key Attribute:** แอตทริบิวต์ที่ค่าไม่ซ้ำกันเด็ดขาดในแต่ละเอนทิตี (มีขีดเส้นใต้ทึบ)
 7. **Partial Key / Discriminator:** แอตทริบิวต์ที่ใช้แยกแยะ Weak Entity ภายใต้ Owner เดียวกัน (มีขีดเส้นใต้ประ)
 8. **Relationship Type:** การเชื่อมโยงความหมายระหว่างหลายเอนทิตี (รูปข้าวหลามตัด)
-9. **Relationship Instance:** การจับคู่กันจริงของเอนทิตีในเหตุการณ์หนึ่งๆ ($r_1, r_2, \dots, r_m$)
+9. **Relationship Instance:** การจับคู่กันจริงของเอนทิตีในเหตุการณ์หนึ่งๆ (r₁, r₂, dots, r_m)
 10. **Degree of Relationship:** จำนวนเอนทิตีที่เข้าร่วมในความสัมพันธ์ (Binary = 2, Ternary = 3)
 11. **Cardinality Ratio:** อัตราส่วนจำนวนคู่สัมพันธ์สูงสุด (1:1, 1:N, M:N)
 12. **Participation Constraint:** ข้อกำหนดจำนวนคู่สัมพันธ์ต่ำสุด (Total = บังคับ/เส้นคู่, Partial = ไม่บังคับ/เส้นเดี่ยว)
@@ -996,7 +1041,7 @@ CREATE TABLE ENROLLMENT (
 - **ถาม:** ทำไมไม่ควรยุบ Ternary Relationship ให้เป็น 3 Binary Relationships?
   - **ตอบ:** เพราะจะสูญเสียความหมาย (Loss of Semantics) ระบบจะไม่รู้ว่าใน 1 เหตุการณ์ ใครส่งอะไรให้ใครอย่างแท้จริง
 - **ถาม:** หากมีสัญลักษณ์ (0, 1) บนแขนความสัมพันธ์ แปลว่าอะไร?
-  - **ตอบ:** แปลว่าเอนทิตีนั้นมีส่วนร่วมแบบ Optional ($\min=0$ คือไม่ต้องมีก็ได้) และมีความสัมพันธ์ได้สูงสุดเพียง 1 ครั้ง ($\max=1$)---
+  - **ตอบ:** แปลว่าเอนทิตีนั้นมีส่วนร่วมแบบ Optional (min=0 คือไม่ต้องมีก็ได้) และมีความสัมพันธ์ได้สูงสุดเพียง 1 ครั้ง (max=1)---
 
 ## สรุปส่งท้ายบทเรียน (Chapter Summary & Next Steps)
 - การสร้างแบบจำลอง ER เป็นหัวใจสำคัญของสถาปัตยกรรมระดับ Conceptual ใน ANSI/SPARC 3-Schema Architecture

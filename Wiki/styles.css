@@ -1497,36 +1497,146 @@ body.theme-light .db-native-wrap [style*="background:#131722"] {
 
 /* ==========================================================================
    Markdown Images - High Quality Presentation & Interactive Zoom
+/* ==========================================================================
+   Slide Visual Card Presentation Styles
    ========================================================================== */
+.slide-visual-card {
+  margin: 2rem 0;
+  border-radius: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.slide-visual-card:hover {
+  border-color: rgba(99, 102, 241, 0.45);
+  box-shadow: 0 12px 32px rgba(99, 102, 241, 0.18);
+}
+
+.slide-visual-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(15, 23, 42, 0.75);
+  border-bottom: 1px solid var(--border-subtle);
+  gap: 12px;
+}
+
+.slide-visual-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.slide-pill {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+}
+
+.slide-visual-caption {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slide-zoom-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.slide-zoom-btn:hover {
+  background: var(--brand-primary);
+  color: #ffffff;
+  border-color: var(--brand-primary);
+  transform: translateY(-1px);
+}
+
+.slide-visual-body {
+  padding: 12px;
+  background: #090d16;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body.theme-light .slide-visual-header {
+  background: #f1f5f9;
+}
+
+body.theme-light .slide-visual-caption {
+  color: #1e293b;
+}
+
+body.theme-light .slide-zoom-btn {
+  background: #ffffff;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+
+body.theme-light .slide-zoom-btn:hover {
+  background: var(--brand-primary);
+  color: #ffffff;
+}
+
+body.theme-light .slide-visual-body {
+  background: #e2e8f0;
+}
+
 .markdown-body img {
   display: block;
   max-width: 100%;
   height: auto;
-  margin: 1.75rem auto;
-  border-radius: 12px;
+  margin: 0.5rem auto;
+  border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   background-color: #ffffff;
-  padding: 8px;
+  padding: 6px;
   cursor: zoom-in;
   transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .markdown-body img:hover {
-  transform: translateY(-2px) scale(1.008);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-  border-color: #3b82f6;
+  transform: scale(1.015);
+  box-shadow: 0 8px 28px rgba(99, 102, 241, 0.35);
+  border-color: #6366f1;
 }
 
 body.theme-light .markdown-body img {
   background-color: #ffffff;
   border-color: #cbd5e1;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
 body.theme-light .markdown-body img:hover {
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.14);
-  border-color: #2563eb;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.2);
+  border-color: #4f46e5;
 }
 
 

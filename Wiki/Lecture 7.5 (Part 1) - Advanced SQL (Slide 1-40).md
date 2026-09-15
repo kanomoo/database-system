@@ -18,6 +18,8 @@ type: lecture
 ---
 
 ## 🗣️ Slide 1: Structured query language (SQL)
+
+![ภาพสไลด์ที่ 1: Structured query language](images/ch7_2/slide_1.png)
 **ภาษาสำหรับการสืบค้นข้อมูลที่มีโครงสร้าง**
 
 บทเรียนนี้เปิดตัวด้วยหัวข้อ Structured Query Language (SQL) ซึ่งจะเน้นไปที่การลงมือปฏิบัติจริง (Hands-on) กับโครงสร้างตารางข้อมูลภาษาไทย
@@ -25,6 +27,8 @@ type: lecture
 ---
 
 ## 🔤 Slide 2: SQL
+
+![ภาพสไลด์ที่ 2: SQL](images/ch7_2/slide_2.png)
 **หมวดหมู่คำสั่งหลักของ SQL**
 
 เนื้อหาของ SQL ในบทเรียนนี้จะถูกแบ่งออกเป็น 2 หมวดหมู่ยักษ์ใหญ่:
@@ -34,6 +38,8 @@ type: lecture
 ---
 
 ## 🏗️ Slide 3: DDL
+
+![ภาพสไลด์ที่ 3: DDL](images/ch7_2/slide_3.png)
 **คำสั่งกลุ่ม Data Definition Language**
 
 สรุปคำสั่ง DDL ที่จะใช้งานจริง:
@@ -46,6 +52,8 @@ type: lecture
 ---
 
 ## 📦 Slide 4: DML
+
+![ภาพสไลด์ที่ 4: DML](images/ch7_2/slide_4.png)
 **คำสั่งกลุ่ม Data Manipulation Language**
 
 สรุปคำสั่ง DML ที่ใช้เล่นกับข้อมูล:
@@ -57,6 +65,8 @@ type: lecture
 ---
 
 ## 🗄️ Slide 5: DDL – CREATE DATABASE
+
+![ภาพสไลด์ที่ 5: DDL – CREATE DATABASE](images/ch7_2/slide_5.png)
 **การสร้างและลบฐานข้อมูล**
 
 - **ไวยากรณ์สร้าง:** `CREATE DATABASE database_name`
@@ -70,6 +80,8 @@ type: lecture
 ---
 
 ## 📋 Slide 6: TABLE (Title)
+
+![ภาพสไลด์ที่ 6: TABLE](images/ch7_2/slide_6.png)
 **โครงสร้างตารางคำนำหน้าชื่อ (Title)**
 
 > [!INFO] โครงสร้างตาราง (Schema)
@@ -86,6 +98,8 @@ type: lecture
 ---
 
 ## 🧑‍🤝‍🧑 Slide 7: TABLE (Customer)
+
+![ภาพสไลด์ที่ 7: TABLE](images/ch7_2/slide_7.png)
 **โครงสร้างตารางลูกค้า (Customer)**
 
 > [!INFO] โครงสร้างตาราง (Schema)
@@ -106,6 +120,8 @@ type: lecture
 ---
 
 ## 🏷️ Slide 8: TABLE (Category)
+
+![ภาพสไลด์ที่ 8: TABLE](images/ch7_2/slide_8.png)
 **โครงสร้างตารางหมวดหมู่สินค้า (Category)**
 
 > [!INFO] โครงสร้างตาราง (Schema)
@@ -122,6 +138,8 @@ type: lecture
 ---
 
 ## 📏 Slide 9: TABLE (Unit)
+
+![ภาพสไลด์ที่ 9: TABLE](images/ch7_2/slide_9.png)
 **โครงสร้างตารางหน่วยนับ (Unit)**
 
 > [!INFO] โครงสร้างตาราง (Schema)
@@ -137,6 +155,8 @@ type: lecture
 ---
 
 ## 🛍️ Slide 10: TABLE (Product)
+
+![ภาพสไลด์ที่ 10: TABLE](images/ch7_2/slide_10.png)
 **โครงสร้างตารางสินค้า (Product)**
 
 > [!INFO] โครงสร้างตาราง (Schema)
@@ -156,6 +176,8 @@ type: lecture
 ---
 
 ## 🛒 Slide 11: TABLE (Orders)
+
+![ภาพสไลด์ที่ 11: TABLE](images/ch7_2/slide_11.png)
 **โครงสร้างตารางใบสั่งซื้อหลัก (Orders)**
 
 > [!INFO] โครงสร้างตาราง (Schema)
@@ -172,6 +194,8 @@ type: lecture
 ---
 
 ## 🧾 Slide 12: TABLE (OrdersDetail)
+
+![ภาพสไลด์ที่ 12: TABLE](images/ch7_2/slide_12.png)
 **โครงสร้างตารางรายละเอียดใบสั่งซื้อ (OrdersDetail)**
 
 > [!INFO] โครงสร้างตาราง (Schema)
@@ -189,6 +213,8 @@ type: lecture
 ---
 
 ## 🛠️ Slide 13: DDL - CREATE TABLE
+
+![ภาพสไลด์ที่ 13: DDL - CREATE TABLE](images/ch7_2/slide_13.png)
 **การสร้างตารางเบื้องต้น**
 
 - **ไวยากรณ์:** `CREATE TABLE table_name ( column1 type, column2 type... )`
@@ -204,6 +230,8 @@ type: lecture
 ---
 
 ## 🔑 Slide 14: DDL - CREATE TABLE (con't)
+
+![ภาพสไลด์ที่ 14: DDL - CREATE TABLE](images/ch7_2/slide_14.png)
 **การสร้างตารางพร้อมกำหนด Primary Key และภาษาไทย**
 
 > [!EXAMPLE] โค้ดที่สมบูรณ์ขึ้น
@@ -220,6 +248,8 @@ type: lecture
 ---
 
 ## 🔧 Slide 15: DDL – ALTER TABLE
+
+![ภาพสไลด์ที่ 15: DDL – ALTER TABLE](images/ch7_2/slide_15.png)
 **การแก้ไขโครงสร้างตาราง**
 
 - **เพิ่มคอลัมน์ (ADD):**
@@ -232,6 +262,8 @@ type: lecture
 ---
 
 ## 🗝️ Slide 16: DDL – ALTER TABLE (con't)
+
+![ภาพสไลด์ที่ 16: DDL – ALTER TABLE](images/ch7_2/slide_16.png)
 **การปรับปรุงกุญแจหลักทีหลัง**
 
 ในกรณีที่สร้างตารางไปแล้วลืมตั้ง Primary Key หรืออยากเปลี่ยนใจ:
@@ -243,6 +275,8 @@ type: lecture
 ---
 
 ## 🗑️ Slide 17: DDL – DROP TABLE
+
+![ภาพสไลด์ที่ 17: DDL – DROP TABLE](images/ch7_2/slide_17.png)
 **การลบตาราง**
 
 - **ไวยากรณ์:** `DROP TABLE table_name`
@@ -251,6 +285,8 @@ type: lecture
 ---
 
 ## ⚡ Slide 18: DDL – CREATE INDEX
+
+![ภาพสไลด์ที่ 18: DDL – CREATE INDEX](images/ch7_2/slide_18.png)
 **การสร้างดัชนีเร่งความเร็ว**
 
 - **ดัชนีธรรมดา (ซ้ำได้):**
@@ -261,6 +297,8 @@ type: lecture
 ---
 
 ## 🧹 Slide 19: DDL – DROP INDEX
+
+![ภาพสไลด์ที่ 19: DDL – DROP INDEX](images/ch7_2/slide_19.png)
 **การลบดัชนี**
 
 - **ไวยากรณ์:** `ALTER TABLE table_name DROP INDEX index_name;`
@@ -270,6 +308,8 @@ type: lecture
 ---
 
 ## 🗃️ Slide 20: DATA (Title)
+
+![ภาพสไลด์ที่ 20: DATA](images/ch7_2/slide_20.png)
 **ข้อมูลในตารางคำนำหน้าชื่อ**
 
 > [!EXAMPLE] Trace Table: Title
@@ -285,6 +325,8 @@ type: lecture
 ---
 
 ## 👥 Slide 21: DATA (Customer)
+
+![ภาพสไลด์ที่ 21: DATA](images/ch7_2/slide_21.png)
 **ข้อมูลในตารางลูกค้า**
 
 > [!EXAMPLE] Trace Table: Customer
@@ -303,6 +345,8 @@ type: lecture
 ---
 
 ## 🏷️ Slide 22: DATA (Category)
+
+![ภาพสไลด์ที่ 22: DATA](images/ch7_2/slide_22.png)
 **ข้อมูลในตารางหมวดหมู่สินค้า**
 
 > [!EXAMPLE] Trace Table: Category
@@ -317,6 +361,8 @@ type: lecture
 ---
 
 ## 📏 Slide 23: DATA (Unit)
+
+![ภาพสไลด์ที่ 23: DATA](images/ch7_2/slide_23.png)
 **ข้อมูลในตารางหน่วยนับ**
 
 > [!EXAMPLE] Trace Table: Unit
@@ -332,6 +378,8 @@ type: lecture
 ---
 
 ## 🛍️ Slide 24: DATA (Product)
+
+![ภาพสไลด์ที่ 24: DATA](images/ch7_2/slide_24.png)
 **ข้อมูลในตารางสินค้า**
 
 > [!EXAMPLE] Trace Table: Product
@@ -347,6 +395,8 @@ type: lecture
 ---
 
 ## 🛒 Slide 25: DATA (Orders)
+
+![ภาพสไลด์ที่ 25: DATA](images/ch7_2/slide_25.png)
 **ข้อมูลในตารางบิลสั่งซื้อ**
 
 > [!EXAMPLE] Trace Table: Orders
@@ -359,6 +409,8 @@ type: lecture
 ---
 
 ## 🧾 Slide 26: DATA (OrdersDetail)
+
+![ภาพสไลด์ที่ 26: DATA](images/ch7_2/slide_26.png)
 **ข้อมูลในตารางรายละเอียดการสั่งซื้อ**
 
 > [!EXAMPLE] Trace Table: OrdersDetail
@@ -375,6 +427,8 @@ type: lecture
 ---
 
 ## 📥 Slide 27: DML – INSERT INTO
+
+![ภาพสไลด์ที่ 27: DML – INSERT INTO](images/ch7_2/slide_27.png)
 **การเพิ่มข้อมูลใหม่**
 
 > [!EXAMPLE] โค้ดเพิ่มหมวดหมู่สินค้า
@@ -393,6 +447,8 @@ type: lecture
 ---
 
 ## ➕ Slide 28: DML – INSERT INTO (con't)
+
+![ภาพสไลด์ที่ 28: DML – INSERT INTO](images/ch7_2/slide_28.png)
 **ตัวอย่างการ Insert ข้อมูลรัวๆ**
 
 > [!EXAMPLE]
@@ -403,6 +459,8 @@ type: lecture
 ---
 
 ## ✏️ Slide 29: DML – UPDATE
+
+![ภาพสไลด์ที่ 29: DML – UPDATE](images/ch7_2/slide_29.png)
 **การแก้ไขข้อมูลที่มีอยู่แล้ว**
 
 - **อัปเดต 1 คอลัมน์:**
@@ -413,6 +471,8 @@ type: lecture
 ---
 
 ## ❌ Slide 30: DML – DELETE
+
+![ภาพสไลด์ที่ 30: DML – DELETE](images/ch7_2/slide_30.png)
 **การลบข้อมูลและการล้างไพ่**
 
 - **ล้างข้อมูลทั้งตาราง (ทิ้งซากโครงสร้างไว้):**
@@ -425,6 +485,8 @@ type: lecture
 ---
 
 ## 👁️ Slide 31: DML – SELECT
+
+![ภาพสไลด์ที่ 31: DML – SELECT](images/ch7_2/slide_31.png)
 **การดึงข้อมูลพื้นฐานและโจทย์ทดสอบ**
 
 - ดึงมาทุกคอลัมน์: `SELECT * FROM Title;`
@@ -435,6 +497,8 @@ type: lecture
 ---
 
 ## 🔍 Slide 32: DML – SELECT (Question)
+
+![ภาพสไลด์ที่ 32: DML – SELECT](images/ch7_2/slide_32.png)
 **โจทย์: ค้นหารายละเอียดสินค้า**
 
 > [!EXAMPLE] Trace Table: การดึงคอลัมน์เจาะจง
@@ -455,6 +519,8 @@ type: lecture
 ---
 
 ## 🧹 Slide 33: DML – SELECT (DISTINCT)
+
+![ภาพสไลด์ที่ 33: DML – SELECT](images/ch7_2/slide_33.png)
 **การคัดกรองข้อมูลตัวซ้ำ**
 
 - ยุบชื่อซ้ำ: `SELECT DISTINCT NameSurname FROM Customer;`
@@ -465,6 +531,8 @@ type: lecture
 ---
 
 ## 🎯 Slide 34: DML – SELECT (WHERE)
+
+![ภาพสไลด์ที่ 34: DML – SELECT](images/ch7_2/slide_34.png)
 **การกรองข้อมูลด้วยเงื่อนไข**
 
 - **ตัวอย่าง:** `SELECT CustomerID, NameSurname, Address FROM Customer WHERE NameSurname='ขาว';` 
@@ -473,6 +541,8 @@ type: lecture
 ---
 
 ## 📉 Slide 35: DML – SELECT (WHERE Question 1)
+
+![ภาพสไลด์ที่ 35: DML – SELECT](images/ch7_2/slide_35.png)
 **โจทย์: ค้นหาสินค้าราคาถูก**
 
 > [!EXAMPLE] Trace Table: กรองราคาน้อยกว่า 40
@@ -491,6 +561,8 @@ type: lecture
 ---
 
 ## 📊 Slide 36: DML – SELECT (WHERE Question 2)
+
+![ภาพสไลด์ที่ 36: DML – SELECT](images/ch7_2/slide_36.png)
 **โจทย์: ค้นหาสินค้าราคาแพงกว่าค่าเฉลี่ย**
 
 > [!EXAMPLE] Trace Table: กรองราคาผ่าน Subquery
@@ -510,6 +582,8 @@ type: lecture
 ---
 
 ## 🗂️ Slide 37: DML – SELECT (GROUP BY)
+
+![ภาพสไลด์ที่ 37: DML – SELECT](images/ch7_2/slide_37.png)
 **การจัดกลุ่มข้อมูล**
 
 - **ตัวอย่างการนับจำนวนคนแยกตามเพศ:**
@@ -519,6 +593,8 @@ type: lecture
 ---
 
 ## 👥 Slide 38: DML – SELECT (GROUP BY Question)
+
+![ภาพสไลด์ที่ 38: DML – SELECT](images/ch7_2/slide_38.png)
 **โจทย์: นับจำนวนคนชื่อซ้ำ**
 
 > [!EXAMPLE] Trace Table: จัดกลุ่มตามชื่อ
@@ -540,6 +616,8 @@ type: lecture
 ---
 
 ## 🛡️ Slide 39: DML – SELECT (HAVING)
+
+![ภาพสไลด์ที่ 39: DML – SELECT](images/ch7_2/slide_39.png)
 **การกรองผลลัพธ์หลังจัดกลุ่ม**
 
 - **ตัวอย่าง (คัดเฉพาะชื่อที่โหลๆ ซ้ำกันเกิน 1 คน):**
@@ -554,6 +632,8 @@ type: lecture
 ---
 
 ## 📦 Slide 40: DML – SELECT (HAVING Question)
+
+![ภาพสไลด์ที่ 40: DML – SELECT](images/ch7_2/slide_40.png)
 **โจทย์: กรองหมวดหมู่สินค้าที่มีของเยอะ**
 
 > [!EXAMPLE] Trace Table: กรองผลรวม

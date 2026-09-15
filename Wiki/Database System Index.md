@@ -2,226 +2,132 @@
 tags:
   - database
   - index
-  - mega-guide
+  - master-guide
+  - exam-prep
 created: 2026-07-07
-updated: 2026-07-07
+updated: 2026-09-15
 type: index
 ---
 
-# Database System - Comprehensive Master Index
+# 📚 ระบบฐานข้อมูล (Database System) — สารบัญภาพรวมความรู้และการเตรียมสอบ (Master Index)
 
-> [!IMPORTANT] 🎯 โซนเตรียมตัวสอบปฏิบัติการเดี่ยวในชั้นเรียน (In-Class Practical Test)
-> ตั้งแต่คาบหน้าเป็นต้นไป จะมีการสอบเก็บคะแนนเดี่ยวในชั่วโมงเรียน (50-60 นาที) โดยมีเนื้อหาที่ออกสอบหลัก 2 ส่วน:
-> 1. **การทำ Normalization & การออกแบบแผนภาพ:** (บทที่ 4 ER Model, บทที่ 5 FDs, และ บทที่ 6 Normalization)
-> 2. **การเขียนคำสั่ง SQL ตามสถานการณ์:** (บทที่ 7 SQL พื้นฐาน และ บทที่ 7.2 SQL ขั้นสูง)
-> 👉 **ศึกษาคู่มือและข้อสอบจำลองได้ที่:** **[[In-Class Exam Guide - Normalization and SQL]]**
+> [!IMPORTANT] 🎯 แยกหมวดหมู่ชัดเจน: ส่วนบทเรียน (Lectures) vs ส่วนข้อสอบและแบบฝึกหัด (Exams & Quizzes)
+> เพื่อความสะดวกในการเตรียมตัวสอบและการทบทวนบทเรียน คลังความรู้นี้ได้ทำการแบ่งโครงสร้างออกเป็น 2 ส่วนหลักอย่างชัดเจน:
+> 1. **ส่วนข้อสอบและแบบฝึกหัด (Exam Zone):** รวมคลังข้อสอบอัตนัย Normalization 5 ระดับ, ข้อสอบควิซสดในห้องเรียน (ACID & Lock Matrix), คู่มือเตรียมสอบเดี่ยว และโจทย์ฝึกปฏิบัติการ
+> 2. **ส่วนบทเรียนบรรยาย (Lecture Series):** สรุปเนื้อหาตามสไลด์ PDF บทที่ 1 ถึงบทที่ 9 พร้อมภาพประกอบสไลด์ต้นฉบับ แผนภาพ Mermaid และตาราง Trace Table ครบทุกสไลด์
 
 ---
 
-## 🗺️ ตารางเทียบหมวดหมู่และบทเรียนทั้งหมด (Chapter Mapping)
+## 🗺️ ตารางโครงสร้างสารบัญหลัก (Master Navigation Map)
 
-| หมวดหมู่ (Part) | บทเรียนในสไลด์ | เอกสารสรุปใน Wiki | ออกสอบปฏิบัติการ? |
-|---|---|---|---|
-| **Part 1: Foundations** | **บทที่ 1 (Ch1)** | [[Lecture 1 - Overview of Databases and Transaction Processing]] | ทฤษฎีพื้นฐาน |
-| | **บทที่ 2 (Ch2)** | [[Lecture 2 - Database Architecture and Relational Model]] | ทฤษฎีพื้นฐาน |
-| **Part 2: Data Modeling**| **บทที่ 3 (Ch3)** | [[Lecture 3 - Relational Algebra]] | ทฤษฎีพีชคณิต |
-| | **บทที่ 4 (Ch4)** | [[Lecture 4 - ER Model]] | **🎯 ข้อสอบ: ออกแบบแผนภาพ ER** |
-| **Part 3: Database Design**| **บทที่ 5 (Ch5)** | [[Lecture 5 - Functional Dependencies]] | **🎯 ข้อสอบ: วิเคราะห์ FDs** |
-| | **บทที่ 6 (Ch6)** | [[Lecture 6 - Database Design and Normalization]] | **🎯 ข้อสอบ: นอร์มัลไลเซชัน (1NF-5NF)** |
-| **Part 4: SQL Mastery** | **บทที่ 7 (Ch7)** | [[Lecture 7 (Part 1) - SQL Fundamentals (Slide 1-40)]]<br>[[Lecture 7 (Part 2) - SQL Fundamentals (Slide 41-80)]]<br>[[Lecture 7 (Part 3) - SQL Fundamentals (Slide 81-94)]] | **🎯 ข้อสอบ: คำสั่ง SQL, JOIN, GROUP BY** |
-| | **บทที่ 7.2 (Ch7_2)** | [[Lecture 7.5 (Part 1) - Advanced SQL (Slide 1-40)]]<br>[[Lecture 7.5 (Part 2) - Advanced SQL (Slide 41-79)]] | **🎯 ข้อสอบ: Subquery, HAVING, Views** |
-| **Part 5: Advanced Topics**| **บทที่ 8 (Ch8)** | [[Lecture 8 - Database System Architecture]] | ทฤษฎีระดับสูง |
-| | **บทที่ 9 (Ch9)** | [[Lecture 9 - NoSQL Databases]] | ทฤษฎีระดับสูง |
-| **Workshop & Exam** | **Exam Guide** | [[In-Class Exam Guide - Normalization and SQL]] | **⭐ คู่มือเตรียมสอบ & Mock Exam** |
-| | **Lab Guide** | [[SQL Lab Practice Guide - Zero to Hero]] | คู่มือห้องปฏิบัติการ SQL |
-| | **Live Quiz & Lecture** | [[In-Class Pop Quiz and Classroom Lecture - Transaction & ACID]] | **🎙️ ถอดเทปบรรยายสด & เฉลยควิซห้องเรียน (8 ก.ย.)** |
+### 🎯 1. ส่วนข้อสอบ ควิซในห้องเรียน และคลังโจทย์ฝึกฝน (Exam Zone)
+
+| ชื่อเอกสารข้อสอบ | ประเภท / หัวข้อหลัก | รายละเอียดเนื้อหาสำคัญ | ลิงก์เข้าสู่เอกสาร |
+| :--- | :--- | :--- | :---: |
+| **🍰 ปูพื้นฐาน Normalization เข้าใจง่าย (ตารางล้วน No SQL)** | คู่มือเริ่มต้นแบบเห็นภาพทันที | อธิบาย 1NF ถึง 5NF ด้วยตัวอย่างร้านคาเฟ่ชา-เบเกอรี่ ไม่ต้องมีโค้ด SQL มีแค่ภาพตารางเปรียบเทียบก่อน-หลังหั่นตาราง ชัดเจนที่สุด | [[Beginner Guide - Normalization Easy Steps (Tables Only)]] |
+| **🎯 10 ตัวอย่างชีวิตประจำวัน (ตารางล้วน No SQL)** | คลังตัวอย่างง่าย 10 ธุรกิจจริง | รวม 10 ธุรกิจจริง (ชาบู, คลินิกสัตว์, ร้านซ่อมมือถือ, ฟิตเนส, หอพัก, ส่งพัสดุ ฯลฯ) โชว์ตาราง Before vs After ตัดข้อมูลซ้ำซ้อนเข้าใจง่าย 100% | [[10 Everyday Normalization Examples - Visual Tables Only]] |
+| **🎯 คลังข้อสอบอัตนัย ER Diagram 10 ข้อหลักการสร้างแม่นยำ** | คลังข้อสอบอัตนัย 10 โดเมนธุรกิจ | ออกแบบ ER Model ตามมาตรฐาน Chen และ Crow's foot (Strong/Weak Entity, Multi-valued, Derived, Unary/Ternary) พร้อมเฉลยและแปลงเป็น Relational Schema ละเอียดยิบ | [[Master Exam - 10 ER Diagram Practice Problems with Detailed Solutions]] |
+| **คลังข้อสอบ Normalization 5 ระดับ** | คลังข้อสอบอัตนัย 10 ข้อใหญ่ | เจาะลึกกระบวนการ Decomposition ครบ 5 ระดับ (UNF → 1NF → 2NF → 3NF → BCNF → 4NF/5NF) พร้อมตาราง Trace Table และวิเคราะห์ Update Anomalies ละเอียดยิบ | [[Master Exam - 5-Level Normalization Intensive Practice]] |
+| **ข้อสอบควิซในห้องเรียนจริง** | Pop Quiz & บรรยายสด (8 ก.ย.) | ถอดเทปบรรยายสดและเฉลยข้อสอบเขียนกระดาษ A4: คุณสมบัติ ACID, ตาราง Lock Matrix (S/X Lock) และการกู้คืน 5 Transactions หลัง Server Crash | [[In-Class Pop Quiz and Classroom Lecture - Transaction & ACID]] |
+| **คู่มือเตรียมสอบปฏิบัติการเดี่ยว** | Comprehensive Practical Guide | สรุปเกณฑ์การสอบในคาบ 50-60 นาที เทคนิคการสแกน Anomalies 3 แบบ, การเขียน FDs และการเขียน SQL Query ขั้นสูง | [[In-Class Exam Guide - Normalization and SQL]] |
+| **คู่มือปฏิบัติการ SQL Lab (Zero to Hero)** | Hands-on Interactive Lab | คู่มือฝึกเขียนคำสั่ง SQL ตั้งแต่ CREATE TABLE, INSERT, UPDATE, DELETE, JOIN, GROUP BY ไปจนถึง Subquery พร้อมเปิดทดสอบในระบบ SQL Lab | [[SQL Lab Practice Guide - Zero to Hero]] |
+
+---
+
+### 📚 2. ส่วนบทเรียนบรรยายตามสไลด์ (Lecture Series บทที่ 1 - บทที่ 9)
+
+#### หมวดที่ 1: รากฐานฐานข้อมูลและพีชคณิตเชิงสัมพันธ์ (Foundations & Relational Algebra)
+- 🔹 **[[Lecture 1 - Overview of Databases and Transaction Processing]]**
+  - สถาปัตยกรรมระบบฐานข้อมูล ส่วนประกอบ H/W, S/W, Data, Users
+  - นิยามของ Transaction และ Transaction Processing System (TPS)
+  - ภาพสไลด์ต้นฉบับ Ch1 (Slide 1-18) พร้อมคำอธิบายภาษาไทย
+- 🔹 **[[Lecture 2 - Database Architecture and Relational Model]]**
+  - ANSI/SPARC 3-Level Architecture (External, Conceptual, Internal)
+  - ความเป็นอิสระของข้อมูล (Physical vs Logical Data Independence)
+  - โมเดลเชิงสัมพันธ์ (Relational Model), Relation, Tuple, Attribute, Domain
+  - คีย์ประเภทต่างๆ: Superkey, Candidate Key, Primary Key, Foreign Key
+  - ภาพสไลด์ต้นฉบับ Ch2 (Slide 1-35)
+- 🔹 **[[Lecture 3 - Relational Algebra]]**
+  - โอเปอเรเตอร์ทางพีชคณิต: Selection (σ), Projection (π), Cartesian Product (×)
+  - Set Operators: Union (∪), Intersection (∩), Difference (−)
+  - Derived Operators: Natural Join (⋈), Theta Join, Outer Join, Division (÷)
+  - Aggregate Functions และการประมวลผลคำสั่งเชิงคณิตศาสตร์
+  - ภาพสไลด์ต้นฉบับ Ch3 (Slide 1-40)
+
+#### หมวดที่ 2: การออกแบบฐานข้อมูลและนอร์มัลไลเซชัน (Data Modeling & Normalization)
+- 🔹 **[[Lecture 4 - ER Model]]**
+  - สัญลักษณ์มาตรฐาน Chen's Notation (Entity, Weak Entity, Relationship, Attribute)
+  - Cardinality Ratios (1:1, 1:N, M:N) และ (min, max) Constraints
+  - ความสัมพันธ์ระดับสูง Ternary Relationships และ Recursive Relationships
+  - ภาพสไลด์ต้นฉบับ Ch4 (Slide 1-30) ครบทุกหน้า
+- 🔹 **[[Lecture 5 - Functional Dependencies]]**
+  - นิยามความขึ้นต่อกันเชิงฟังก์ชัน (X → Y)
+  - Determinant (ตัวกำหนด) vs Dependent (ตัวถูกกำหนด)
+  - สัจพจน์ของอาร์มสตรอง (Armstrong's Axioms) และการหา Closure (FD⁺)
+  - กฎการพิสูจน์ FDs (Reflexivity, Augmentation, Transitivity, Union, Decomposition)
+  - ภาพสไลด์ต้นฉบับ Ch5 (Slide 1-13)
+- 🔹 **[[Lecture 6 - Database Design and Normalization]]**
+  - ทฤษฎี Non-Loss Decomposition (Lossless-Join)
+  - เจาะลึกระดับ 1NF, 2NF, 3NF, BCNF, 4NF (MVD), และ 5NF (Join Dependency)
+  - ปัญหา Update Anomalies (Insert, Delete, Update) และการแก้ไข
+  - ภาพสไลด์ต้นฉบับ Ch6 (Slide 1-31) ครบทุกหน้า
+
+#### หมวดที่ 3: ภาษา SQL พื้นฐานและคิวรีขั้นสูง (SQL Mastery)
+- 🔹 **[[Lecture 7 (Part 1) - SQL Fundamentals (Slide 1-40)]]**
+  - แนะนำภาษา SQL, การสร้างฐานข้อมูลและตาราง (CREATE TABLE)
+  - การกำหนด Data Types, Constraints (PRIMARY KEY, NOT NULL, UNIQUE)
+  - การจัดการข้อมูล DML: INSERT INTO, UPDATE, DELETE
+  - การสืบค้นพื้นฐาน: SELECT, WHERE, ORDER BY, LIKE, BETWEEN, IN
+- 🔹 **[[Lecture 7 (Part 2) - SQL Fundamentals (Slide 41-80)]]**
+  - การเชื่อมโยงข้อมูลหลายตาราง: INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN
+  - ฟังก์ชันคำนวณกลุ่มข้อมูล: COUNT, SUM, AVG, MIN, MAX
+  - การจัดกลุ่มและกรองผลลัพธ์: GROUP BY และ HAVING Clause
+- 🔹 **[[Lecture 7 (Part 3) - SQL Fundamentals (Slide 81-94)]]**
+  - การแก้ไขโครงสร้างตาราง (ALTER TABLE, DROP TABLE, TRUNCATE)
+  - การจัดการความถูกต้องของข้อมูล (Integrity Constraints) และดัชนี (Indexes)
+- 🔹 **[[Lecture 7.5 (Part 1) - Advanced SQL (Slide 1-40)]]**
+  - คำสั่ง SQL ขั้นสูง: Subqueries (Single-row vs Multi-row Subqueries)
+  - การสร้างและบริหารมุมมองข้อมูลเสมือน (CREATE VIEW)
+- 🔹 **[[Lecture 7.5 (Part 2) - Advanced SQL (Slide 41-79)]]**
+  - คิวรีเชื่อมโยงภายใน (Correlated Subqueries)
+  - การใช้งานตัวดำเนินการ EXISTS และ NOT EXISTS
+  - Window Functions และการวิเคราะห์ข้อมูลระดับองค์กร
+
+#### หมวดที่ 4: การประมวลผลธุรกรรมและสถาปัตยกรรมระดับสูง (Enterprise Architecture & NoSQL)
+- 🔹 **[[Lecture 8 - Database System Architecture]]**
+  - Transaction Management และคุณสมบัติ ACID Properties
+  - วงจรสถานะของ Transaction (Active, Partially Committed, Committed, Failed, Aborted)
+  - ปัญหาการทำงานพร้อมกัน (Lost Update, Dirty Read, Inconsistent Analysis)
+  - กลไกการล็อก (Locking Mechanism) และตาราง Lock Compatibility Matrix (S/X Lock)
+  - การควบคุม Two-Phase Locking (2PL) และการกู้คืนระบบหลังการล่ม (Crash Recovery)
+  - ภาพสไลด์ต้นฉบับ Ch8 (Slide 1-19)
+- 🔹 **[[Lecture 9 - NoSQL Databases]]**
+  - กำเนิดและแนวคิดของฐานข้อมูล NoSQL
+  - ทฤษฎี CAP Theorem (Consistency, Availability, Partition Tolerance)
+  - โครงสร้าง 4 ประเภท: Key-Value, Document, Column Family, Graph Databases
+  - ภาพสไลด์ต้นฉบับ Ch9 (Slide 1-31)
+
+---
+
+### 📌 3. สารบัญและเช็กลิสต์ติดตามผล (Study Tracker)
+- 📋 **[[Progress Checklist]]** — ตารางบันทึกความก้าวหน้าในการอ่านและฝึกทำโจทย์รายบุคคล
 
 ---
 
 ```mermaid
 mindmap
-  root((DATABASE SYSTEM<br/>KNOWLEDGE BASE))
-    Exam["🎯 ข้อสอบปฏิบัติการเดี่ยว"]
-      Ch4["บทที่ 4 Ch4: ER Model"]
-      Ch5["บทที่ 5 Ch5: Functional Dependencies"]
-      Ch6["บทที่ 6 Ch6: Normalization"]
-      Ch7["บทที่ 7 Ch7: SQL Fundamentals"]
-      Ch72["บทที่ 7.2 Ch7_2: Advanced SQL"]
-    F["Part 1: Foundations"]
-      Ch1["บทที่ 1 Ch1: Overview and TPS"]
-      Ch2["บทที่ 2 Ch2: Architecture and Relational Model"]
-    M["Part 2: Data Modeling"]
-      Ch3["บทที่ 3 Ch3: Relational Algebra"]
-    A["Part 5: Advanced Topics"]
-      Ch8["บทที่ 8 Ch8: Transaction Processing"]
-      Ch9["บทที่ 9 Ch9: NoSQL Databases"]
+  root((DATABASE SYSTEM<br/>MASTER WIKI))
+    Exams["🎯 ส่วนข้อสอบและแบบฝึกหัด"]
+      Norm5NF["Master Exam: Normalization 5 ระดับ (10 ข้อใหญ่)"]
+      PopQuiz["Pop Quiz สด 8 ก.ย. (ACID & Lock Matrix)"]
+      InClassGuide["คู่มือเตรียมสอบปฏิบัติการเดี่ยว"]
+      SqlLabGuide["คู่มือปฏิบัติการ SQL Lab (Zero to Hero)"]
+    Lectures["📚 ส่วนบทเรียนบรรยาย"]
+      P1["หมวด 1: พื้นฐาน & Relational Algebra (Ch1-Ch3)"]
+      P2["หมวด 2: การออกแบบ & Normalization (Ch4-Ch6)"]
+      P3["หมวด 3: ภาษา SQL พื้นฐานและขั้นสูง (Ch7, Ch7.2)"]
+      P4["หมวด 4: ธุรกรรมและการกู้คืน & NoSQL (Ch8-Ch9)"]
+    Track["📌 การติดตามการเรียน"]
+      MasterIdx["สารบัญภาพรวม"]
+      Checklist["เช็กลิสต์ความก้าวหน้า"]
 ```
-
----
-
-# 📚 Part 1: The Foundations (รากฐาน)
-
-รากฐานที่สำคัญที่สุดก่อนจะก้าวเข้าสู่โลกของฐานข้อมูล คือการเข้าใจว่า Database คืออะไร, DBMS ทำหน้าที่อะไร, Transaction มีความสำคัญอย่างไร และสถาปัตยกรรมระบบฐานข้อมูลถูกออกแบบมาอย่างไร
-
-- 🔹 **[[Lecture 1 - Overview of Databases and Transaction Processing]]**
-  - Database Systems Components (Data, H/W, S/W, Users)
-  - Database Definition & DBMS Definition
-  - Data Model (Objects + Operators)
-  - Benefits of Database (7 ข้อดี)
-  - Data Independence
-  - Transaction Definition & Transaction Processing System
-  - DB Systems: Then and Now (7 มิติเปรียบเทียบ)
-  - System Requirements (6 ข้อกำหนด)
-  - Roles in TPS Design & Maintenance (5 บทบาท)
-- 🔹 **[[Lecture 2 - Database Architecture and Relational Model]]**
-  - ANSI/SPARC 3-Level Architecture (External, Conceptual, Internal)
-  - Physical, Conceptual, External Data Levels
-  - Data Independence (Physical & Logical)
-  - Relational Model: Relations, Tuples, Attributes, Domains
-  - Relation Schema & Database Schema
-  - Integrity Constraints (Static vs Dynamic, Syntactic vs Semantic)
-  - Keys: Candidate, Primary, Alternate, Superkey, Foreign Key
-  - Foreign Key Constraints ทุกกรณี
-  - Inclusion Dependencies & Semantic Constraints
-
----
-
-# 🏗️ Part 2: Data Modeling (การจำลองข้อมูล)
-
-เจาะลึกวิธีการ query ข้อมูลด้วย Relational Algebra และการออกแบบฐานข้อมูลด้วย ER Model
-
-- 🔹 **[[Lecture 3 - Relational Algebra]]**
-  - Relational Query Languages (SQL vs RA)
-  - RA ใน DBMS Pipeline (Parser → Optimizer → Code Generator)
-  - Set Operators: Union, Intersection, Difference, Cartesian Product
-  - Union Compatible Relations
-  - Select (σ) ทุกเงื่อนไข + ตัวอย่าง
-  - Project (π) + Duplicate Elimination
-  - Rename Operator (ρ)
-  - Theta Join, Equijoin, Natural Join + ตัวอย่าง
-  - Outer Join (Left, Right, Full) + ตัวอย่าง
-  - Division + ตัวอย่าง
-  - Assignment Operation (←)
-  - Aggregate Functions (AVG, MIN, MAX, SUM, COUNT) + GROUP BY
-- 🔹 **[[Lecture 4 - ER Model]]**
-  - COMPANY Database Requirements
-  - ER Diagram Notation Summary (ทุกสัญลักษณ์)
-  - Entities, Entity Types, Key Attributes
-  - Attribute Types: Simple, Composite, Multi-valued, Derived
-  - Relationships & Relationship Types
-  - Cardinality Ratios (1:1, 1:N, M:N)
-  - (min, max) Notation + ตัวอย่าง
-  - Ternary Relationships + Constraints
-  - Recursive Relationships & Role Names
-  - Weak Entity Types
-  - Data Modeling Tools
-
----
-
-# 🔧 Part 3: Database Design (การออกแบบฐานข้อมูล)
-
-Functional Dependencies คือพื้นฐานของ Normalization ซึ่งเป็นกระบวนการกำจัด redundancy และ update anomalies
-
-- 🔹 **[[Lecture 5 - Functional Dependencies]]**
-  - FD Basic Definitions + ตัวอย่างจริง
-  - Determinant & Dependent
-  - Closure of a Set of Dependencies (FD⁺)
-  - Armstrong's Axioms (3 axioms + 5 derived rules)
-  - General Unification Theorem (Darwen)
-  - Step-by-step Proof ตัวอย่าง (R(A,B,C,G,H,I))
-  - FD Diagram สำหรับ Relations S, SP, P
-- 🔹 **[[Lecture 6 - Normalization]]**
-  - Non-Loss Decomposition (Lossless vs Lossy)
-  - 1NF: Definition + FIRST Relation + Update Anomalies
-  - 2NF: Definition + SECOND/SP Relations + Remaining Problems
-  - 3NF: Definition + SC/CS Relations + Decomposition Choice
-  - BCNF: Definition + SJT Example + EXAM Example
-  - 4NF: Multi-Valued Dependencies + CTX Example + CT/CX Solution
-  - 5NF: Join Dependencies + SPJ Example + BMS Example
-- 🔹 **[[Example - Normalization Step by Step]]** *(Deep Dive)*
-  - Trace: FIRST → 2NF → 3NF → BCNF step-by-step
-
----
-
-# 💻 Part 4: SQL (ภาษา SQL)
-
-SQL เป็น "lingua franca" ของโลกฐานข้อมูล — ทั้งทฤษฎีและภาคปฏิบัติ
-
-- 🔹 **[[Lecture 7 - SQL Fundamentals]]**
-  - SQL Components (DDL, DML, Views, Integrity, Authorization)
-  - CREATE DATABASE/TABLE/INDEX + Data Types
-  - DROP TABLE/DATABASE + TRUNCATE
-  - ALTER TABLE (ADD/DROP COLUMN)
-  - INSERT INTO (ทุกรูปแบบ)
-  - UPDATE (Single/Multiple columns)
-  - DELETE (Specific/All rows)
-  - SELECT: Basic, DISTINCT, WHERE, Operators
-  - ORDER BY, LIKE patterns, IN, BETWEEN
-  - Aliases (Column/Table)
-- 🔹 **[[SQL Lab Practice Guide - Zero to Hero]]** ⭐ *(คู่มือเตรียมสอบแล็บ & Hands-on Workshop จากศูนย์ถึงโปร)*
-  - Part 0: ปฐมบทการใช้งาน (วิธีสร้างไฟล์ .sql, วิธีรันผ่าน VS Code / SQLite / Web)
-  - Part 1: พื้นฐาน DDL & DML (CREATE TABLE, INSERT, UPDATE, DELETE, SELECT, WHERE)
-  - Part 2: คำนวณ จัดกลุ่ม เชื่อมตาราง (SUM, AVG, COUNT, GROUP BY, HAVING, JOIN, UNION, VIEW)
-  - Part 3: แล็บระบบร้านค้า 7 ตารางสมบูรณ์ (สคริปต์ Clean Slate + 12 ข้อสอบจริงพร้อม Trace Table)
-  - Part 4: กับดักและข้อผิดพลาดที่พบบ่อยในการสอบแล็บ
-- 🔹 **[[Lecture 7.2 - SQL Practical Workshop]]**
-  - Database Schema ตัวอย่าง (7 ตาราง พร้อม ER Diagram)
-  - DDL: CREATE TABLE, CREATE/DROP INDEX
-  - DML: INSERT INTO, UPDATE, DELETE
-  - SELECT ขั้นสูง: DISTINCT, WHERE, GROUP BY, HAVING
-  - ORDER BY (ASC/DESC, Multiple columns)
-  - AND & OR combinations
-  - LIKE patterns, IN, BETWEEN...AND
-  - Aliases (AS)
-  - SELECT INTO (MySQL cross-database copy)
-  - JOIN: INNER, LEFT, RIGHT
-  - UNION & UNION ALL
-  - Aggregate Functions: COUNT, MAX, MIN, SUM
-  - Subqueries with MAX/MIN
-  - CREATE VIEW
-- 🔹 **[[Example - SQL JOIN Operations]]** *(Deep Dive)*
-  - INNER/LEFT/RIGHT JOIN traces with real data
-
----
-
-# ⚙️ Part 5: Advanced Topics (หัวข้อขั้นสูง)
-
-Transaction Processing รับประกันความถูกต้องของข้อมูล ในขณะที่ NoSQL เสนอทางเลือกสำหรับข้อมูลขนาดใหญ่
-
-- 🔹 **[[Lecture 8 - Transaction Processing]]**
-  - ACID Properties (4 คุณสมบัติ)
-  - Transaction States (Active → Committed/Failed → Terminated)
-  - Recovery: System Failure vs Media Failure
-  - System Recovery Algorithm (UNDO/REDO Lists)
-  - Two-Phase Commit (2PC) Protocol
-  - Concurrency Problems (Lost Update, Uncommitted Dependency, Inconsistent Analysis)
-  - Lock-Based Resolution (X-lock, S-lock)
-  - Lock Compatibility Matrix
-  - Simple Locking Traces (Chicago/Boston Order Example)
-- 🔹 **[[Lecture 9 - NoSQL Databases]]**
-  - Brief History of Databases (Timeline)
-  - RDBMS Benefits & Weaknesses
-  - NoSQL Definition & Characteristics
-  - When / When Not to Use NoSQL
-  - Schema-less Data Model (Relational vs NoSQL comparison)
-  - 4 Aggregate Data Models: Key-Value, Document, Column Family, Graph
-  - Cassandra vs MySQL Statistics (Facebook Search)
-  - SQL vs NoSQL Comparison Table
-  - CAP Theorem (Consistency, Availability, Partition Tolerance)
-  - CAP Trade-offs: CA, CP, AP
-
----
-
-# 📝 Learning Methodology (วิธีการเรียนรู้)
-
-เพื่อให้ได้ประโยชน์สูงสุดจากฐานความรู้นี้ ขอแนะนำให้ผู้เรียนปฏิบัติตามแนวทางต่อไปนี้:
-1. **ทฤษฎีก่อนปฏิบัติ:** ศึกษา Lecture Notes เพื่อจับหลักการทำงาน
-2. **วาดตาม Diagram:** ทุกบทเรียนมี ER Diagram, FD Diagram, Mermaid ให้ผู้เรียนวาดตาม
-3. **เขียน SQL ซ้ำ:** นำ SQL ตัวอย่างไปทดลองรันจริงใน MySQL/PostgreSQL
-4. **ทำ Normalization ด้วยมือ:** ฝึกแยกตาราง 1NF → 5NF ด้วยตัวเอง
-
-> *"Data is the new oil. It's valuable, but if unrefined it cannot really be used."* — Clive Humby
-
----
-*Generated and curated autonomously.*
-*System Date: 2026-07-07*

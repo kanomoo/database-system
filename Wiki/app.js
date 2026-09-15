@@ -124,24 +124,29 @@
   }
 
   function formatDocNavTitle(docId, originalTitle) {
-    if (docId.includes('In-Class Exam Guide')) return '🎯 คู่มือ & ข้อสอบจำลองในคาบเรียน';
+    if (docId.includes('Beginner Guide')) return '🍰 เริ่มต้น Normalization เข้าใจง่าย (ตารางล้วน No SQL)';
+    if (docId.includes('10 Everyday Normalization Examples')) return '🎯 10 ตัวอย่างชีวิตประจำวัน (ตารางล้วน No SQL)';
+    if (docId.includes('10 ER Diagram')) return '🎯 10 ข้อสอบจำลอง ER Diagram สร้างแม่นยำ';
+    if (docId.includes('Master Exam')) return '🎯 คลังข้อสอบ Normalization 5 ระดับ (1NF-5NF)';
+    if (docId.includes('In-Class Pop Quiz')) return '🎯 ข้อสอบควิซสดในห้องเรียน (ACID & Lock Matrix)';
+    if (docId.includes('In-Class Exam Guide')) return '🎯 คู่มือเตรียมสอบปฏิบัติการรวม (Norm & SQL)';
+    if (docId.includes('SQL Lab Practice Guide')) return '🛠️ คู่มือห้องทดลอง SQL Lab (Zero to Hero)';
     if (docId.includes('Database System Index')) return '📌 สารบัญภาพรวม (Master Index)';
     if (docId.includes('Progress Checklist')) return '✅ เช็กลิสต์ความก้าวหน้า';
-    if (docId.includes('SQL Lab Practice Guide')) return '🛠️ คู่มือปฏิบัติการ SQL Lab (Zero to Hero)';
 
     if (docId.startsWith('Lecture 1 -')) return 'บทที่ 1 (Ch1): ภาพรวมฐานข้อมูล & TPS';
     if (docId.startsWith('Lecture 2 -')) return 'บทที่ 2 (Ch2): สถาปัตยกรรม & Relational Model';
     if (docId.startsWith('Lecture 3 -')) return 'บทที่ 3 (Ch3): Relational Algebra (พีชคณิต)';
-    if (docId.startsWith('Lecture 4 -')) return 'บทที่ 4 (Ch4): ER Model [🎯 ออกแบบแผนภาพ]';
-    if (docId.startsWith('Lecture 5 -')) return 'บทที่ 5 (Ch5): Functional Dependencies [🎯 FDs]';
-    if (docId.startsWith('Lecture 6 -')) return 'บทที่ 6 (Ch6): Normalization (1NF-5NF) [🎯 นอร์มัลไลเซชัน]';
-    if (docId.includes('Lecture 7 (Part 1)')) return 'บทที่ 7 (Ch7): SQL พื้นฐาน (Slide 1-40) [🎯 คำสั่ง SQL]';
-    if (docId.includes('Lecture 7 (Part 2)')) return 'บทที่ 7 (Ch7): SQL พื้นฐาน (Slide 41-80) [🎯 JOIN & GROUP BY]';
-    if (docId.includes('Lecture 7 (Part 3)')) return 'บทที่ 7 (Ch7): SQL พื้นฐาน (Slide 81-94) [🎯 DDL & Integrity]';
-    if (docId.includes('Lecture 7.5 (Part 1)')) return 'บทที่ 7.2 (Ch7_2): SQL ขั้นสูง (Slide 1-40) [🎯 Subquery & Views]';
-    if (docId.includes('Lecture 7.5 (Part 2)')) return 'บทที่ 7.2 (Ch7_2): SQL ขั้นสูง (Slide 41-79) [🎯 Correlated Subquery]';
-    if (docId.startsWith('Lecture 8 -')) return 'บทที่ 8 (Ch8): Transaction Processing';
-    if (docId.startsWith('Lecture 9 -')) return 'บทที่ 9 (Ch9): NoSQL Databases';
+    if (docId.startsWith('Lecture 4 -')) return 'บทที่ 4 (Ch4): ER Model [การออกแบบแผนภาพ]';
+    if (docId.startsWith('Lecture 5 -')) return 'บทที่ 5 (Ch5): Functional Dependencies [FDs]';
+    if (docId.startsWith('Lecture 6 -')) return 'บทที่ 6 (Ch6): Normalization (1NF-5NF) [นอร์มัลไลเซชัน]';
+    if (docId.includes('Lecture 7 (Part 1)')) return 'บทที่ 7 (Ch7): SQL พื้นฐาน (Slide 1-40)';
+    if (docId.includes('Lecture 7 (Part 2)')) return 'บทที่ 7 (Ch7): SQL พื้นฐาน (Slide 41-80)';
+    if (docId.includes('Lecture 7 (Part 3)')) return 'บทที่ 7 (Ch7): SQL พื้นฐาน (Slide 81-94)';
+    if (docId.includes('Lecture 7.5 (Part 1)')) return 'บทที่ 7.2 (Ch7_2): SQL ขั้นสูง (Slide 1-40)';
+    if (docId.includes('Lecture 7.5 (Part 2)')) return 'บทที่ 7.2 (Ch7_2): SQL ขั้นสูง (Slide 41-79)';
+    if (docId.startsWith('Lecture 8 -')) return 'บทที่ 8 (Ch8): การประมวลผลธุรกรรม & การกู้คืนระบบ';
+    if (docId.startsWith('Lecture 9 -')) return 'บทที่ 9 (Ch9): ฐานข้อมูล NoSQL';
 
     return originalTitle;
   }
@@ -338,13 +343,52 @@
     return text;
   }
 
+  function cleanMathAndArrows(text) {
+    if (!text) return '';
+    const subMap = {'0':'₀','1':'₁','2':'₂','3':'₃','4':'₄','5':'₅','6':'₆','7':'₇','8':'₈','9':'₉'};
+    return text
+      .replace(/\$\\?twoheadrightarrow\$/g, '↠')
+      .replace(/\\twoheadrightarrow/g, '↠')
+      .replace(/\$\\?(?:rightarrow|to|longrightarrow)\$/g, '→')
+      .replace(/\\(?:rightarrow|to|longrightarrow)/g, '→')
+      .replace(/\$\\?(?:leftarrow|longleftarrow)\$/g, '←')
+      .replace(/\\(?:leftarrow|longleftarrow)/g, '←')
+      .replace(/\$\\?leftrightarrow\$/g, '↔')
+      .replace(/\\leftrightarrow/g, '↔')
+      .replace(/\\bowtie/g, '⋈')
+      .replace(/\$\\?bowtie\$/g, '⋈')
+      .replace(/\\sigma/g, 'σ')
+      .replace(/\$\\?sigma\$/g, 'σ')
+      .replace(/\\pi/g, 'π')
+      .replace(/\$\\?pi\$/g, 'π')
+      .replace(/\\cup/g, '∪ (UNION)')
+      .replace(/\\cap/g, '∩ (INTERSECT)')
+      .replace(/\\times/g, '×')
+      .replace(/\\neq/g, '≠')
+      .replace(/\\leq/g, '≤')
+      .replace(/\\geq/g, '≥')
+      .replace(/\\mid/g, '|')
+      .replace(/\\text\{([^}]+)\}/g, '$1')
+      .replace(/\\#/g, '#')
+      .replace(/"X arrow Y"/g, '"X → Y (X กำหนด Y)"')
+      .replace(/\bX arrow Y\b/g, 'X → Y')
+      .replace(/\$([A-Za-z]+)_([0-9]+)\$/g, (m, b, num) => b + (subMap[num] || ('_' + num)))
+      .replace(/\b([A-Za-z]+)_([0-9]+)\b/g, (m, b, num) => b + (subMap[num] || ('_' + num)))
+      .replace(/\$([^\$\n]+)\$/g, (m, inner) => {
+        if (/^\d{1,3}(?:,\d{3})*(?:\.\d+)?$/.test(inner.trim())) return '$' + inner;
+        return inner.replace(/\\/g, '').trim();
+      });
+  }
+
   /**
    * Pre-processes Markdown before feeding into marked.js
    * - Parses Obsidian Callouts `> [!TYPE] Header`
    * - Resolves Wiki-links `[[Doc Name]]`
+   * - Cleans math symbols and arrow notation
    */
   function preprocessMarkdown(md) {
     let result = md.replace(/\r\n/g, '\n');
+    result = cleanMathAndArrows(result);
 
     // 1. Wiki-links: [[Lecture 4 - ER Model]] or [[Lecture 4 - ER Model|ER Diagram]] or [[Lecture#Section]]
     result = result.replace(/\[\[(.*?)(?:\|(.*?))?\]\]/g, (match, target, alias) => {
@@ -435,6 +479,7 @@
   /**
    * Post-processes HTML generated by marked.js
    * - Wraps tables in responsive horizontal scroll wrappers
+   * - Wraps slide images in presentation cards with zoom
    * - Wraps code blocks with copy / run-sql action header
    * - Wraps mermaid blocks with diagram cards
    */
@@ -444,6 +489,28 @@
     // 1. Wrap <table> with responsive container
     result = result.replace(/<table>([\s\S]*?)<\/table>/g, (match) => {
       return `<div class="table-responsive-wrapper">${match}</div>`;
+    });
+
+    // 2. Wrap <img> into Slide Visual Card
+    result = result.replace(/<p>\s*(<img\s+[^>]*src="([^"]+)"[^>]*>)\s*<\/p>/gi, (match, fullImg, src) => {
+      const altMatch = fullImg.match(/alt="([^"]*)"/i);
+      const alt = altMatch ? altMatch[1] : 'ภาพสไลด์ประกอบการสอน';
+      return `
+        <div class="slide-visual-card">
+          <div class="slide-visual-header">
+            <div class="slide-visual-title-group">
+              <span class="slide-pill">SLIDE PDF</span>
+              <span class="slide-visual-caption">${escapeHtml(alt)}</span>
+            </div>
+            <button class="slide-zoom-btn" onclick="window.WikiApp.openDiagramZoom(this.closest('.slide-visual-card').querySelector('img'))" title="คลิกเพื่อขยายภาพสไลด์แบบเต็มจอ">
+              🔍 ขยายภาพสไลด์
+            </button>
+          </div>
+          <div class="slide-visual-body">
+            <img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" class="slide-img" onerror="window.WikiApp && window.WikiApp.handleImageError ? window.WikiApp.handleImageError(this) : null" onclick="window.WikiApp.openDiagramZoom(this)">
+          </div>
+        </div>
+      `;
     });
 
     // 3. Process Code Blocks and Mermaid blocks
@@ -904,6 +971,53 @@
     target.style.transform = `scale(1)`;
   }
 
+  /* ---------------- Image Error Recovery ---------------- */
+
+  function handleImageError(img) {
+    if (!img) return;
+    const currentSrc = img.getAttribute('src') || '';
+    const attempts = parseInt(img.dataset.errorRetries || '0', 10);
+    if (attempts >= 3) {
+      img.style.display = 'none';
+      const card = img.closest('.slide-visual-card');
+      if (card && !card.querySelector('.slide-load-error')) {
+        const errDiv = document.createElement('div');
+        errDiv.className = 'slide-load-error';
+        errDiv.style.padding = '16px';
+        errDiv.style.textAlign = 'center';
+        errDiv.style.color = '#f87171';
+        errDiv.style.fontSize = '12px';
+        errDiv.innerHTML = `⚠️ ไม่สามารถโหลดภาพ (${escapeHtml(currentSrc)})<br><span style="font-size:11px;color:#94a3b8;">สามารถกดคลิกขยายเพื่อดู หรือตรวจสอบว่าไฟล์ภาพพร้อมใช้งาน</span>`;
+        img.parentNode.appendChild(errDiv);
+      }
+      return;
+    }
+    img.dataset.errorRetries = (attempts + 1).toString();
+
+    // Fallbacks
+    if (attempts === 0) {
+      if (currentSrc.startsWith('images/')) {
+        img.src = 'Wiki/' + currentSrc;
+      } else if (currentSrc.startsWith('Wiki/images/')) {
+        img.src = currentSrc.replace(/^Wiki\//, '');
+      } else {
+        img.src = 'images/' + currentSrc.replace(/^.*\//, '');
+      }
+    } else if (attempts === 1) {
+      if (currentSrc.startsWith('Wiki/')) {
+        img.src = '../' + currentSrc;
+      } else if (!currentSrc.startsWith('../')) {
+        img.src = '../' + currentSrc;
+      } else {
+        img.src = currentSrc.replace(/^\.\.\//, '');
+      }
+    } else if (attempts === 2) {
+      const parts = currentSrc.split('/');
+      const filename = parts.slice(-2).join('/');
+      img.src = './' + filename;
+    }
+  }
+
   /* ---------------- SQL Lab Integration & Clipboard ---------------- */
 
   function copyCode(btn) {
@@ -1125,6 +1239,7 @@
   window.WikiApp = {
     openDiagramZoom,
     closeDiagramZoom,
+    handleImageError,
     copyCode,
     runInSqlLab,
     navigateToDoc,

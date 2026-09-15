@@ -12,17 +12,33 @@ const OUTPUT_FILE = path.join(WIKI_DIR, 'wiki-data.js');
 
 const CATEGORY_MAP = [
   {
-    id: 'exam-prep',
-    title: '🎯 [ข้อสอบ] โซนเตรียมสอบปฏิบัติการในคาบ',
-    description: 'คู่มือและแนวข้อสอบเดี่ยว Normalization & SQL',
+    id: 'exam-zone',
+    title: '🎯 [ส่วนข้อสอบ] คลังข้อสอบ ควิซในห้องเรียน & แบบฝึกหัดเข้มข้น',
+    description: 'คลังข้อสอบ Normalization 5 ระดับ, ควิซสดในห้องเรียน 8 ก.ย., แนวข้อสอบปฏิบัติการเดี่ยว',
     files: [
-      'In-Class Exam Guide - Normalization and SQL.md'
+      'Beginner Guide - Normalization Easy Steps (Tables Only).md',
+      '10 Everyday Normalization Examples - Visual Tables Only.md',
+      'Master Exam - 10 ER Diagram Practice Problems with Detailed Solutions.md',
+      'Master Exam - 5-Level Normalization Intensive Practice.md',
+      'In-Class Pop Quiz and Classroom Lecture - Transaction & ACID.md',
+      'In-Class Exam Guide - Normalization and SQL.md',
+      'SQL Lab Practice Guide - Zero to Hero.md'
     ]
   },
   {
-    id: 'exam-part1',
-    title: '🎯 [ข้อสอบ ส่วนที่ 1] ออกแบบ & Normalization',
-    description: 'บทที่ 4, 5, 6 — แผนภาพ ER, FDs, นอร์มัลไลเซชัน',
+    id: 'lectures-foundations',
+    title: '📚 [ส่วนบทเรียน] หมวดที่ 1: รากฐานฐานข้อมูล & Relational Algebra',
+    description: 'Ch1-Ch3: ภาพรวมสถาปัตยกรรม, Relational Model และพีชคณิตเชิงสัมพันธ์',
+    files: [
+      'Lecture 1 - Overview of Databases and Transaction Processing.md',
+      'Lecture 2 - Database Architecture and Relational Model.md',
+      'Lecture 3 - Relational Algebra.md'
+    ]
+  },
+  {
+    id: 'lectures-design',
+    title: '📐 [ส่วนบทเรียน] หมวดที่ 2: การออกแบบฐานข้อมูล & Normalization',
+    description: 'Ch4-Ch6: แผนภาพ ER, Functional Dependencies, และทฤษฎีนอร์มัลไลเซชัน 1NF-5NF',
     files: [
       'Lecture 4 - ER Model.md',
       'Lecture 5 - Functional Dependencies.md',
@@ -30,9 +46,9 @@ const CATEGORY_MAP = [
     ]
   },
   {
-    id: 'exam-part2',
-    title: '🎯 [ข้อสอบ ส่วนที่ 2] การเขียนคำสั่ง SQL',
-    description: 'บทที่ 7 & 7.2 — SQL Fundamentals & Advanced Query',
+    id: 'lectures-sql',
+    title: '💻 [ส่วนบทเรียน] หมวดที่ 3: ภาษา SQL และคิวรีขั้นสูง',
+    description: 'Ch7 & Ch7.2: คำสั่ง SQL พื้นฐาน, DDL, JOIN, Subqueries และ Views',
     files: [
       'Lecture 7 (Part 1) - SQL Fundamentals (Slide 1-40).md',
       'Lecture 7 (Part 2) - SQL Fundamentals (Slide 41-80).md',
@@ -42,19 +58,9 @@ const CATEGORY_MAP = [
     ]
   },
   {
-    id: 'foundations',
-    title: '📚 บทที่ 1 - 3: รากฐาน & Relational Algebra',
-    description: 'Ch1-Ch3: สถาปัตยกรรม, Relational Model, พีชคณิต',
-    files: [
-      'Lecture 1 - Overview of Databases and Transaction Processing.md',
-      'Lecture 2 - Database Architecture and Relational Model.md',
-      'Lecture 3 - Relational Algebra.md'
-    ]
-  },
-  {
-    id: 'advanced',
-    title: '🚀 บทที่ 8 - 9: หัวข้อขั้นสูง (Transactions & NoSQL)',
-    description: 'Ch8-Ch9: สถาปัตยกรรมระดับองค์กร & ฐานข้อมูล NoSQL',
+    id: 'lectures-advanced',
+    title: '⚡ [ส่วนบทเรียน] หมวดที่ 4: การประมวลผลธุรกรรม & NoSQL',
+    description: 'Ch8-Ch9: สถาปัตยกรรมระดับองค์กร, ACID, การกู้คืนระบบ และ NoSQL',
     files: [
       'Lecture 8 - Database System Architecture.md',
       'Lecture 9 - NoSQL Databases.md'
@@ -62,12 +68,11 @@ const CATEGORY_MAP = [
   },
   {
     id: 'resources',
-    title: '📌 แผนการเรียน & คู่มือห้องทดลอง (Lab Guide)',
-    description: 'สารบัญรวม & คู่มือปฏิบัติการ SQL Lab Zero to Hero',
+    title: '📌 แผนการเรียน & ดัชนีความรู้ (Master Index)',
+    description: 'ดัชนีเนื้อหาและเช็กลิสต์ติดตามความก้าวหน้ารายบุคคล',
     files: [
       'Database System Index.md',
-      'Progress Checklist.md',
-      'SQL Lab Practice Guide - Zero to Hero.md'
+      'Progress Checklist.md'
     ]
   }
 ];

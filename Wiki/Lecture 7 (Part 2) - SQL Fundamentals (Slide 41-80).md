@@ -18,6 +18,8 @@ type: lecture
 ---
 
 ## 🧮 Slide 41: GROUP BY (Example)
+
+![ภาพสไลด์ที่ 41: GROUP BY](images/ch7/slide_41.png)
 **ตัวอย่างการใช้ GROUP BY**
 
 > [!EXAMPLE] Trace Table: ปัญหาถ้ารวมดื้อๆ
@@ -44,6 +46,8 @@ type: lecture
 ---
 
 ## ✅ Slide 42: GROUP BY (Solution)
+
+![ภาพสไลด์ที่ 42: GROUP BY](images/ch7/slide_42.png)
 **การแก้ปัญหาด้วย GROUP BY**
 
 โค้ดจากสไลด์ 41 ถือว่าพัง (Invalid) เพราะคอลัมน์ Company โดนผลกระทบจากการรวมยอดมั่วๆ เพื่อแก้ปัญหานี้เราต้องเติมคำสั่ง `GROUP BY` เข้าไปสั่งให้ระบบมัดรวมบริษัทชื่อเดียวกันไว้ด้วยกันก่อน
@@ -68,6 +72,8 @@ type: lecture
 ---
 
 ## 🛡️ Slide 43: HAVING
+
+![ภาพสไลด์ที่ 43: HAVING](images/ch7/slide_43.png)
 **การคัดกรองข้อมูล "หลัง" จากถูกจัดกลุ่ม (HAVING)**
 
 - **ทำไมถึงต้องมี HAVING:** เราไม่สามารถใช้ `WHERE` ไปคัดกรองผลลัพธ์ที่เกิดจากฟังก์ชันสรุปผลอย่าง `SUM()`, `AVG()` ได้ (เพราะ WHERE จะทำงานก่อนการบวกเลขเสมอ)
@@ -83,6 +89,8 @@ type: lecture
 ---
 
 ## 🎯 Slide 44: HAVING (Example)
+
+![ภาพสไลด์ที่ 44: HAVING](images/ch7/slide_44.png)
 **ตัวอย่างการประยุกต์ใช้ HAVING**
 
 > [!EXAMPLE] Trace Table: ค้นหาบริษัทที่ยอดขายทะลุเป้า
@@ -105,6 +113,8 @@ type: lecture
 ---
 
 ## 🔀 Slide 45: ORDER BY
+
+![ภาพสไลด์ที่ 45: ORDER BY](images/ch7/slide_45.png)
 **การจัดเรียงผลลัพธ์ (ORDER BY)**
 
 - คีย์เวิร์ด `ORDER BY` ถูกใช้สำหรับ "จัดเรียงแถวข้อมูล (Sort the rows)" ก่อนที่จะพ่นออกหน้าจอ
@@ -122,6 +132,8 @@ type: lecture
 ---
 
 ## 🅰️ Slide 46: ORDER BY (Alphabetical Example)
+
+![ภาพสไลด์ที่ 46: ORDER BY](images/ch7/slide_46.png)
 **ตัวอย่างการจัดเรียงตามตัวอักษร**
 
 > [!EXAMPLE] Trace Table: จัดเรียงชื่อบริษัท (A-Z)
@@ -142,6 +154,8 @@ type: lecture
 ---
 
 ## 🔢 Slide 47: ORDER BY (Multiple Columns)
+
+![ภาพสไลด์ที่ 47: ORDER BY](images/ch7/slide_47.png)
 **ตัวอย่างการจัดเรียงควบ 2 คอลัมน์ (A-Z และตัวเลข)**
 
 หากชื่อบริษัทซ้ำกัน (เช่น W3Schools) เราสามารถสั่งให้มันเรียงเงื่อนไขที่ 2 ซ้อนเข้าไปได้ (เช่น เรียงตาม OrderNumber)
@@ -164,6 +178,8 @@ type: lecture
 ---
 
 ## 🔽 Slide 48: ORDER BY (Descending)
+
+![ภาพสไลด์ที่ 48: ORDER BY](images/ch7/slide_48.png)
 **ตัวอย่างการจัดเรียงย้อนกลับ (DESC)**
 
 > [!EXAMPLE] Trace Table: จัดเรียง Z-A
@@ -184,6 +200,8 @@ type: lecture
 ---
 
 ## 🔀 Slide 49: ORDER BY (Mixed ASC & DESC)
+
+![ภาพสไลด์ที่ 49: ORDER BY](images/ch7/slide_49.png)
 **การจัดเรียงแบบผสมผสาน (ขึ้นบ้าง ลงบ้าง)**
 
 เราสามารถสั่งให้คอลัมน์หนึ่งเรียงลง และอีกคอลัมน์เรียงขึ้น ผสมกันได้อย่างอิสระ!
@@ -205,6 +223,8 @@ type: lecture
 ---
 
 ## 🔗 Slide 50: AND & OR
+
+![ภาพสไลด์ที่ 50: AND & OR](images/ch7/slide_50.png)
 **ตัวดำเนินการตรรกศาสตร์ (และ / หรือ)**
 
 เราใช้ `AND` และ `OR` ในการเชื่อมเงื่อนไข `WHERE` สองประโยคเข้าด้วยกัน
@@ -216,6 +236,8 @@ type: lecture
 ---
 
 ## 🤝 Slide 51: AND (Example)
+
+![ภาพสไลด์ที่ 51: AND](images/ch7/slide_51.png)
 **ตัวอย่างการใช้งาน AND**
 
 > [!EXAMPLE] Trace Table: บังคับสองเงื่อนไข
@@ -233,6 +255,8 @@ type: lecture
 ---
 
 ## 🛣️ Slide 52: OR (Example)
+
+![ภาพสไลด์ที่ 52: OR](images/ch7/slide_52.png)
 **ตัวอย่างการใช้งาน OR**
 
 > [!EXAMPLE] Trace Table: เอาข้อใดข้อหนึ่ง
@@ -251,6 +275,8 @@ type: lecture
 ---
 
 ## 📦 Slide 53: AND & OR Combined
+
+![ภาพสไลด์ที่ 53: AND & OR Combined](images/ch7/slide_53.png)
 **การใช้งานผสมกันแบบซับซ้อนด้วยวงเล็บ**
 
 เราสามารถใช้ `()` มาช่วยจัดกลุ่มตรรกศาสตร์ (ทำในวงเล็บก่อน) เพื่อหลีกเลี่ยงความสับสนระหว่าง AND และ OR
@@ -271,6 +297,8 @@ type: lecture
 ---
 
 ## 🎭 Slide 54: The LIKE Condition
+
+![ภาพสไลด์ที่ 54: The LIKE Condition](images/ch7/slide_54.png)
 **การค้นหาแบบเข้าแพทเทิร์น (LIKE)**
 
 - คำสั่ง `LIKE` จะถูกจับคู่กับสัญลักษณ์เครื่องหมายเปอร์เซ็นต์ `%` ซึ่งทำหน้าที่เป็น "การ์ดพิเศษ (Wildcard)" มีความหมายว่า "ตรงนี้จะเป็นตัวอักษรกลวงๆ กี่ตัวก็ได้ หรือไม่มีเลยก็ได้"
@@ -282,6 +310,8 @@ type: lecture
 ---
 
 ## 🧩 Slide 55: LIKE Condition (cont.)
+
+![ภาพสไลด์ที่ 55: LIKE Condition](images/ch7/slide_55.png)
 **แพทเทิร์นเปอร์เซ็นต์รูปแบบต่างๆ**
 
 > [!EXAMPLE] แบบลงท้ายด้วย
@@ -295,6 +325,8 @@ type: lecture
 ---
 
 ## 🎯 Slide 56: IN
+
+![ภาพสไลด์ที่ 56: IN](images/ch7/slide_56.png)
 **การค้นหาแบบเหวี่ยงแหในคราวเดียว (IN)**
 
 - หากเราขี้เกียจเขียน `OR` ซ้ำๆ กันหลายรอบ (`Name='A' OR Name='B' OR Name='C'`) เราสามารถยุบมันด้วยตัวดำเนินการ `IN (..)` ได้เลย
@@ -305,6 +337,8 @@ type: lecture
 ---
 
 ## 🏹 Slide 57: IN (Example)
+
+![ภาพสไลด์ที่ 57: IN](images/ch7/slide_57.png)
 **ตัวอย่างการประยุกต์ใช้ IN**
 
 > [!EXAMPLE] Trace Table: ใช้ IN แทน OR
@@ -322,6 +356,8 @@ type: lecture
 ---
 
 ## 📏 Slide 58: BETWEEN ... AND
+
+![ภาพสไลด์ที่ 58: BETWEEN ... AND](images/ch7/slide_58.png)
 **การค้นหาช่วงข้อมูล (Between)**
 
 - ตัวดำเนินการ `BETWEEN ... AND` ใช้สำหรับเลือกข้อมูลที่ตกอยู่ใน "ช่วง (Range)" ระหว่างค่าสองค่า
@@ -332,6 +368,8 @@ type: lecture
 ---
 
 ## 🔤 Slide 59: BETWEEN (Text Example 1)
+
+![ภาพสไลด์ที่ 59: BETWEEN](images/ch7/slide_59.png)
 **ตัวอย่างการใช้งาน BETWEEN กับข้อความ**
 
 > [!EXAMPLE] Trace Table: ช่วงของตัวอักษร
@@ -350,6 +388,8 @@ type: lecture
 ---
 
 ## ⚠️ Slide 60: BETWEEN ... AND (Important Notice)
+
+![ภาพสไลด์ที่ 60: BETWEEN ... AND](images/ch7/slide_60.png)
 **ความน่าปวดหัวของ BETWEEN ข้ามยี่ห้อฐานข้อมูล**
 
 > [!WARNING] คำเตือนระดับโลก (IMPORTANT!)
@@ -363,6 +403,8 @@ type: lecture
 ---
 
 ## 🚫 Slide 61: NOT BETWEEN ... AND
+
+![ภาพสไลด์ที่ 61: NOT BETWEEN ... AND](images/ch7/slide_61.png)
 **การใช้คำสั่งตรงข้าม (อยู่นอกช่วง)**
 
 เราสามารถพลิกการทำงานได้ด้วยการเติม `NOT` เข้าไปข้างหน้า
@@ -383,6 +425,8 @@ type: lecture
 ---
 
 ## 🎭 Slide 62: Aliases
+
+![ภาพสไลด์ที่ 62: Aliases](images/ch7/slide_62.png)
 **การใช้นามแฝง (Alias)**
 
 - รำคาญไหมที่ชื่อคอลัมน์ในฐานข้อมูลมักจะอ่านยากหรือยาวเหยียด?
@@ -393,6 +437,8 @@ type: lecture
 ---
 
 ## 🥸 Slide 63: Aliases (Column Example)
+
+![ภาพสไลด์ที่ 63: Aliases](images/ch7/slide_63.png)
 **ตัวอย่างการตั้งชื่อเล่นให้คอลัมน์**
 
 > [!EXAMPLE] โค้ดตั้งชื่อคอลัมน์ใหม่
@@ -407,6 +453,8 @@ type: lecture
 ---
 
 ## 🖼️ Slide 64: Aliases (Results & Table Example)
+
+![ภาพสไลด์ที่ 64: Aliases](images/ch7/slide_64.png)
 **ผลลัพธ์จากการใช้นามแฝง**
 
 > [!EXAMPLE] Trace Table: ผลลัพธ์จากการตั้ง Alias
@@ -426,6 +474,8 @@ type: lecture
 ---
 
 ## 🗃️ Slide 65: The SELECT INTO Statement
+
+![ภาพสไลด์ที่ 65: The SELECT INTO Statement](images/ch7/slide_65.png)
 **การก๊อปปี้ตารางสร้างเป็นตารางใหม่ (SELECT INTO)**
 
 คำสั่งนี้คือท่าไม้ตายสุดคลาสสิกที่มักใช้ทำ "สำรองข้อมูล (Backup)" หรือถอดข้อมูลเก่าๆ ไปเก็บถาวร (Archiving) มันจะสร้างตารางใหม่เอี่ยมขึ้นมาพร้อมกับโยนข้อมูลยัดเข้าไปเลย
@@ -438,6 +488,8 @@ type: lecture
 ---
 
 ## 🧹 Slide 66: SELECT INTO (With Conditions)
+
+![ภาพสไลด์ที่ 66: SELECT INTO](images/ch7/slide_66.png)
 **การก๊อปปี้เฉพาะส่วนที่ต้องการ**
 
 เราสามารถประยุกต์ร่วมกับลูกเล่นทุกอย่างของ Select ได้:
@@ -449,6 +501,8 @@ type: lecture
 ---
 
 ## 🔗 Slide 67: SELECT INTO (With JOIN)
+
+![ภาพสไลด์ที่ 67: SELECT INTO](images/ch7/slide_67.png)
 **การก๊อปปี้ข้อมูลที่ดึงข้ามตาราง**
 
 ความเหนือชั้นคือ มันสามารถ Join ตารางให้เสร็จสับ แล้วค่อยเทผลลัพธ์ยัดลงตาราง Backup ใหม่ได้เลยในคำสั่งเดียว!
@@ -467,6 +521,8 @@ type: lecture
 ---
 
 ## 🤝 Slide 68: Join (Joins and Keys)
+
+![ภาพสไลด์ที่ 68: Join](images/ch7/slide_68.png)
 **ราชาแห่ง SQL: การเชื่อมตาราง (JOIN)**
 
 - **ทำไมต้อง Join?** เพราะกระบวนการ Normalization ของเราหั่นตารางแยกออกจากกันจนกระจุยกระจายหมดแล้ว เวลาจะเรียกดูข้อมูลที่สมบูรณ์ เราจึงต้องเอาตาราง 2 อัน (หรือมากกว่า) มาปะกบประกอบร่างกันใหม่
@@ -476,6 +532,8 @@ type: lecture
 ---
 
 ## 🏢 Slide 69: Join (Referring to Two Tables)
+
+![ภาพสไลด์ที่ 69: Join](images/ch7/slide_69.png)
 **การอ้างอิงคอลัมน์จากสองตาราง**
 
 เพื่อกันความสับสนเวลาคอมพิวเตอร์ตามหาคอลัมน์ เรามักจะต้อง "ใส่ชื่อตารางนำหน้า" คอลัมน์ด้วยจุด `.` (เช่น `Orders.Product`)
@@ -486,6 +544,8 @@ type: lecture
 ---
 
 ## 📋 Slide 70: Join (Tables Data)
+
+![ภาพสไลด์ที่ 70: Join](images/ch7/slide_70.png)
 **ตารางตัวอย่างสำหรับการ Join**
 
 > [!EXAMPLE] Trace Table: วัตถุดิบตั้งต้น
@@ -510,6 +570,8 @@ type: lecture
 ---
 
 ## 🧵 Slide 71: Join (Implicit Join Example)
+
+![ภาพสไลด์ที่ 71: Join](images/ch7/slide_71.png)
 **การเชื่อมตารางแบบซ่อนเร้น (ผ่าน WHERE)**
 
 > [!EXAMPLE] Trace Table: ท่า Join แบบโบราณ
@@ -533,6 +595,8 @@ type: lecture
 ---
 
 ## 🖨️ Slide 72: Join (Implicit Join + Filter)
+
+![ภาพสไลด์ที่ 72: Join](images/ch7/slide_72.png)
 **การเชื่อมตารางพร้อมการกรองข้อมูล**
 
 > [!EXAMPLE] Trace Table: หาคนสั่งปริ้นเตอร์
@@ -555,6 +619,8 @@ type: lecture
 ---
 
 ## 🔗 Slide 73: INNER JOIN Syntax
+
+![ภาพสไลด์ที่ 73: INNER JOIN Syntax](images/ch7/slide_73.png)
 **ไวยากรณ์การเชื่อมตารางแบบใหม่ (INNER JOIN)**
 
 ท่าที่ถูกต้องและเป็นมาตรฐานสากลกว่า คือการใช้คีย์เวิร์ด `JOIN` ตรงๆ แทนที่จะไปใช้ WHERE แบบท่าโบราณ
@@ -571,6 +637,8 @@ ON first_table.keyfield = second_table.foreign_keyfield
 ---
 
 ## 🎯 Slide 74: INNER JOIN Result
+
+![ภาพสไลด์ที่ 74: INNER JOIN Result](images/ch7/slide_74.png)
 **ผลลัพธ์และนิยามของ INNER JOIN**
 
 > [!DEFINITION] การทำงานของ INNER JOIN
@@ -581,6 +649,8 @@ ON first_table.keyfield = second_table.foreign_keyfield
 ---
 
 ## ⬅️ Slide 75: LEFT JOIN Syntax
+
+![ภาพสไลด์ที่ 75: LEFT JOIN Syntax](images/ch7/slide_75.png)
 **การจอยน์ออกซ้าย (LEFT JOIN)**
 
 ถ้าหากโจทย์บอกว่า "อยากรายชื่อพนักงานทุกคนออกมาให้หมด! ไม่ว่าจะเคยสั่งของหรือไม่ก็ตาม" INNER JOIN จะใช้ไม่ได้แล้ว เราต้องใช้ท่า `LEFT JOIN`
@@ -595,6 +665,8 @@ ON Employees.Employee_ID=Orders.Employee_ID
 ---
 
 ## 👈 Slide 76: LEFT JOIN Result
+
+![ภาพสไลด์ที่ 76: LEFT JOIN Result](images/ch7/slide_76.png)
 **ผลลัพธ์ของการจอยน์ออกซ้าย**
 
 > [!EXAMPLE] Trace Table: การทำงานของ LEFT JOIN
@@ -614,6 +686,8 @@ ON Employees.Employee_ID=Orders.Employee_ID
 ---
 
 ## ➡️ Slide 77: RIGHT JOIN Syntax
+
+![ภาพสไลด์ที่ 77: RIGHT JOIN Syntax](images/ch7/slide_77.png)
 **การจอยน์ออกขวา (RIGHT JOIN)**
 
 ตรรกะกลับด้านกับตะกี้: "ขอดูออร์เดอร์ทุกใบที่มีในระบบให้ครบ! ต่อให้บางออร์เดอร์มันจะพัง หาชื่อพนักงานที่เป็นเจ้าของไม่เจอก็ตาม"
@@ -628,6 +702,8 @@ ON Employees.Employee_ID=Orders.Employee_ID
 ---
 
 ## 👉 Slide 78: RIGHT JOIN Result
+
+![ภาพสไลด์ที่ 78: RIGHT JOIN Result](images/ch7/slide_78.png)
 **ผลลัพธ์ของการจอยน์ออกขวา**
 
 > [!EXAMPLE] Trace Table: การทำงานของ RIGHT JOIN
@@ -645,6 +721,8 @@ ON Employees.Employee_ID=Orders.Employee_ID
 ---
 
 ## 📝 Slide 79: INNER JOIN with Filter
+
+![ภาพสไลด์ที่ 79: INNER JOIN with Filter](images/ch7/slide_79.png)
 **ตัวอย่างส่งท้ายเรื่อง Join**
 
 เป็นตัวอย่างย้ำการทำงานของ INNER JOIN ผสมกับการสกัดเงื่อนไข (WHERE)
@@ -663,6 +741,8 @@ ON Employees.Employee_ID=Orders.Employee_ID
 ---
 
 ## ➕ Slide 80: UNION and UNION ALL
+
+![ภาพสไลด์ที่ 80: UNION and UNION ALL](images/ch7/slide_80.png)
 **การนำตารางมาต่อกันในแนวตั้ง (UNION)**
 
 หาก `JOIN` คือการปะกบตารางใน "แนวนอน (คอลัมน์กว้างขึ้น)", `UNION` จะเป็นการนำตารางมาต่อกันใน "แนวตั้ง (แถวยาวขึ้น)" 

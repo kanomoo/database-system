@@ -18,6 +18,8 @@ type: lecture
 ---
 
 ## 🗣️ Slide 1: Structured Query Language: SQL
+
+![ภาพสไลด์ที่ 1: Structured Query Language: SQL](images/ch7/slide_1.png)
 **ภาษาสำหรับการสืบค้นข้อมูลที่มีโครงสร้าง**
 
 สไลด์หน้าแรกเปิดตัวภาษา SQL ซึ่งเป็นภาษามาตรฐานระดับโลกที่ใช้สำหรับการคุยกับระบบจัดการฐานข้อมูล (RDBMS) ทุกยี่ห้อบนโลก
@@ -25,6 +27,8 @@ type: lecture
 ---
 
 ## 🔤 Slide 2: Introduction to SQL (What is SQL?)
+
+![ภาพสไลด์ที่ 2: Introduction to SQL](images/ch7/slide_2.png)
 **SQL คืออะไร?**
 
 - SQL เป็นภาษาคอมพิวเตอร์มาตรฐานสำหรับการเข้าถึงและจัดการฐานข้อมูล
@@ -39,6 +43,8 @@ type: lecture
 ---
 
 ## 🧩 Slide 3: Introduction to SQL (SQL parts)
+
+![ภาพสไลด์ที่ 3: Introduction to SQL](images/ch7/slide_3.png)
 **องค์ประกอบหลักของภาษา SQL**
 
 คำสั่งใน SQL ถูกแบ่งออกเป็นหมวดหมู่ตามหน้าที่การทำงานดังนี้:
@@ -54,6 +60,8 @@ type: lecture
 ---
 
 ## 📊 Slide 4: SQL Database Relations
+
+![ภาพสไลด์ที่ 4: SQL Database Relations](images/ch7/slide_4.png)
 **ตารางในฐานข้อมูล SQL (Relations)**
 
 - ฐานข้อมูลมักจะประกอบด้วยตาราง (Relations) ตั้งแต่ 1 ตารางขึ้นไป แต่ละตารางจะมีชื่อเรียกเฉพาะตัว (เช่น "Customers" หรือ "Orders")
@@ -74,6 +82,8 @@ type: lecture
 ---
 
 ## 🔍 Slide 5: SQL Queries
+
+![ภาพสไลด์ที่ 5: SQL Queries](images/ch7/slide_5.png)
 **การสืบค้นข้อมูล (SQL Queries)**
 
 - เราใช้ SQL ในการตั้งคำถามกับฐานข้อมูล และระบบจะตีกลับมาเป็น "Result set (ตารางผลลัพธ์)" เสมอ
@@ -93,6 +103,8 @@ type: lecture
 ---
 
 ## 🛠️ Slide 6: SQL Data Manipulation Language (DML)
+
+![ภาพสไลด์ที่ 6: SQL Data Manipulation Language](images/ch7/slide_6.png)
 **ภาษาจัดการข้อมูล (DML)**
 
 DML คือหมวดหมู่คำสั่งที่เอาไว้ "เล่นกับข้อมูลที่อยู่ข้างในตาราง" ประกอบด้วย 4 คำสั่งหลัก:
@@ -104,6 +116,8 @@ DML คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 🏗️ Slide 7: SQL Data Definition Language (DDL)
+
+![ภาพสไลด์ที่ 7: SQL Data Definition Language](images/ch7/slide_7.png)
 **ภาษานิยามข้อมูล (DDL)**
 
 DDL คือหมวดหมู่คำสั่งที่เอาไว้ "จัดการโครงสร้าง" ของฐานข้อมูล (สร้าง, ลบ, แก้ไขตารางหรือคีย์) คำสั่งที่สำคัญได้แก่:
@@ -116,6 +130,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 🆕 Slide 8: Create Database, Table, and Index
+
+![ภาพสไลด์ที่ 8: Create Database, Table, and Index](images/ch7/slide_8.png)
 **โครงสร้างไวยากรณ์การสร้างฐานข้อมูลและตาราง**
 
 - **การสร้างฐานข้อมูล (Database):**
@@ -133,6 +149,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 📝 Slide 9: Create Table (Example)
+
+![ภาพสไลด์ที่ 9: Create Table](images/ch7/slide_9.png)
 **ตัวอย่างการสร้างตาราง Person**
 
 > [!EXAMPLE] โค้ดสร้างตาราง
@@ -151,6 +169,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 📏 Slide 10: Create Table (Specifying Length)
+
+![ภาพสไลด์ที่ 10: Create Table](images/ch7/slide_10.png)
 **การระบุความยาวสูงสุดของข้อมูล**
 
 เพื่อให้ฐานข้อมูลประหยัดพื้นที่ เราสามารถระบุขนาดสูงสุด (Maximum length) ของแต่ละคอลัมน์ได้โดยใส่วงเล็บต่อท้าย Data type
@@ -170,6 +190,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 🗂️ Slide 11: Data Types
+
+![ภาพสไลด์ที่ 11: Data Types](images/ch7/slide_11.png)
 **ชนิดของข้อมูลที่พบบ่อยใน SQL**
 
 | Data Type | Description (คำอธิบาย) |
@@ -183,6 +205,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## ⚡ Slide 12: Create Index
+
+![ภาพสไลด์ที่ 12: Create Index](images/ch7/slide_12.png)
 **การสร้างดัชนีค้นหา (Index)**
 
 - **ประโยชน์:** ดัชนี (Index) ถูกสร้างขึ้นมาเพื่อช่วยให้ DBMS ตามหาข้อมูลที่ต้องการได้อย่างรวดเร็ว (ไม่ต้องสแกนหาทีละบรรทัด)
@@ -192,6 +216,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 🔑 Slide 13: A Unique Index
+
+![ภาพสไลด์ที่ 13: A Unique Index](images/ch7/slide_13.png)
 **การสร้างดัชนีแบบไม่ซ้ำ (Unique Index)**
 
 การสร้าง Unique Index เป็นการบังคับกฎว่า "ข้อมูลในคอลัมน์นี้ห้ามมีค่าซ้ำกันเด็ดขาดในตาราง"
@@ -201,6 +227,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 🔎 Slide 14: A Simple Index
+
+![ภาพสไลด์ที่ 14: A Simple Index](images/ch7/slide_14.png)
 **การสร้างดัชนีแบบธรรมดา (Simple Index)**
 
 ถ้าเราไม่ใส่คำว่า UNIQUE ระบบจะสร้าง Index ธรรมดา ซึ่งอนุญาตให้ข้อมูลในคอลัมน์นั้นมีค่าซ้ำกันได้
@@ -212,6 +240,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 🔀 Slide 15: Index Descending & Multiple Columns
+
+![ภาพสไลด์ที่ 15: Index Descending & Multiple Columns](images/ch7/slide_15.png)
 **การสร้างดัชนีแบบย้อนกลับและดัชนีควบ**
 
 - **เรียงจากมากไปน้อย (Descending):** เติมคำว่า `DESC` ต่อท้าย
@@ -222,6 +252,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 🗑️ Slide 16: Drop Index, Table and Database
+
+![ภาพสไลด์ที่ 16: Drop Index, Table and Database](images/ch7/slide_16.png)
 **การทำลายโครงสร้าง (DROP & TRUNCATE)**
 
 - **ลบดัชนี:** `DROP INDEX table_name.index_name`
@@ -233,6 +265,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 🛠️ Slide 17: ALTER TABLE
+
+![ภาพสไลด์ที่ 17: ALTER TABLE](images/ch7/slide_17.png)
 **การปรับปรุงโครงสร้างตารางเดิม**
 
 ใช้เมื่อตารางถูกสร้างไปแล้ว แต่เราเปลี่ยนใจอยากเพิ่มหรือลบคอลัมน์ทิ้ง
@@ -245,6 +279,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## ➕ Slide 18: ALTER TABLE (ADD Example)
+
+![ภาพสไลด์ที่ 18: ALTER TABLE](images/ch7/slide_18.png)
 **ตัวอย่างการเพิ่มคอลัมน์**
 
 > [!EXAMPLE] Trace Table: ALTER TABLE ADD
@@ -266,6 +302,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## ➖ Slide 19: ALTER TABLE (DROP Example)
+
+![ภาพสไลด์ที่ 19: ALTER TABLE](images/ch7/slide_19.png)
 **ตัวอย่างการลบคอลัมน์**
 
 > [!EXAMPLE] Trace Table: ALTER TABLE DROP
@@ -281,6 +319,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 📥 Slide 20: The INSERT INTO Statement
+
+![ภาพสไลด์ที่ 20: The INSERT INTO Statement](images/ch7/slide_20.png)
 **การนำเข้าข้อมูล (Insert)**
 
 ใช้สำหรับเพิ่ม "แถวข้อมูลใหม่ (Rows)" เข้าไปในตาราง
@@ -292,6 +332,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 👤 Slide 21: INSERT INTO (New Row Example)
+
+![ภาพสไลด์ที่ 21: INSERT INTO](images/ch7/slide_21.png)
 **ตัวอย่างการเพิ่มข้อมูลแบบเต็มแถว**
 
 > [!EXAMPLE] Trace Table: การ Insert ข้อมูล
@@ -315,6 +357,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## 🎯 Slide 22: INSERT INTO (Specified Columns Example)
+
+![ภาพสไลด์ที่ 22: INSERT INTO](images/ch7/slide_22.png)
 **ตัวอย่างการเพิ่มข้อมูลแบบระบุคอลัมน์**
 
 > [!EXAMPLE] Trace Table: การ Insert ระบุคอลัมน์
@@ -334,6 +378,8 @@ DDL คือหมวดหมู่คำสั่งที่เอาไว�
 ---
 
 ## ✏️ Slide 23: The UPDATE Statement
+
+![ภาพสไลด์ที่ 23: The UPDATE Statement](images/ch7/slide_23.png)
 **การแก้ไขข้อมูล (Update)**
 
 ใช้สำหรับเปลี่ยนแปลงค่าของข้อมูลที่มีอยู่แล้วในตาราง
@@ -350,6 +396,8 @@ WHERE column_name = some_value
 ---
 
 ## 👤 Slide 24: UPDATE (One Column Example)
+
+![ภาพสไลด์ที่ 24: UPDATE](images/ch7/slide_24.png)
 **ตัวอย่างการแก้ไขข้อมูลคอลัมน์เดียว**
 
 > [!EXAMPLE] Trace Table: การ Update คอลัมน์เดียว
@@ -375,6 +423,8 @@ WHERE column_name = some_value
 ---
 
 ## 🏘️ Slide 25: UPDATE (Several Columns Example)
+
+![ภาพสไลด์ที่ 25: UPDATE](images/ch7/slide_25.png)
 **ตัวอย่างการแก้ไขข้อมูลหลายคอลัมน์พร้อมกัน**
 
 > [!EXAMPLE] Trace Table: การ Update หลายคอลัมน์
@@ -393,6 +443,8 @@ WHERE column_name = some_value
 ---
 
 ## ❌ Slide 26: The DELETE Statement
+
+![ภาพสไลด์ที่ 26: The DELETE Statement](images/ch7/slide_26.png)
 **การลบข้อมูล (Delete)**
 
 ใช้สำหรับลบ "บรรทัดข้อมูล (Rows)" ออกจากตาราง
@@ -405,6 +457,8 @@ WHERE column_name = some_value
 ---
 
 ## ✂️ Slide 27: DELETE (Row Example)
+
+![ภาพสไลด์ที่ 27: DELETE](images/ch7/slide_27.png)
 **ตัวอย่างการลบข้อมูลเจาะจงบรรทัด**
 
 > [!EXAMPLE] Trace Table: การลบข้อมูล
@@ -429,6 +483,8 @@ WHERE column_name = some_value
 ---
 
 ## 💥 Slide 28: DELETE (All Rows)
+
+![ภาพสไลด์ที่ 28: DELETE](images/ch7/slide_28.png)
 **การลบข้อมูลทั้งหมดในตาราง**
 
 หากเราต้องการล้างไพ่ ลบข้อมูลทุกบรรทัดทิ้ง แต่ยังอยากเก็บตารางเปล่าๆ เอาไว้ใช้งานต่อ (ลบโดยไม่ใช้ DROP TABLE) สามารถเขียนได้ 2 แบบ:
@@ -439,6 +495,8 @@ WHERE column_name = some_value
 ---
 
 ## 👁️ Slide 29: The SELECT Statement
+
+![ภาพสไลด์ที่ 29: The SELECT Statement](images/ch7/slide_29.png)
 **คำสั่งดึงข้อมูล (Select)**
 
 คำสั่งที่ถูกใช้บ่อยที่สุดใน SQL ใช้สำหรับดูข้อมูล โดยผลลัพธ์ที่ได้จะกลับมาในรูปแบบตารางเสมอ (เรียกว่า Result-set)
@@ -451,6 +509,8 @@ WHERE column_name = some_value
 ---
 
 ## 🎯 Slide 30: SELECT (Example)
+
+![ภาพสไลด์ที่ 30: SELECT](images/ch7/slide_30.png)
 **ตัวอย่างผลลัพธ์จากการใช้ SELECT ระบุคอลัมน์**
 
 > [!EXAMPLE] Trace Table: การดึงเฉพาะบางคอลัมน์
@@ -476,6 +536,8 @@ WHERE column_name = some_value
 ---
 
 ## 🌟 Slide 31: SELECT * (All Columns)
+
+![ภาพสไลด์ที่ 31: SELECT *](images/ch7/slide_31.png)
 **การดึงข้อมูลทั้งหมดทุกคอลัมน์**
 
 หากเราขี้เกียจพิมพ์ชื่อคอลัมน์ทั้งหมด เราสามารถใช้สัญลักษณ์ดอกจัน `*` (Wildcard) ซึ่งมีความหมายว่า "ดึงมาทุกคอลัมน์ที่มีในตาราง"
@@ -485,6 +547,8 @@ WHERE column_name = some_value
 ---
 
 ## 🧹 Slide 32: The SELECT DISTINCT Statement
+
+![ภาพสไลด์ที่ 32: The SELECT DISTINCT Statement](images/ch7/slide_32.png)
 **การดึงข้อมูลแบบยุบตัวซ้ำ (Distinct)**
 
 เวลาที่เราดึงข้อมูลคอลัมน์ใดคอลัมน์หนึ่ง บางครั้งมันมีข้อมูลซ้ำซ้อนโผล่มาเต็มไปหมด (เช่น มีคนมาจากเมืองเดียวกันหลายบรรทัด) ถ้าเราอยากดูรายชื่อแบบ "ไม่ซ้ำ (Unique)" เราสามารถเติมคีย์เวิร์ด `DISTINCT` เข้าไปได้
@@ -493,6 +557,8 @@ WHERE column_name = some_value
 ---
 
 ## 📋 Slide 33: SELECT vs SELECT DISTINCT
+
+![ภาพสไลด์ที่ 33: SELECT vs SELECT DISTINCT](images/ch7/slide_33.png)
 **เปรียบเทียบการคัดกรองข้อมูลตัวซ้ำ**
 
 > [!EXAMPLE] Trace Table: ปัญหาตัวซ้ำ
@@ -521,6 +587,8 @@ WHERE column_name = some_value
 ---
 
 ## ✨ Slide 34: SELECT DISTINCT (Example)
+
+![ภาพสไลด์ที่ 34: SELECT DISTINCT](images/ch7/slide_34.png)
 **ผลลัพธ์จากการใช้ DISTINCT**
 
 > [!EXAMPLE] Trace Table: การแก้ปัญหาด้วย DISTINCT
@@ -539,6 +607,8 @@ WHERE column_name = some_value
 ---
 
 ## 🔎 Slide 35: The WHERE Clause
+
+![ภาพสไลด์ที่ 35: The WHERE Clause](images/ch7/slide_35.png)
 **การกรองข้อมูลด้วยเงื่อนไข (WHERE)**
 
 คำสั่ง `SELECT` ปกติจะดึงข้อมูลมาทุกบรรทัด ถ้าเราต้องการ "ตั้งเงื่อนไข (Selection criterion)" เพื่อกรองเอาเฉพาะบรรทัดที่ตรงใจ เราต้องใช้คำสั่ง `WHERE` เข้ามาช่วย
@@ -548,6 +618,8 @@ WHERE column_name = some_value
 ---
 
 ## ⚖️ Slide 36: WHERE Operators
+
+![ภาพสไลด์ที่ 36: WHERE Operators](images/ch7/slide_36.png)
 **เครื่องหมายเปรียบเทียบใน WHERE**
 
 | Operator | Description (คำอธิบาย) |
@@ -564,6 +636,8 @@ WHERE column_name = some_value
 ---
 
 ## 📍 Slide 37: WHERE Example
+
+![ภาพสไลด์ที่ 37: WHERE Example](images/ch7/slide_37.png)
 **ตัวอย่างการคัดกรองด้วย WHERE**
 
 > [!EXAMPLE] Trace Table: การใช้ WHERE กรองเมือง
@@ -583,6 +657,8 @@ WHERE column_name = some_value
 ---
 
 ## 🏁 Slide 38: WHERE Result & Quotes
+
+![ภาพสไลด์ที่ 38: WHERE Result & Quotes](images/ch7/slide_38.png)
 **ผลลัพธ์และกฎของการใช้เครื่องหมายคำพูด (Quotes)**
 
 > [!EXAMPLE] ตารางผลลัพธ์จากสไลด์ 37
@@ -600,6 +676,8 @@ WHERE column_name = some_value
 ---
 
 ## 🔢 Slide 39: WHERE Text vs Numeric
+
+![ภาพสไลด์ที่ 39: WHERE Text vs Numeric](images/ch7/slide_39.png)
 **เปรียบเทียบการกรองข้อความและตัวเลข**
 
 **กรณี Text values (ข้อความ):**
@@ -613,6 +691,8 @@ WHERE column_name = some_value
 ---
 
 ## 🗂️ Slide 40: GROUP BY
+
+![ภาพสไลด์ที่ 40: GROUP BY](images/ch7/slide_40.png)
 **การจัดกลุ่มข้อมูล**
 
 คำสั่ง `GROUP BY` ถูกคิดค้นขึ้นมาเพื่อแก้ปัญหากรณีที่เราใช้ "ฟังก์ชันสรุปผล (Aggregate functions)" เช่น `SUM()`, `AVG()` ถ้าเราใช้ฟังก์ชันเหล่านี้เพียวๆ มันจะรวบยอดข้อมูลทั้งตารางออกมาเป็นตัวเลขก้อนเดียว

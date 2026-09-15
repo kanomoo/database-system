@@ -18,6 +18,8 @@ type: lecture
 ---
 
 ## 🏛️ Slide 1: Title
+
+![ภาพสไลด์ที่ 1: Title](images/ch2/slide_1.png)
 **Database System Architecture and Introduction to Relational Database**
 
 ฐานข้อมูลไม่ได้เป็นเพียงแค่ที่เก็บไฟล์ข้อมูลดิบๆ เท่านั้น แต่มันมี **สถาปัตยกรรม (Architecture)** ที่ถูกออกแบบมาอย่างแยบยลเพื่อแก้ปัญหาในอดีต (เช่น การที่โค้ดโปรแกรมต้องผูกติดกับฮาร์ดแวร์) นอกจากนี้ บทเรียนนี้ยังแนะนำให้รู้จักกับ **Relational Database (ฐานข้อมูลเชิงสัมพันธ์)** ซึ่งเป็นโมเดลที่ได้รับความนิยมที่สุดในโลกปัจจุบัน โดยใช้หลักการทางคณิตศาสตร์และทฤษฎีเซตมาช่วยจัดการข้อมูล
@@ -25,6 +27,8 @@ type: lecture
 ---
 
 ## 🏗️ Slide 2: Database System Architecture
+
+![ภาพสไลด์ที่ 2: Database System Architecture](images/ch2/slide_2.png)
 > [!DEFINITION] ANSI/SPARC Architecture
 > มาตรฐานสถาปัตยกรรมระบบฐานข้อมูลที่ถูกคิดค้นขึ้นเพื่อสร้างมาตรฐานสากล โดยแบ่งระบบฐานข้อมูลออกเป็น **3 ระดับ (Three-level architecture)** เพื่อแยกมุมมองของผู้ใช้งาน (User View) ออกจากวิธีการจัดเก็บข้อมูลจริงทางกายภาพ (Physical Storage)
 
@@ -39,6 +43,8 @@ type: lecture
 ---
 
 ## 📊 Slide 3-4: Visualizing the ANSI/SPARC Architecture (แผนภาพโครงสร้าง)
+
+![ภาพสไลด์ที่ 3: 4: Visualizing the ANSI/SPARC Architecture](images/ch2/slide_3.png)
 แม้ในสไลด์จะเป็นภาพโครงสร้างกราฟิก แต่เราสามารถถอดรหัสออกมาเป็นแผนภาพการทำงานเชิงแนวคิดที่ละเอียดได้ดังนี้:
 
 ```mermaid
@@ -75,6 +81,8 @@ flowchart TD
 ---
 
 ## 🧩 Slide 5: Data and Its Structure
+
+![ภาพสไลด์ที่ 5: Data and Its Structure](images/ch2/slide_5.png)
 **ข้อมูลและโครงสร้างของมัน**
 
 *   **ความเป็นจริงอันโหดร้าย (The Reality of Storage):** 
@@ -91,6 +99,8 @@ flowchart TD
 ---
 
 ## 💾 Slide 6: Physical Data Level
+
+![ภาพสไลด์ที่ 6: Physical Data Level](images/ch2/slide_6.png)
 **เจาะลึกระดับกายภาพ (Physical Data Level)**
 
 *   **บทบาท:** Physical schema มีหน้าที่อธิบายถึง "วิธีการ" (How) ที่ข้อมูลถูกนำไปจัดเก็บจริงๆ ในอุปกรณ์ฮาร์ดแวร์ เช่น ข้อมูลถูกเก็บไว้ใน Track ใด, Cylinder ไหน, หรือมีการใช้ดัชนี (Indices) แบบใดเพื่อเร่งความเร็ว
@@ -105,6 +115,8 @@ flowchart TD
 ---
 
 ## 🧠 Slide 7: Conceptual Data Level
+
+![ภาพสไลด์ที่ 7: Conceptual Data Level](images/ch2/slide_7.png)
 **เจาะลึกระดับแนวคิด (Conceptual Data Level)**
 
 *   **บทบาทหลัก:** ระดับนี้คือพระเอกที่มาแก้ปัญหาในข้อที่แล้ว โดยมีหน้าที่ **ซ่อนรายละเอียดทางกายภาพ (Hides details)** ไว้เบื้องหลังทั้งหมด
@@ -117,6 +129,8 @@ flowchart TD
 ---
 
 ## 🔄 Slide 8: Mapping from Conceptual to Physical (Diagram)
+
+![ภาพสไลด์ที่ 8: Mapping from Conceptual to Physical](images/ch2/slide_8.png)
 สไลด์นี้แสดงภาพกลไกการเปลี่ยนผ่านจากแอปพลิเคชันลงสู่ฮาร์ดแวร์ ซึ่งสามารถเขียนขยายความเป็น Trace การทำงานได้ดังนี้:
 
 > [!EXAMPLE] Trace: การทำงานของ Mapping
@@ -133,6 +147,8 @@ flowchart TD
 ---
 
 ## 👁️ Slide 9: External Data Level
+
+![ภาพสไลด์ที่ 9: External Data Level](images/ch2/slide_9.png)
 **เจาะลึกระดับภายนอก (External Data Level)**
 
 *   **บทบาท:** ใน Relational Model, External schema ก็นำเสนอข้อมูลเป็นชุดตาราง (Relations) เหมือนกัน แต่ความต่างคือ **มันถูกตัดเย็บขึ้นมาเฉพาะบุคคล (Tailored to the needs)** สำหรับผู้ใช้งานกลุ่มใดกลุ่มหนึ่งโดยเฉพาะ เราเรียกสิ่งนี้ว่า View
@@ -148,6 +164,8 @@ flowchart TD
 ---
 
 ## 🛡️ Slide 10: External Data Level (con't)
+
+![ภาพสไลด์ที่ 10: External Data Level](images/ch2/slide_10.png)
 **คุณสมบัติความอิสระชั้นที่สอง**
 
 *   **การพัฒนาแอปพลิเคชัน:** แอปพลิเคชันของฝั่งผู้ใช้งาน (Frontend) จะถูกเขียนขึ้นโดยอ้างอิงกับ **External schema** เสมอ (เช่น เขียนให้ดึงข้อมูลจาก `Student_GPA_View`)
@@ -161,6 +179,8 @@ flowchart TD
 ---
 
 ## 🏢 Slide 11: Levels of Abstraction (Diagram)
+
+![ภาพสไลด์ที่ 11: Levels of Abstraction](images/ch2/slide_11.png)
 สไลด์นี้แสดงภาพของบริษัทจำลองที่มีระบบ 3 แผนก ซึ่งเราสามารถทำตารางเปรียบเทียบกลไกการทำงานได้:
 
 | ระบบหน้าจอ (External Schemas) | ฐานข้อมูลส่วนกลาง (Conceptual Schema) | ไฟล์บนดิสก์ (Physical Schema) |
@@ -174,6 +194,8 @@ flowchart TD
 ---
 
 ## 👨‍💼 Slide 12: The Database Administrator (DBA)
+
+![ภาพสไลด์ที่ 12: The Database Administrator](images/ch2/slide_12.png)
 **บทบาทของผู้ดูแลระบบฐานข้อมูล**
 
 DBA เป็นผู้ที่กุมชะตาของฐานข้อมูล มีอำนาจสูงสุดและต้องมีความรู้ครอบคลุมทั้ง 3 ระดับ หน้าที่หลัก 6 ประการได้แก่:
@@ -188,6 +210,8 @@ DBA เป็นผู้ที่กุมชะตาของฐานข้�
 ---
 
 ## ⚙️ Slide 13-14: DBMS Functions
+
+![ภาพสไลด์ที่ 13: 14: DBMS Functions](images/ch2/slide_13.png)
 **โปรแกรม DBMS ทำหน้าที่อะไรบ้าง?**
 
 DBMS (Database Management System) เป็นซอฟต์แวร์ขนาดใหญ่ที่เปรียบเสมือนระบบปฏิบัติการซ้อนระบบปฏิบัติการ หน้าที่หลักมี 7 อย่าง:
@@ -207,6 +231,8 @@ DBMS (Database Management System) เป็นซอฟต์แวร์ขน�
 ---
 
 ## 🗂️ Slide 15: Data Model
+
+![ภาพสไลด์ที่ 15: Data Model](images/ch2/slide_15.png)
 **โมเดลข้อมูล (Data Model) vs โครงสร้างข้อมูล (Schema)**
 
 สองคำนี้มักสร้างความสับสน จำเป็นต้องแยกให้ออก:
@@ -221,6 +247,8 @@ DBMS (Database Management System) เป็นซอฟต์แวร์ขน�
 ---
 
 ## 🏆 Slide 16: Relational Model
+
+![ภาพสไลด์ที่ 16: Relational Model](images/ch2/slide_16.png)
 **ทำไมต้องเป็น Relational Model?**
 
 ท่ามกลาง Data Model มากมาย (เช่น Hierarchical, Network) Relational Model ของ E.F. Codd ชนะเลิศและกลายเป็นมาตรฐานโลกด้วยเหตุผลเหล่านี้:
@@ -237,6 +265,8 @@ DBMS (Database Management System) เป็นซอฟต์แวร์ขน�
 ---
 
 ## 🧩 Slide 17-18: Relation Instance
+
+![ภาพสไลด์ที่ 17: 18: Relation Instance](images/ch2/slide_17.png)
 **เจาะลึก: อินสแตนซ์ของตาราง (ข้อมูลจริงๆ ที่อยู่ในตาราง)**
 
 > [!DEFINITION] Relation Instance
@@ -256,6 +286,8 @@ DBMS (Database Management System) เป็นซอฟต์แวร์ขน�
 ---
 
 ## 📝 Slide 19: Relation Instance (Example - Trace & Breakdown)
+
+![ภาพสไลด์ที่ 19: Relation Instance](images/ch2/slide_19.png)
 **ตัวอย่างการแตกส่วนประกอบของตาราง Student**
 
 > [!EXAMPLE] Trace Table: วิเคราะห์องค์ประกอบของ Relation
@@ -277,6 +309,8 @@ DBMS (Database Management System) เป็นซอฟต์แวร์ขน�
 ---
 
 ## 📐 Slide 20: Relation Schema
+
+![ภาพสไลด์ที่ 20: Relation Schema](images/ch2/slide_20.png)
 **โครงร่างของความสัมพันธ์ (พิมพ์เขียวตาราง)**
 
 ถ้า Relation Instance คือ "ข้อมูลจริง" ตัว Relation Schema ก็คือ "แปลนบ้าน"
@@ -292,6 +326,8 @@ Relation Schema หนึ่งตัวต้องประกอบไปด�
 ---
 
 ## 🌐 Slide 21: Relational Database
+
+![ภาพสไลด์ที่ 21: Relational Database](images/ch2/slide_21.png)
 **นิยามความหมายของ ฐานข้อมูลเชิงสัมพันธ์**
 
 ภาพรวมของคำว่า "Relational Database" แท้จริงแล้วหมายถึงอะไร?
@@ -304,6 +340,8 @@ Relation Schema หนึ่งตัวต้องประกอบไปด�
 ---
 
 ## 📚 Slide 22: Database Schema (Example Breakdown)
+
+![ภาพสไลด์ที่ 22: Database Schema](images/ch2/slide_22.png)
 **วิเคราะห์ตัวอย่าง Database Schema ของระบบมหาวิทยาลัย**
 
 สัญลักษณ์: `TableName (ColumnName: DOMAIN, ...)`
@@ -319,6 +357,8 @@ Relation Schema หนึ่งตัวต้องประกอบไปด�
 ---
 
 ## 🛡️ Slide 23: Integrity Constraints
+
+![ภาพสไลด์ที่ 23: Integrity Constraints](images/ch2/slide_23.png)
 **ข้อบังคับความถูกต้อง (แนวการป้องกันระดับลึก)**
 
 > [!DEFINITION] Integrity Constraints
@@ -339,6 +379,8 @@ Relation Schema หนึ่งตัวต้องประกอบไปด�
 ---
 
 ## ⚖️ Slide 24: Kinds of Integrity Constraints
+
+![ภาพสไลด์ที่ 24: Kinds of Integrity Constraints](images/ch2/slide_24.png)
 **การเจาะลึกประเภทของข้อบังคับความถูกต้อง**
 
 เราสามารถแบ่งกฎบังคับตามพฤติกรรมในแกน "เวลา" ออกเป็น 2 ประเภทหลัก:
@@ -362,6 +404,8 @@ Relation Schema หนึ่งตัวต้องประกอบไปด�
 ---
 
 ## 🔑 Slide 25-26: Key Constraint
+
+![ภาพสไลด์ที่ 25: 26: Key Constraint](images/ch2/slide_25.png)
 **ข้อบังคับว่าด้วยกุญแจ (Key)**
 
 > [!DEFINITION] Key Constraint
@@ -390,6 +434,8 @@ Relation Schema หนึ่งตัวต้องประกอบไปด�
 ---
 
 ## 🗝️ Slide 27-29: Types of Keys
+
+![ภาพสไลด์ที่ 27: 29: Types of Keys](images/ch2/slide_27.png)
 **การแบ่งแยกชนชั้นของกุญแจ**
 
 โลกของ Relational Model กุญแจหลักๆ แบ่งเป็น 4 ชนิด:
@@ -404,6 +450,8 @@ Relation Schema หนึ่งตัวต้องประกอบไปด�
 ---
 
 ## 🖇️ Slide 30: Foreign Key Constraint
+
+![ภาพสไลด์ที่ 30: Foreign Key Constraint](images/ch2/slide_30.png)
 **เจาะลึกข้อบังคับคีย์ต่างด้าว (Foreign Key Constraint)**
 
 > [!DEFINITION] Referential Integrity (ความสมบูรณ์ของการอ้างอิง)
@@ -419,12 +467,14 @@ Relation Schema หนึ่งตัวต้องประกอบไปด�
 ---
 
 ## 🗺️ Slide 31-33: Foreign Key Constraint (Examples & Trace)
+
+![ภาพสไลด์ที่ 31: 33: Foreign Key Constraint](images/ch2/slide_31.png)
 **ความยืดหยุ่นของ Foreign Key**
 
 > [!EXAMPLE] Trace Table: การจำลองสภาพแวดล้อม FK
-> ให้ **$R_1$** (ตารางลูก) มีคอลัมน์ **$a_1$** ชี้ไปยัง **$R_2$** (ตารางแม่) ที่มีคอลัมน์ **$a_2$**
+> ให้ **R₁** (ตารางลูก) มีคอลัมน์ **a₁** ชี้ไปยัง **R₂** (ตารางแม่) ที่มีคอลัมน์ **a₂**
 > 
-> | $R_1$ (ตารางลูก) | $a_1$ (ชี้เป้า) | | $a_2$ (เป้าหมาย) | $R_2$ (ตารางแม่) |
+> | R₁ (ตารางลูก) | a₁ (ชี้เป้า) | | a₂ (เป้าหมาย) | R₂ (ตารางแม่) |
 > |---|:---:|---|:---:|---|
 > | แถวที่ 1 | **v1** | ➔ ชี้ไปที่ ➔ | **v1** | แถวเป้าหมาย 3 |
 > | แถวที่ 2 | **v3** | ➔ ชี้ไปที่ ➔ | **v3** | แถวเป้าหมาย 1 |
@@ -439,6 +489,8 @@ Relation Schema หนึ่งตัวต้องประกอบไปด�
 ---
 
 ## 🧲 Slide 34: Inclusion Dependency
+
+![ภาพสไลด์ที่ 34: Inclusion Dependency](images/ch2/slide_34.png)
 **ความสัมพันธ์การรวม (ที่ไม่ได้เกิดจาก Foreign Key)**
 
 *   **คำจำกัดความ:** เป็นหนึ่งในหลักการ Referential integrity constraint แต่ **ไม่ใช่** Foreign key constraint แบบทั่วไป
@@ -451,13 +503,15 @@ Relation Schema หนึ่งตัวต้องประกอบไปด�
 ---
 
 ## 💼 Slide 35: Semantic Constraints
+
+![ภาพสไลด์ที่ 35: Semantic Constraints](images/ch2/slide_35.png)
 **ข้อบังคับเชิงความหมาย (Business Rules)**
 
 *   **ทบทวนเชิงโครงสร้าง (Syntactic):** กฎของ Domain, Primary key, และ Foreign key ล้วนเป็นกลไกเชิงไวยากรณ์โครงสร้าง DBMS ถูกออกแบบมาให้ตรวจสอบพวกนี้ได้อย่างง่ายดายผ่านกลไกภายใน
 *   **เจาะลึกเชิงความหมาย (Semantic):**
     - Semantic constraints คือกฎที่ "แสดงออกถึงกติกาของการทำธุรกิจ (express rules of application)"
     - ระบบฐานข้อมูลที่ไม่มีสมอง จะไม่มีทางรู้กฎเหล่านี้ล่วงหน้า
-    - **ตัวอย่างเช่น:** "จำนวนนักศึกษาที่ลงทะเบียนสะสมในวิชานี้ จะต้องมีจำนวน $\le$ โควตาจำนวนที่นั่งสูงสุด"
+    - **ตัวอย่างเช่น:** "จำนวนนักศึกษาที่ลงทะเบียนสะสมในวิชานี้ จะต้องมีจำนวน le โควตาจำนวนที่นั่งสูงสุด"
     - การบังคับใช้กฎในระดับ Semantic นี้ มักจะต้องใช้คำสั่งระดับสูงใน SQL เช่น `CHECK (...)` หรือการเขียน `CREATE TRIGGER` ฝังลอจิกคณิตศาสตร์เข้าไป
 
 ---

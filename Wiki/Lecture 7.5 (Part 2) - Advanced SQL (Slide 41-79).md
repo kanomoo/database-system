@@ -18,6 +18,8 @@ type: lecture
 ---
 
 ## 🔀 Slide 41: DML – SELECT (ORDER BY)
+
+![ภาพสไลด์ที่ 41: DML – SELECT](images/ch7_2/slide_41.png)
 **การจัดเรียงผลลัพธ์ข้อมูล**
 
 - เรียงปกติ (ASC ถือเป็นค่า Default): 
@@ -28,6 +30,8 @@ type: lecture
 ---
 
 ## 📉 Slide 42: DML – SELECT (ORDER BY Question 1)
+
+![ภาพสไลด์ที่ 42: DML – SELECT](images/ch7_2/slide_42.png)
 **โจทย์: จัดเรียงจำนวนคงเหลือจากมากไปน้อย**
 
 > [!EXAMPLE] Trace Table: จัดเรียง DESC
@@ -48,6 +52,8 @@ type: lecture
 ---
 
 ## 🔢 Slide 43: DML – SELECT (ORDER BY Question 2)
+
+![ภาพสไลด์ที่ 43: DML – SELECT](images/ch7_2/slide_43.png)
 **โจทย์: จัดเรียงควบ 2 ลำดับชั้น**
 
 > [!EXAMPLE] Trace Table: จัดเรียงหมวดหมู่ตามด้วยชื่อ
@@ -68,6 +74,8 @@ type: lecture
 ---
 
 ## 🔗 Slide 44: DML – SELECT (AND & OR)
+
+![ภาพสไลด์ที่ 44: DML – SELECT](images/ch7_2/slide_44.png)
 **การใช้ตรรกะเชื่อมเงื่อนไข**
 
 - **ตัวอย่าง AND:** ดึงลูกค้าที่ชื่อว่า 'ขาว' "และ" ต้องเป็นเพศ 'ชาย' เท่านั้น
@@ -76,6 +84,8 @@ type: lecture
 ---
 
 ## ⚖️ Slide 45: DML – SELECT (AND & OR Question 1)
+
+![ภาพสไลด์ที่ 45: DML – SELECT](images/ch7_2/slide_45.png)
 **โจทย์: ค้นหาสินค้าตรงสเปคเป๊ะๆ ด้วย AND**
 
 > [!EXAMPLE] Trace Table: เงื่อนไข AND
@@ -93,6 +103,8 @@ type: lecture
 ---
 
 ## 🛤️ Slide 46: DML – SELECT (AND & OR Question 2)
+
+![ภาพสไลด์ที่ 46: DML – SELECT](images/ch7_2/slide_46.png)
 **โจทย์: ค้นหาสินค้าด้วยเงื่อนไขทางเลือกด้วย OR**
 
 > [!EXAMPLE] Trace Table: เงื่อนไข OR
@@ -111,6 +123,8 @@ type: lecture
 ---
 
 ## 🔍 Slide 47: DML – SELECT (LIKE)
+
+![ภาพสไลด์ที่ 47: DML – SELECT](images/ch7_2/slide_47.png)
 **การค้นหาแบบสุ่มเข้าแพทเทิร์น**
 
 - ค้นหาคำที่มีคำว่า 'ล' ซ่อนอยู่:
@@ -119,6 +133,8 @@ type: lecture
 ---
 
 ## 🧩 Slide 48: DML – SELECT (LIKE Question)
+
+![ภาพสไลด์ที่ 48: DML – SELECT](images/ch7_2/slide_48.png)
 **โจทย์: ค้นหาคำลงท้าย**
 
 > [!EXAMPLE] Trace Table: การใช้ LIKE หางข้อความ
@@ -139,6 +155,8 @@ type: lecture
 ---
 
 ## 🎯 Slide 49: DML – SELECT (IN)
+
+![ภาพสไลด์ที่ 49: DML – SELECT](images/ch7_2/slide_49.png)
 **การค้นหาแบบเจาะจงรายชื่อหลายอันพร้อมกัน**
 
 - หากต้องการหาคนที่อยู่ทั้งจันทบุรีและนครสวรรค์ แทนที่จะใช้ OR สามารถใช้ IN ได้เลย
@@ -147,6 +165,8 @@ type: lecture
 ---
 
 ## 💰 Slide 50: DML – SELECT (IN Question)
+
+![ภาพสไลด์ที่ 50: DML – SELECT](images/ch7_2/slide_50.png)
 **โจทย์: ค้นหาราคาเป๊ะๆ สองเรท**
 
 > [!EXAMPLE] Trace Table: การใช้ IN กับตัวเลข
@@ -164,6 +184,8 @@ type: lecture
 ---
 
 ## 📏 Slide 51: DML – SELECT (BETWEEN)
+
+![ภาพสไลด์ที่ 51: DML – SELECT](images/ch7_2/slide_51.png)
 **การค้นหาเป็นช่วงข้อมูล**
 
 - หาที่อยู่อาศัยที่ตกอยู่ในช่วงลำดับตัวอักษร:
@@ -172,6 +194,8 @@ type: lecture
 ---
 
 ## 💸 Slide 52: DML – SELECT (BETWEEN Question)
+
+![ภาพสไลด์ที่ 52: DML – SELECT](images/ch7_2/slide_52.png)
 **โจทย์: ค้นหาสินค้าเรทราคากลางๆ**
 
 > [!EXAMPLE] Trace Table: การใช้ BETWEEN กับตัวเลข
@@ -190,6 +214,8 @@ type: lecture
 ---
 
 ## 🎭 Slide 53: DML – SELECT (Aliases)
+
+![ภาพสไลด์ที่ 53: DML – SELECT](images/ch7_2/slide_53.png)
 **การใช้นามแฝง (AS)**
 
 - **เปลี่ยนชื่อหัวคอลัมน์ (Column Alias):**
@@ -200,6 +226,8 @@ type: lecture
 ---
 
 ## 🏷️ Slide 54: DML – SELECT (Aliases Question)
+
+![ภาพสไลด์ที่ 54: DML – SELECT](images/ch7_2/slide_54.png)
 **โจทย์: เปลี่ยนหัวตารางลูกค้าให้น่าอ่านขึ้น**
 
 > [!EXAMPLE] Trace Table: นามแฝงภาษาไทย
@@ -214,6 +242,8 @@ type: lecture
 ---
 
 ## 🗃️ Slide 55: The SELECT INTO Statement (MySQL)
+
+![ภาพสไลด์ที่ 55: The SELECT INTO Statement](images/ch7_2/slide_55.png)
 **การก๊อปปี้ตารางสร้างใหม่ (ไวยากรณ์ของ MySQL)**
 
 > [!NOTE] ข้อแตกต่างของยี่ห้อฐานข้อมูล
@@ -225,6 +255,8 @@ type: lecture
 ---
 
 ## 💾 Slide 56: The SELECT INTO (Question 1)
+
+![ภาพสไลด์ที่ 56: The SELECT INTO](images/ch7_2/slide_56.png)
 **โจทย์: สำรองข้อมูลลูกค้าทั้งตาราง**
 
 > [!EXAMPLE] 
@@ -235,6 +267,8 @@ type: lecture
 ---
 
 ## 🌐 Slide 57: The SELECT INTO (Cross Database)
+
+![ภาพสไลด์ที่ 57: The SELECT INTO](images/ch7_2/slide_57.png)
 **การสำเนาข้ามฐานข้อมูล**
 
 เราสามารถก๊อปปี้ข้อมูลกระโดดข้าม Database หนึ่งไปอีก Database หนึ่งได้เลย โดยการระบุ "ชื่อฐานข้อมูลจุด" ไว้ข้างหน้าชื่อตาราง เช่น `MyDBBackup.CustomerBackup`
@@ -244,6 +278,8 @@ type: lecture
 ---
 
 ## 🚺 Slide 58: The SELECT INTO (Question 2)
+
+![ภาพสไลด์ที่ 58: The SELECT INTO](images/ch7_2/slide_58.png)
 **โจทย์: เตรียมสร้างตาราง CustomerFemale**
 
 > [!EXAMPLE] 
@@ -264,6 +300,8 @@ type: lecture
 ---
 
 ## ♂️ Slide 59: The SELECT INTO (Question 3)
+
+![ภาพสไลด์ที่ 59: The SELECT INTO](images/ch7_2/slide_59.png)
 **โจทย์: สำเนาข้ามฐานข้อมูลพร้อมเงื่อนไขกรอง**
 
 > [!EXAMPLE] 
@@ -279,6 +317,8 @@ type: lecture
 ---
 
 ## ♀️ Slide 60 & 61: The SELECT INTO (Question 4)
+
+![ภาพสไลด์ที่ 60: & 61: The SELECT INTO](images/ch7_2/slide_60.png)
 **โจทย์: สำเนาเฉพาะลูกค้าผู้หญิงไปเก็บแยกไว้**
 
 > [!EXAMPLE] Trace Table: Backup เฉพาะเพศ
@@ -303,6 +343,8 @@ type: lecture
 ---
 
 ## 🤝 Slide 62: DML – SELECT (JOIN)
+
+![ภาพสไลด์ที่ 62: DML – SELECT](images/ch7_2/slide_62.png)
 **การเชื่อมตารางเข้าด้วยกัน**
 
 - ตัวอย่างการเชื่อมตาราง `Category` กับ `Product` (รู้ว่าหมวดนี้มีสินค้าอะไรบ้าง)
@@ -316,6 +358,8 @@ type: lecture
 ---
 
 ## 🛍️ Slide 63: DML – SELECT (Join Question 1)
+
+![ภาพสไลด์ที่ 63: DML – SELECT](images/ch7_2/slide_63.png)
 **โจทย์: ดึงข้อมูลสินค้าพร้อมหมวดหมู่และหน่วยนับ**
 
 > [!EXAMPLE] Trace Table: การ Join 3 ตาราง
@@ -341,6 +385,8 @@ type: lecture
 ---
 
 ## 🧾 Slide 64: DML – SELECT (Join Question 2)
+
+![ภาพสไลด์ที่ 64: DML – SELECT](images/ch7_2/slide_64.png)
 **โจทย์: ดึงข้อมูลบิลสั่งซื้อที่ประกอบร่างสมบูรณ์**
 
 > [!EXAMPLE] Trace Table: ใบเสร็จแบบละเอียด
@@ -362,6 +408,8 @@ type: lecture
 ---
 
 ## ⬅️ Slide 65: DML – SELECT (LEFT JOIN Question)
+
+![ภาพสไลด์ที่ 65: DML – SELECT](images/ch7_2/slide_65.png)
 **โจทย์: ค้นหาคำนำหน้าพร้อมชื่อคนที่ใช้ (ถ้ามี)**
 
 > [!EXAMPLE]
@@ -372,6 +420,8 @@ type: lecture
 ---
 
 ## ➡️ Slide 66: DML – SELECT (RIGHT JOIN Question)
+
+![ภาพสไลด์ที่ 66: DML – SELECT](images/ch7_2/slide_66.png)
 **โจทย์: สลับตารางหลักในการ Join**
 
 > [!EXAMPLE]
@@ -382,6 +432,8 @@ type: lecture
 ---
 
 ## ➕ Slide 67 & 68: DML – SELECT (UNION & UNION ALL)
+
+![ภาพสไลด์ที่ 67: & 68: DML – SELECT](images/ch7_2/slide_67.png)
 **การนำตารางมาต่อกันในแนวตั้ง**
 
 > [!EXAMPLE] 
@@ -394,6 +446,8 @@ type: lecture
 ---
 
 ## 🧮 Slide 69 & 70: DML – SELECT (Functions - COUNT)
+
+![ภาพสไลด์ที่ 69: & 70: DML – SELECT](images/ch7_2/slide_69.png)
 **ฟังก์ชันนับจำนวนยอดฮิต**
 
 - นับจำนวนลูกค้าทั้งหมด: `SELECT COUNT(NameSurname) FROM Customer;`
@@ -402,6 +456,8 @@ type: lecture
 ---
 
 ## 🚻 Slide 71: DML – SELECT (Functions Question 1)
+
+![ภาพสไลด์ที่ 71: DML – SELECT](images/ch7_2/slide_71.png)
 **โจทย์: นับหัวประชากรแยกตามเพศ**
 
 > [!EXAMPLE] Trace Table: COUNT
@@ -419,6 +475,8 @@ type: lecture
 ---
 
 ## 🏷️ Slide 72: DML – SELECT (Functions Question 2)
+
+![ภาพสไลด์ที่ 72: DML – SELECT](images/ch7_2/slide_72.png)
 **โจทย์: นับชนิดสินค้าแยกตามหมวดหมู่**
 
 > [!EXAMPLE] Trace Table: นับประเภท
@@ -437,6 +495,8 @@ type: lecture
 ---
 
 ## 📈 Slide 73: DML – SELECT (Functions - MAX)
+
+![ภาพสไลด์ที่ 73: DML – SELECT](images/ch7_2/slide_73.png)
 **ฟังก์ชันหาค่าสูงสุด**
 
 - หาว่าสินค้าชิ้นไหนแพงที่สุด (โดยใช้ Subquery หาค่า max คืนกลับมาเทียบ):
@@ -445,6 +505,8 @@ type: lecture
 ---
 
 ## 📉 Slide 74: DML – SELECT (Functions Question 3)
+
+![ภาพสไลด์ที่ 74: DML – SELECT](images/ch7_2/slide_74.png)
 **โจทย์: หาสินค้าที่ใกล้จะหมดสต็อกที่สุด**
 
 > [!EXAMPLE] Trace Table: การหาค่า MIN
@@ -462,6 +524,8 @@ type: lecture
 ---
 
 ## 💰 Slide 75 & 76: DML – SELECT (Functions - SUM)
+
+![ภาพสไลด์ที่ 75: & 76: DML – SELECT](images/ch7_2/slide_75.png)
 **ฟังก์ชันหาผลรวมและโจทย์ทดสอบ**
 
 - นำจำนวนสต็อกมาบวกกันแยกตามหมวดหมู่:
@@ -483,6 +547,8 @@ type: lecture
 ---
 
 ## 🪟 Slide 77 & 78: CREATE VIEW Statement
+
+![ภาพสไลด์ที่ 77: & 78: CREATE VIEW Statement](images/ch7_2/slide_77.png)
 **การสร้างหน้าต่างมุมมอง (View)**
 
 - การจับ Join 3 ตารางรวดแล้วแปะชื่อใหม่ให้เรียกใช้ง่ายๆ:
@@ -508,6 +574,8 @@ type: lecture
 ---
 
 ## 👁️ Slide 79: CREATE VIEW (Usage)
+
+![ภาพสไลด์ที่ 79: CREATE VIEW](images/ch7_2/slide_79.png)
 **การนำ View ไปใช้**
 
 เมื่อเราสร้าง View ในหน้าสไลด์ 77 และ 78 เสร็จแล้ว เวลาหัวหน้าหรือโปรแกรมเมอร์คนอื่นมาทำงานต่อ เขาจะสบายมาก เพียงแค่สืบค้นแบบธรรมดาๆ เสมือนว่ามันเป็นตารางหน้าต่างเดียวจบ:
