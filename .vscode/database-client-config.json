@@ -1,0 +1,9 @@
+{
+  "database": {
+    "lab_db": {
+      "name": "lab.db (SQLite)",
+      "dbType": "SQLite",
+      "dbPath": "/home/few/Projects/database-system/Lab/lab.db"
+    }
+  }
+}

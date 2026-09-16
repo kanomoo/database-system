@@ -4,7 +4,7 @@
     {
       "label": "Run Current SQL with SQLite",
       "type": "shell",
-      "command": "target=\"${file}\"; if [[ \"$target\" != *.sql ]]; then target=\"${workspaceFolder}/Lab/test.sql\"; fi; sqlite3 -table \"${workspaceFolder}/Lab/lab.db\" < \"$target\"",
+      "command": "target=\"${file}\"; if [[ \"$target\" != *.sql ]]; then target=\"${workspaceFolder}/Lab/test.sql\"; fi; echo \"⚡ Executing $(basename \"$target\") on lab.db...\"; (echo \".changes on\"; cat \"$target\") | sqlite3 -table \"${workspaceFolder}/Lab/lab.db\"; echo \"✅ Finished.\"",
       "group": {
         "kind": "build",
         "isDefault": true

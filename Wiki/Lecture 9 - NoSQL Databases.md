@@ -327,14 +327,14 @@ Facebook เปลี่ยนระบบค้นหามาใช้ **Cassa
 ![ภาพสไลด์ที่ 25: SQL vs NOSQL](images/ch9/slide_25.png)
 **ตารางเปรียบเทียบจุดแตกต่าง**
 
-| หัวข้อ | SQL Databases | NoSQL Database |
-|---|---|---|
-| **ตัวอย่าง (Example)** | Oracle, MySQL | MongoDB, Neo4j, CouchDB |
-| **โครงสร้าง (Storage Model)**| Rows and tables (แถวและตาราง) | Key-value, Document, Graph |
-| **โครงร่าง (Schemas)** | Static (ตายตัว แก้ทีน้ำตาไหล) | Dynamic (ยืดหยุ่น เพิ่มเมื่อไหร่ก็ได้) |
-| **การขยายตัว (Scaling)** | Vertical & Horizontal | **Horizontal (ขยายแบบกองทัพมด)** |
-| **ความชัวร์ (Transactions)** | Yes (มี ACID 100%) | Certain levels (มีบ้าง ผ่อนปรนบ้าง) |
-| **การจัดการข้อมูล** | ใช้คำสั่ง SQL (Select, Insert...) | ใช้ผ่าน Object Oriented API |
+| หัวข้อ                        | SQL Databases                     | NoSQL Database                         |
+| ----------------------------- | --------------------------------- | -------------------------------------- |
+| **ตัวอย่าง (Example)**        | Oracle, MySQL                     | MongoDB, Neo4j, CouchDB                |
+| **โครงสร้าง (Storage Model)** | Rows and tables (แถวและตาราง)     | Key-value, Document, Graph             |
+| **โครงร่าง (Schemas)**        | Static (ตายตัว แก้ทีน้ำตาไหล)     | Dynamic (ยืดหยุ่น เพิ่มเมื่อไหร่ก็ได้) |
+| **การขยายตัว (Scaling)**      | Vertical & Horizontal             | **Horizontal (ขยายแบบกองทัพมด)**       |
+| **ความชัวร์ (Transactions)**  | Yes (มี ACID 100%)                | Certain levels (มีบ้าง ผ่อนปรนบ้าง)    |
+| **การจัดการข้อมูล**           | ใช้คำสั่ง SQL (Select, Insert...) | ใช้ผ่าน Object Oriented API            |
 
 ---
 

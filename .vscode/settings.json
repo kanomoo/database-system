@@ -5,5 +5,10 @@
       "adapter": "SQLite",
       "database": "${workspaceFolder}/Lab/lab.db"
     }
-  ]
+  ],
+  "database-client.splitEditorWhenQuery": true,
+  "database-client.openResultsAsVertically": true,
+  "database-client.executeCursorSQLByShortcut": true,
+  "database-client.enableEditorCodeLens": true,
+  "workbench.editor.openSideBySideDirection": "right"
 }
