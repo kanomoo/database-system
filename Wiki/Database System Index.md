@@ -106,6 +106,13 @@ type: index
   - ทฤษฎี CAP Theorem (Consistency, Availability, Partition Tolerance)
   - โครงสร้าง 4 ประเภท: Key-Value, Document, Column Family, Graph Databases
   - ภาพสไลด์ต้นฉบับ Ch9 (Slide 1-31)
+- 🔹 **[[In-Class Lecture - NoSQL, Big Data & CAP Theorem]]**
+  - **สรุปถอดเทปเสียงบรรยายสดในห้องเรียนฉบับเต็ม (15 ก.ย. 2569):**
+  - ข้อจำกัดของ RDBMS เมื่อขยายบนระบบกระจายศูนย์ (Join are expensive, Hard to scale, Impedance mismatch)
+  - คุณลักษณะ Big Data 5 Vs (Volume, Velocity, Variety, Veracity, Value)
+  - เจาะลึก 4 Data Models: Key-Value (DynamoDB), Column Family (Cassandra เขียนเร็ว 0.12ms), Graph (Neo4j แกะรอย Social & โรคระบาด), Document (MongoDB)
+  - ทฤษฎีบท CAP Theorem (Brewer's Theorem: CA vs CP vs AP)
+  - นัดหมายเรียนภาคปฏิบัติการ Lab 2 สัปดาห์, ส่งงานกลุ่ม ER Diagram และแนวข้อสอบปลายภาค 40 คะแนนเต็ม (3 ชั่วโมง)
 
 ---
 

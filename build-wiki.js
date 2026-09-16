@@ -63,7 +63,8 @@ const CATEGORY_MAP = [
     description: 'Ch8-Ch9: สถาปัตยกรรมระดับองค์กร, ACID, การกู้คืนระบบ และ NoSQL',
     files: [
       'Lecture 8 - Database System Architecture.md',
-      'Lecture 9 - NoSQL Databases.md'
+      'Lecture 9 - NoSQL Databases.md',
+      'In-Class Lecture - NoSQL, Big Data & CAP Theorem.md'
     ]
   },
   {
