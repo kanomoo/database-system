@@ -1,0 +1,162 @@
+================================================================================
+VERBATIM TRANSCRIPT: DATABASE SYSTEM LAB (2026-09-22)
+================================================================================
+Subject: 02_Database_System
+Date: Tuesday, 22 September 2026
+Time: 13:10:58 - 15:49:00 (Total Duration: ~2 hours 38 mins)
+Instructor: Dr. Sawat (อ.สวาท)
+Topic: Database Lab - DDL (Data Definition Language) & DML (Data Manipulation Language),
+       XAMPP MariaDB CLI, Table Constraints (PK/FK), Character Set (utf8mb4),
+       Index Creation, and Troubleshooting Column Length (ERROR 1074)
+Audio Sources: 20260922_131058.aac & 20260922_150154.aac
+Associated Photos:
+  - IMG_20260922_124841_660@1996423590.jpg (phpMyAdmin users table)
+  - IMG_20260922_142452_298@-1416416793.jpg (ERROR 1074 CHAR(500) limit)
+  - IMG_20260922_142503_490@2024331400.jpg (DDL ALTER TABLE CLI)
+Target Project: C:\Project\database-system\
+================================================================================
+
+[Part 1: 00:00:00 - 00:15:00]
+อาจารย์: อ่า เรามาเริ่มต้นกันนะคะ ตัว Relational Database จำเป็นต้องใช้มากนะคะ เดี๋ยวเราจะเรียนผ่านตัว Command Prompt นะคะ ของตัว SQL นะคะ
+เราจะเรียนคำสั่งพวกนี้นะคะ คำสั่งแรกเลยคือ DDL หรือ Data Definition Language เป็นคำสั่งที่ใช้ในการจัดการเกี่ยวกับโครงสร้างของฐานข้อมูลของเรานะคะ ก็จะเป็นลักษณะของการสร้างฐานข้อมูล การสร้างตาราง การแก้ไขตาราง หรือการลบตารางนะคะ
+รวมไปถึงการจัดการเกี่ยวกับ Data Manipulation Language หรือ DML ตัวนี้จะเอาไว้ใช้สำหรับการจัดการเกี่ยวกับตัวข้อมูล เช่น การเพิ่ม (Insert), การแก้ไข (Update), การลบข้อมูล (Delete), และการ Query ค้นหาข้อมูล (Select) นะคะ
+ในคำสั่ง DDL ประกอบไปด้วยคำสั่ง CREATE TABLE, ALTER TABLE (แก้ไขโครงสร้างตาราง), DROP TABLE (ลบตาราง), CREATE INDEX และ DROP INDEX (สร้างและลบดัชนี)
+ส่วน DML ประกอบไปด้วย INSERT INTO, UPDATE, DELETE, และ SELECT
+คราวนี้เดี๋ยวเราจะเริ่มใช้งานแล้วนะ ก่อนอื่นเลย ให้เปิดไปที่ Windows แล้วพิมพ์ cmd นะคะ แล้วรันผ่าน Administrator เลยนะคะ
+
+[Part 1: 00:15:00 - 00:30:00]
+อาจารย์: ทำตามนี้นะคะ เราจะทำการสตาร์ท XAMPP ผ่าน Command Line นะคะ เราจะไม่เข้า GUI เราใช้คำสั่ง:
+cd C:\xampp
+xampp_start.exe
+เพื่อสั่งให้สตาร์ท Service ขึ้นมาใช้งาน ถ้าต้องการปิดหรือ Stop ให้ใช้ xampp_stop.exe แต่ตอนนี้ยังไม่ต้อง Stop นะคะ
+จากนั้นเราจะเข้าใช้งานฐานข้อมูลด้วย User root:
+cd C:\xampp\mysql\bin
+mysql.exe -u root
+ตรงนี้เราเข้ามาสู่ MariaDB แล้วนะคะ
+สังเกต prompt จะเปลี่ยนเป็น:
+MariaDB [(none)]>
+เราต้องการดูว่าในนี้มีฐานข้อมูลอะไรบ้าง ให้พิมพ์คำสั่ง:
+SHOW DATABASES;
+อย่าลืมใส่เครื่องหมาย Semicolon (;) ปิดท้ายทุกคำสั่งนะคะ
+จะมีฐานข้อมูลเริ่มต้นของระบบ เช่น information_schema, mysql, performance_schema, phpmyadmin, test
+
+[Part 1: 00:30:00 - 00:50:00]
+อาจารย์: คราวนี้เราจะเริ่มสร้างฐานข้อมูลของเราเอง ใช้คำสั่ง CREATE DATABASE ตามด้วยชื่อฐานข้อมูล:
+CREATE DATABASE my_db;
+สังเกตข้อความที่ระบบตอบกลับมา:
+Query OK, 1 row affected
+คำว่า Query OK แปลว่าระบบได้ปฏิบัติตามคำสั่งเรียบร้อยแล้ว
+ถ้าต้องการลบฐานข้อมูล ให้ใช้คำสั่ง DROP DATABASE ตามด้วยชื่อ:
+DROP DATABASE my_db;
+แต่ตรงนี้ฟังให้ดีนะคะ ถ้าเราสั่ง CREATE DATABASE my_db เฉยๆ โดยไม่ได้ระบุ Character Set เวลาเราพิมพ์ภาษาไทยเข้าไป เช่น ชื่อ-นามสกุล หรือที่อยู่ มันจะแสดงผลเป็นเครื่องหมายคำถาม (?) หรือเป็นภาษาต่างดาวอ่านไม่ออก
+ดังนั้น เราต้องกำหนด Character Set ให้รองรับภาษาไทย และรองรับ Emoji ด้วย เราจึงต้องใช้ utf8mb4:
+CREATE DATABASE my_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ทำไมต้อง utf8mb4? เพราะ 1 ตัวอักษรจะรองรับสูงสุด 4 ไบต์ ทำให้รองรับได้ทุกภาษาในโลก รวมถึงสัญลักษณ์พิเศษและ Emoji ด้วยค่ะ
+
+[Part 1: 00:50:00 - 01:10:00]
+อาจารย์: สร้างเสร็จแล้ว ก่อนที่เราจะสร้างตาราง เราต้องเลือกฐานข้อมูลที่จะใช้งานก่อน ถ้าไม่เลือกจะสร้างตารางไม่ได้ ใช้คำสั่ง:
+USE my_db;
+prompt จะเปลี่ยนจาก MariaDB [(none)]> เป็น:
+MariaDB [my_db]>
+แปลว่าเรากำลังทำงานอยู่ภายใต้ฐานข้อมูล my_db แล้ว
+ต่อไปสร้างตารางแรก ตารางคำนำหน้าชื่อ ชื่อตาราง Title:
+CREATE TABLE Title (
+    TitleID VARCHAR(4),
+    TitleName VARCHAR(255),
+    PRIMARY KEY (TitleID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+สังเกตว่ามี Primary Key คือ TitleID
+ตรวจสอบโครงสร้างตารางด้วยคำสั่ง DESCRIBE:
+DESC Title;
+หรือ DESCRIBE Title;
+จะแสดงคอลัมน์ Type, Null, Key (PRI สำหรับ Primary Key), Default, Extra
+และดูคำสั่งที่ใช้สร้างด้วยคำสั่ง:
+SHOW CREATE TABLE Title;
+
+[Part 1: 01:10:00 - 01:24:43]
+อาจารย์: ต่อไปตัวอย่างการสร้างตารางที่มีความสัมพันธ์ Primary Key (PK) และ Foreign Key (FK) คือตาราง Customer และตาราง Orders:
+CREATE TABLE Customer (
+    CustomerID INT AUTO_INCREMENT,
+    CustomerName VARCHAR(100) NOT NULL,
+    Telephone VARCHAR(20),
+    TitleID VARCHAR(4),
+    PRIMARY KEY (CustomerID),
+    CONSTRAINT fk_customer_title FOREIGN KEY (TitleID) REFERENCES Title(TitleID)
+        ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+และสร้างตาราง Orders:
+CREATE TABLE Orders (
+    OrderID INT AUTO_INCREMENT,
+    OrderDate DATE,
+    CustomerID INT,
+    PRIMARY KEY (OrderID),
+    CONSTRAINT fk_orders_customer FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+        ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+คำอธิบาย ON DELETE CASCADE และ ON UPDATE CASCADE:
+นี่คือหลักความคงสภาพของการอ้างอิง (Referential Integrity)
+- ON DELETE CASCADE: เมื่อข้อมูลในตารางแม่ (Parent Table เช่น Customer) ถูกลบ ข้อมูลในตารางลูก (Child Table เช่น Orders) ที่อ้างอิง CustomerID เดียวกัน จะถูกลบตามไปด้วยโดยอัตโนมัติ เพื่อไม่ให้เกิดข้อมูลกำพร้า (Orphan Records)
+- ON UPDATE CASCADE: เมื่อรหัสในตารางแม่มีการเปลี่ยนแปลง รหัสในตารางลูกที่เชื่อมโยงอยู่ก็จะเปลี่ยนตามทันที
+เดี๋ยวพักเบรก 10 นาที แล้วกลับมาต่อการแก้ไขตาราง ALTER TABLE และทดสอบคำสั่ง DML นะคะ
+
+================================================================================
+[Part 2: 00:00:00 - 00:20:00]
+อาจารย์: กลับมาต่อนะคะ คราวนี้มาดูคำสั่ง ALTER TABLE (การแก้ไขเปลี่ยนแปลงโครงสร้างตาราง)
+สมมุติว่าเราสร้างตาราง Title ไปแล้ว แล้วเราลืมเพิ่มคอลัมน์คำอธิบาย TitleDescription ให้ใช้คำสั่ง ADD:
+ALTER TABLE Title ADD TitleDescription INT;
+เช็คด้วย DESC Title; จะเห็นคอลัมน์ TitleDescription ชนิด INT เพิ่มเข้ามา
+
+*** จุดสังเกตและข้อผิดพลาดสำคัญ (ERROR 1074) ***
+คราวนี้สมมุติเราใส่ชนิดข้อมูลผิด ต้องการแก้จาก INT เป็นตัวอักษร เราสั่ง:
+ALTER TABLE Title MODIFY COLUMN TitleDescription CHAR(500);
+นักศึกษาดูที่หน้าจอนะคะ เกิดข้อผิดพลาดขึ้น:
+ERROR 1074 (42000): Column length too big for column 'TitleDescription' (max = 255); use BLOB or TEXT instead
+ทำไมถึง Error?
+เพราะใน MySQL และ MariaDB ชนิดข้อมูลแบบ CHAR เป็น Fixed-Length String กำหนดความยาวได้สูงสุดไม่เกิน 255 ตัวอักษรเท่านั้น!
+ถ้าต้องการเก็บข้อความที่มีความยาวเกิน 255 ตัวอักษร (เช่น 500 ตัวอักษร) เราไม่สามารถใช้ CHAR ได้ ต้องเปลี่ยนไปใช้ VARCHAR(500) หรือ TEXT หรือ BLOB แทนค่ะ
+ดังนั้นคำสั่งแก้ไขที่ถูกต้องคือ:
+ALTER TABLE Title MODIFY COLUMN TitleDescription VARCHAR(255);
+หรือถ้าต้องการ 500 ให้ใช้:
+ALTER TABLE Title MODIFY COLUMN TitleDescription VARCHAR(500);
+(หรือปรับเป็น CHAR(255) ตามรูปกระดาน)
+ถ้าไม่ต้องการใช้คอลัมน์นี้แล้ว ให้ใช้คำสั่ง DROP COLUMN:
+ALTER TABLE Title DROP COLUMN TitleDescription;
+
+[Part 2: 00:20:00 - 00:47:25]
+อาจารย์: ต่อไปเรื่อง Index (ดัชนี):
+Index ช่วยให้การค้นหาข้อมูลในตารางที่มีปริมาณข้อมูลมากๆ ทำงานได้รวดเร็วขึ้น
+ปกติ Primary Key ระบบจะสร้าง Index ให้โดยอัตโนมัติอยู่แล้ว
+แต่ถ้าเราต้องการค้นหาผ่านเบอร์โทรศัพท์ (Telephone) บ่อยๆ เราสร้าง Index เพิ่มได้:
+CREATE INDEX idx_telephone ON Customer(Telephone);
+ตรวจสอบดัชนีในตาราง:
+SHOW INDEX FROM Customer;
+ถ้าต้องการลบดัชนี:
+ALTER TABLE Customer DROP INDEX idx_telephone;
+
+ต่อไปคำสั่ง DML (การจัดการข้อมูล):
+1. การเพิ่มข้อมูล (INSERT):
+INSERT INTO Title (TitleID, TitleName) VALUES 
+('T001', 'Mr.'),
+('T002', 'Ms.'),
+('T003', 'Mrs.');
+
+2. การเรียกดูข้อมูล (SELECT):
+SELECT * FROM Title;
+SELECT TitleID, TitleName FROM Title WHERE TitleID = 'T001';
+
+3. การแก้ไขข้อมูล (UPDATE):
+UPDATE Category SET CategoryName = 'Shopping Food' WHERE CategoryID = 'C002';
+ระวัง: ถ้าไม่ใส่เงื่อนไข WHERE ข้อมูลทุกแถวในตารางจะถูกเปลี่ยนเป็นค่าเดียวกันทั้งหมด!
+
+4. การลบข้อมูล (DELETE vs TRUNCATE):
+- DELETE FROM Customer WHERE CustomerID = 1; (ลบทีละแถวตามเงื่อนไข สามารถ Rollback ได้ถ้าอยู่ใน Transaction)
+- TRUNCATE TABLE Customer; (ล้างข้อมูลทั้งหมดในตาราง ทิ้งตารางแล้วสร้างใหม่ ค่า AUTO_INCREMENT จะรีเซ็ตกลับเป็น 1 ทำงานเร็วกว่า DELETE แต่ Rollback ไม่ได้)
+
+การบ้านแล็บครั้งนี้:
+ให้นักศึกษาไปสร้างตารางทั้งหมดให้ครบ (Title, Customer, Orders, Category, Unit, Product) พร้อมกำหนด PK, FK, Constraint ให้ถูกต้อง แปลงข้อมูลตัวอย่างเป็นภาษาอังกฤษ และทดสอบรันคำสั่ง Insert, Update, Delete ใน MariaDB CLI ให้เรียบร้อย ครั้งหน้าเราจะมาสอบปฏิบัติการเขียนคำสั่ง SQL Query (SELECT แบบมีเงื่อนไข, JOIN ตาราง) นะคะ
+วันนี้เลิกคลาสได้ค่ะ ขอบคุณค่ะ
+================================================================================
+END OF VERBATIM TRANSCRIPT
+================================================================================
